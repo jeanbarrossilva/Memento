@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.jeanbarrossilva.memento.ui'
+    compileSdk versions.memento.sdk.compile
+
+    defaultConfig {
+        minSdk versions.memento.sdk.min
+        targetSdk versions.memento.sdk.target
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        compose true
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility versions.java
+        targetCompatibility versions.java
+    }
+
+    kotlinOptions {
+        jvmTarget = versions.java.toString()
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
+    }
+}
+
+dependencies {
+    api libraries.compose.material3
+    api libraries.compose.ui.tooling
+    api libraries.customview
+    api libraries.customview_poolingcontainer
+    api libraries.fragment
+    api libraries.lifecycle.viewmodel.savedstate
+    api libraries.material
+
+    implementation libraries.accompanist.placeholder
+    implementation libraries.accompanist.systemuicontroller
+}

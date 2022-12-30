@@ -1,0 +1,7 @@
+<resources>
+    <style
+        name="Theme.Memento"
+        parent="Theme.Material3.DayNight">
+        <item name="android:fontFamily">@font/dm_sans</item>
+    </style>
+</resources>

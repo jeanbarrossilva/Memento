@@ -1,0 +1,28 @@
+buildscript {
+    apply from: 'libraries.gradle'
+    apply from: 'plugins.gradle'
+    apply from: 'versions.gradle'
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath _plugins.gradle
+        classpath _plugins.kotlin
+        classpath _plugins.kotlinx.serialization
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
