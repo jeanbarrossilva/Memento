@@ -44,5 +44,6 @@ android {
 }
 
 dependencies {
+    implementation project(':notes')
     implementation project(':ui')
 }

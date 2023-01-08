@@ -51,6 +51,10 @@ dependencies {
     api libraries.lifecycle.viewmodel.savedstate
     api libraries.material
 
+    implementation libraries.accompanist.pager
     implementation libraries.accompanist.placeholder
     implementation libraries.accompanist.systemuicontroller
+    implementation libraries.appcompat
+    implementation libraries.constraintlayout_compose
+    implementation libraries.compose.material
 }

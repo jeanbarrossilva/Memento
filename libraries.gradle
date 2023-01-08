@@ -4,6 +4,7 @@ buildscript {
     ext {
         libraries = [
             accompanist: [
+                pager: "com.google.accompanist:accompanist-pager:${versions.accompanist}",
                 placeholder: 'com.google.accompanist:accompanist-placeholder-material:' +
                     versions.accompanist,
                 systemuicontroller: 'com.google.accompanist:accompanist-systemuicontroller:' +
@@ -13,11 +14,16 @@ buildscript {
                 compose: "androidx.activity:activity-compose:${versions.activity}"
             ],
             compose: [
+                material: "androidx.compose.material:material:${versions.compose_material}",
                 material3: "androidx.compose.material3:material3:${versions.compose_material3}",
                 ui: [
                     tooling: "androidx.compose.ui:ui-tooling:${versions.compose_ui}"
                 ]
             ],
+            constraintlayout_compose: 'androidx.constraintlayout:constraintlayout-compose:' +
+                versions.constraintlayout_compose,
+            core: "androidx.core:core-ktx:${versions.core}",
+            appcompat: "androidx.appcompat:appcompat:${versions.appcompat}",
             customview: "androidx.customview:customview:${versions.customview}",
             customview_poolingcontainer: "androidx.customview:customview-poolingcontainer:" +
                 versions.customview_poolingcontainer,

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background">@android:color/black</color>
-    <color name="primary">#31A74E</color>
-    <color name="primary_container">#353535</color>
+    <color name="scrim">#4DFFFFFF</color>
+    <color name="container_primary">@android:color/white</color>
+    <color name="container_secondary">#212121</color>
+    <color name="container_tertiary">#1C1C1C</color>
+    <color name="content_primary">@android:color/black</color>
+    <color name="content_secondary">@android:color/white</color>
+    <color name="content_tertiary">@android:color/white</color>
+    <color name="text_highlighted">@android:color/white</color>
+    <color name="text_default">#80FFFFFF</color>
 </resources>
