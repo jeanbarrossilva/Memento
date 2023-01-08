@@ -1,7 +1,6 @@
 package com.jeanbarrossilva.memento.ui.component.scaffold.menudrawer
 
 import android.content.res.Configuration
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
@@ -30,7 +29,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,10 +40,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.jeanbarrossilva.memento.ui.component.scaffold.topappbar.topAppBarBackgroundColor
 import com.jeanbarrossilva.memento.ui.layout.background.Background
 import com.jeanbarrossilva.memento.ui.theme.MementoTheme
+import com.jeanbarrossilva.memento.ui.utils.plus
 import kotlin.math.roundToInt
 import kotlinx.coroutines.launch
 
@@ -60,7 +57,6 @@ fun MenuDrawer(
     modifier: Modifier = Modifier,
     content: @Composable MenuDrawerScope.() -> Unit
 ) {
-    val systemUiController = rememberSystemUiController()
     val coroutineScope = rememberCoroutineScope()
 
     @Suppress("SpellCheckingInspection")
@@ -70,20 +66,6 @@ fun MenuDrawer(
     var menuDrawerWidth by remember { mutableStateOf<MenuDrawerWidth>(MenuDrawerWidth.Unspecified) }
     val menuDrawerScope = SwipeableMenuDrawerScope(swipeableState)
     val isMenuDrawerOpen = swipeableState.currentValue == DrawerValue.Open
-    val scrimColor = MementoTheme.colors.scrim
-    val statusBarColor by animateColorAsState(
-        if (isMenuDrawerOpen) topAppBarBackgroundColor else scrimColor,
-        MementoTheme.animation.spec()
-    )
-    val navigationBarColor by animateColorAsState(
-        if (isMenuDrawerOpen) MementoTheme.colors.background else scrimColor,
-        MementoTheme.animation.spec()
-    )
-
-    SideEffect {
-        systemUiController.setStatusBarColor(statusBarColor)
-        systemUiController.setNavigationBarColor(navigationBarColor)
-    }
 
     Box(
         modifier.swipeable(
@@ -99,7 +81,7 @@ fun MenuDrawer(
                 Modifier
                     .fillMaxSize()
                     .background(MementoTheme.colors.scrim)
-                    .alpha(swipeableState.overflow.value)
+                    .alpha(swipeableState.progress.fraction)
                     .clickable(MutableInteractionSource(), indication = null) {
                         coroutineScope.launch {
                             menuDrawerScope.close()
@@ -142,6 +124,7 @@ fun MenuDrawer(
             .clip(shape)
             .background(backgroundColor)
             .scrollable(scrollableState, Orientation.Vertical)
+            .padding(MementoTheme.sizes.margin.statusBar + MementoTheme.sizes.margin.navigationBar)
             .padding(spacing),
         Arrangement.spacedBy(spacing)
     ) {

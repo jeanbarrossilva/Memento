@@ -13,8 +13,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.jeanbarrossilva.memento.ui.component.FloatingActionButton as _FloatingActionButton
 import com.jeanbarrossilva.memento.ui.theme.MementoTheme
+import com.jeanbarrossilva.memento.ui.component.FloatingActionButton as _FloatingActionButton
 
 @Composable
 fun FloatingActionButton(
@@ -35,12 +35,17 @@ fun FloatingActionButton(
 }
 
 @Composable
+internal fun FloatingActionButton(modifier: Modifier = Modifier) {
+    _FloatingActionButton(onClick = { }, modifier) {
+        Icon(Icons.Rounded.Add, contentDescription = "Add")
+    }
+}
+
+@Composable
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun FloatingActionButtonPreview() {
     MementoTheme {
-        _FloatingActionButton(onClick = { }) {
-            Icon(Icons.Rounded.Add, contentDescription = "Add")
-        }
+        _FloatingActionButton()
     }
 }

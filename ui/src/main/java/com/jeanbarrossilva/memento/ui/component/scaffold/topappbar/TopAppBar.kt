@@ -96,7 +96,11 @@ fun TopAppBar(
     )
     var fullHeight by remember { mutableStateOf(Dp.Unspecified) }
     val currentHeight by animateDpAsState(
-        if (isCompact) 64.dp else fullHeight,
+        if (isCompact) {
+            64.dp + MementoTheme.sizes.margin.statusBar.calculateTopPadding()
+        } else {
+            fullHeight
+        },
         MementoTheme.animation.spec()
     )
 
@@ -115,6 +119,7 @@ fun TopAppBar(
                     start = Offset.Horizontal
                 )
             )
+            .padding(MementoTheme.sizes.margin.statusBar)
             .padding(spacing)
     ) {
         val (leadingRef, trailingRef) = createRefs()
@@ -151,7 +156,7 @@ fun TopAppBar(
 }
 
 @Composable
-private fun TopAppBar(isCompact: Boolean, modifier: Modifier = Modifier) {
+internal fun TopAppBar(isCompact: Boolean, modifier: Modifier = Modifier) {
     TopAppBar(
         isCompact,
         navigationButton = { MenuButton(onClick = { }) },

@@ -4,7 +4,7 @@ internal sealed interface MenuDrawerWidth {
     val value: Float
 
     object Unspecified : MenuDrawerWidth {
-        override val value = -1f
+        override val value = Float.MIN_VALUE
     }
 
     data class Specified(override val value: Float) : MenuDrawerWidth

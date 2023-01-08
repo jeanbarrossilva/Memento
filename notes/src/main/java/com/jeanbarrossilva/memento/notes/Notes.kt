@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,6 +20,7 @@ import com.jeanbarrossilva.memento.notes.component.scaffold.MenuDrawer
 import com.jeanbarrossilva.memento.notes.component.scaffold.topappbar.TopAppBar
 import com.jeanbarrossilva.memento.notes.domain.Selection
 import com.jeanbarrossilva.memento.notes.domain.note.Note
+import com.jeanbarrossilva.memento.ui.component.scaffold.Scaffold
 import com.jeanbarrossilva.memento.ui.layout.background.Background
 import com.jeanbarrossilva.memento.ui.theme.MementoTheme
 import com.jeanbarrossilva.memento.ui.utils.isScrolling
@@ -44,7 +43,6 @@ internal fun Notes(viewModel: NotesViewModel, modifier: Modifier = Modifier) {
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun Notes(
     notes: List<Note>,
