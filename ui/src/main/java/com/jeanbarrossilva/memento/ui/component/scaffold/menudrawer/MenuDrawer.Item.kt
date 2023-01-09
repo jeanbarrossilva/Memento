@@ -58,7 +58,7 @@ fun MenuDrawerItem(
     ) {
         CompositionLocalProvider(LocalContentColor provides contentColor) {
             Icon(vector, contentDescription, Modifier.size(18.dp))
-            ProvideTextStyle(MementoTheme.text.caption.copy(contentColor), label)
+            ProvideTextStyle(MementoTheme.text.label.copy(contentColor), label)
         }
     }
 }
