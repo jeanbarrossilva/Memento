@@ -61,9 +61,8 @@ internal fun NoteCard(
     }
 
     Row(
-        modifier,
-        Arrangement.spacedBy(MementoTheme.sizes.spacing.medium),
-        Alignment.CenterVertically
+        horizontalArrangement = Arrangement.spacedBy(MementoTheme.sizes.spacing.medium),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         AnimatedVisibility(
             visible = selection is Selection.On,
@@ -88,7 +87,8 @@ internal fun NoteCard(
                 selection.ifOff {
                     onSelectionToggle()
                 }
-            }
+            },
+            modifier
         )
     }
 }
