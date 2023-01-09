@@ -6,12 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.memento.notes.R
 import com.jeanbarrossilva.memento.notes.domain.Selection
 import com.jeanbarrossilva.memento.notes.domain.ifOn
 import com.jeanbarrossilva.memento.notes.domain.note.Note
+import com.jeanbarrossilva.memento.notes.domain.note.NoteFolder
 import com.jeanbarrossilva.memento.ui.component.scaffold.topappbar.MenuButton
 import com.jeanbarrossilva.memento.ui.component.scaffold.topappbar.TopAppBar
 import com.jeanbarrossilva.memento.ui.layout.background.Background
@@ -21,6 +21,7 @@ import com.jeanbarrossilva.memento.ui.theme.MementoTheme
 @Composable
 internal fun TopAppBar(
     isCompact: Boolean,
+    currentFolder: NoteFolder,
     noteCount: Int,
     selection: Selection,
     onNavigationRequest: () -> Unit,
@@ -42,7 +43,7 @@ internal fun TopAppBar(
     TopAppBar(
         isCompact,
         navigationButton = { MenuButton(onClick = onNavigationRequest) },
-        title = { Text(stringResource(R.string.feature_notes)) },
+        title = { Text(currentFolder.title()) },
         modifier,
         subtitle = { Text(subtitle) },
         actions = {
@@ -60,6 +61,7 @@ private fun TopAppBar(selection: Selection, modifier: Modifier = Modifier) {
     MementoTheme {
         TopAppBar(
             isCompact = true,
+            currentFolder = NoteFolder.All,
             noteCount = Note.samples.size,
             selection,
             onNavigationRequest = { },

@@ -8,14 +8,14 @@ import androidx.compose.ui.text.TextStyle
  *
  * @param headline Most prominent [TextStyle].
  * @param title Less prominent than [headline], but more than [body].
- * @param body Less prominent than [title], but more than [caption].
- * @param caption Least prominent [TextStyle].
+ * @param body Less prominent than [title], but more than [label].
+ * @param label Least prominent [TextStyle].
  **/
 data class Text internal constructor(
     val headline: TextStyle,
     val title: TextStyle,
     val body: TextStyle,
-    val caption: TextStyle
+    val label: TextStyle
 ) {
     /** [Typography] version of this [Text]. **/
     internal val material
@@ -43,7 +43,7 @@ data class Text internal constructor(
             headline = TextStyle.Default,
             title = TextStyle.Default,
             body = TextStyle.Default,
-            caption = TextStyle.Default
+            label = TextStyle.Default
         )
     }
 }

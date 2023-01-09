@@ -7,6 +7,7 @@
         <item quantity="other">%d items</item>
     </plurals>
     <string name="feature_notes_delete">Delete</string>
+    <string name="feature_notes_folder">\"%s\" folder</string>
     <string name="feature_notes_folders">Folders</string>
     <string name="feature_notes_search">Search</string>
     <plurals name="feature_notes_selection_count">

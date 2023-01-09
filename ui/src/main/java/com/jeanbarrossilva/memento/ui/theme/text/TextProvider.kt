@@ -36,7 +36,11 @@ internal fun TextProvider(content: @Composable () -> Unit) {
                 letterSpacing = .3.sp,
                 lineHeight = 18.sp
             ),
-            caption = TypographyTokens.BodySmall.copy(fontWeight = FontWeight.Bold)
+            label = TypographyTokens.BodySmall.copy(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.DMSans
+            )
         ),
         content = content
     )

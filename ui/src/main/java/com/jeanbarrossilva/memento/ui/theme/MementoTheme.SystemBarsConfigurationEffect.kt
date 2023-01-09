@@ -10,14 +10,16 @@ import androidx.core.view.WindowCompat
 /** Sets up the system bars so that they are cohesive with the theme. **/
 @Composable
 internal fun SystemBarsConfigurationEffect() {
-    val activity = LocalContext.current as Activity
-    val window = activity.window
+    val activity = LocalContext.current as? Activity
+    val window = activity?.window
 
     SideEffect {
-        WindowCompat.setDecorFitsSystemWindows(window, true)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        window?.let {
+            WindowCompat.setDecorFitsSystemWindows(it, true)
+            it.setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+        }
     }
 }
