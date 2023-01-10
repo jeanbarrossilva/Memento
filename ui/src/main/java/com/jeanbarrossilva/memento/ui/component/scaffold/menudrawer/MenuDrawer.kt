@@ -21,7 +21,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.ThumbUp
-import androidx.compose.material.rememberSwipeableState
 import androidx.compose.material.swipeable
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -55,14 +54,11 @@ fun MenuDrawer(
     title: @Composable () -> Unit,
     items: @Composable ColumnScope.() -> Unit,
     modifier: Modifier = Modifier,
+    scope: MenuDrawerScope = rememberMenuDrawerScope(),
     content: @Composable MenuDrawerScope.() -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
-
-    @Suppress("SpellCheckingInspection")
-    val swipeableState =
-        rememberSwipeableState(initialValue = DrawerValue.Closed, MementoTheme.animation.spec())
-
+    val swipeableState = scope.swipeableState
     var menuDrawerWidth by remember { mutableStateOf<MenuDrawerWidth>(MenuDrawerWidth.Unspecified) }
     val menuDrawerScope = SwipeableMenuDrawerScope(swipeableState)
     val isMenuDrawerOpen = swipeableState.currentValue == DrawerValue.Open
