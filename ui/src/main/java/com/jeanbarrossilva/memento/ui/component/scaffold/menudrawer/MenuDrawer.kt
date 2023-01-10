@@ -60,7 +60,6 @@ fun MenuDrawer(
     val coroutineScope = rememberCoroutineScope()
     val swipeableState = scope.swipeableState
     var menuDrawerWidth by remember { mutableStateOf<MenuDrawerWidth>(MenuDrawerWidth.Unspecified) }
-    val menuDrawerScope = SwipeableMenuDrawerScope(swipeableState)
     val isMenuDrawerOpen = swipeableState.currentValue == DrawerValue.Open
 
     Box(
@@ -70,7 +69,7 @@ fun MenuDrawer(
             Orientation.Horizontal
         )
     ) {
-        menuDrawerScope.content()
+        scope.content()
 
         if (isMenuDrawerOpen) {
             Box(
@@ -80,7 +79,7 @@ fun MenuDrawer(
                     .alpha(swipeableState.progress.fraction)
                     .clickable(MutableInteractionSource(), indication = null) {
                         coroutineScope.launch {
-                            menuDrawerScope.close()
+                            scope.close()
                         }
                     }
             )

@@ -3,6 +3,7 @@ package com.jeanbarrossilva.memento.notes.component.scaffold.menudrawer
 import android.content.res.Configuration
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -10,8 +11,10 @@ import com.jeanbarrossilva.memento.notes.R
 import com.jeanbarrossilva.memento.notes.domain.note.NoteFolder
 import com.jeanbarrossilva.memento.ui.component.scaffold.menudrawer.MenuDrawer
 import com.jeanbarrossilva.memento.ui.component.scaffold.menudrawer.MenuDrawerScope
+import com.jeanbarrossilva.memento.ui.component.scaffold.menudrawer.rememberMenuDrawerScope
 import com.jeanbarrossilva.memento.ui.layout.background.Background
 import com.jeanbarrossilva.memento.ui.theme.MementoTheme
+import kotlinx.coroutines.launch
 
 @Composable
 internal fun MenuDrawer(
@@ -21,24 +24,32 @@ internal fun MenuDrawer(
     modifier: Modifier = Modifier,
     content: @Composable MenuDrawerScope.() -> Unit
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val menuDrawerScope = rememberMenuDrawerScope()
+    val changeCurrentFolderAndClose: (NoteFolder) -> Unit = {
+        onCurrentFolderChange(it)
+        coroutineScope.launch { menuDrawerScope.close() }
+    }
+
     MenuDrawer(
         title = { Text(stringResource(R.string.feature_notes_folders)) },
         items = {
             MenuDrawerItem(
                 NoteFolder.All,
                 isSelected = currentFolder == NoteFolder.All,
-                onClick = { onCurrentFolderChange(NoteFolder.All) }
+                onClick = { changeCurrentFolderAndClose(NoteFolder.All) }
             )
 
             folders.forEach {
                 MenuDrawerItem(
                     it,
                     isSelected = it == currentFolder,
-                    onClick = { onCurrentFolderChange(it) }
+                    onClick = { changeCurrentFolderAndClose(it) }
                 )
             }
         },
         modifier,
+        menuDrawerScope,
         content
     )
 }
