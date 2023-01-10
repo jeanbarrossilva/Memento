@@ -1,7 +1,15 @@
 package com.jeanbarrossilva.memento.ui.component.scaffold.menudrawer
 
-interface MenuDrawerScope {
-    suspend fun open()
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.SwipeableState
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
 
-    suspend fun close()
+abstract class MenuDrawerScope internal constructor() {
+    @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
+    internal abstract val swipeableState: SwipeableState<DrawerValue>
+
+    abstract suspend fun open()
+
+    abstract suspend fun close()
 }

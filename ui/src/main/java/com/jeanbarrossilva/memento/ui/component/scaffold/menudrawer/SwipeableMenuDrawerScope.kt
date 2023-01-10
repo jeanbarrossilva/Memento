@@ -6,14 +6,13 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
-@Suppress("SpellCheckingInspection")
-internal class SwipeableMenuDrawerScope(private val state: SwipeableState<DrawerValue>) :
-    MenuDrawerScope {
+internal class SwipeableMenuDrawerScope(override val swipeableState: SwipeableState<DrawerValue>) :
+    MenuDrawerScope() {
     override suspend fun open() {
-        state.animateTo(DrawerValue.Open)
+        swipeableState.animateTo(DrawerValue.Open)
     }
 
     override suspend fun close() {
-        state.animateTo(DrawerValue.Closed)
+        swipeableState.animateTo(DrawerValue.Closed)
     }
 }
