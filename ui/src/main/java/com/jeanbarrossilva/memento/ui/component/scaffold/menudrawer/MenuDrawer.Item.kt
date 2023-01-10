@@ -49,8 +49,8 @@ fun MenuDrawerItem(
     Row(
         modifier
             .fillMaxWidth()
-            .clickable(role = Role.Button, onClick = onClick)
             .clip(MaterialTheme.shapes.small)
+            .clickable(role = Role.Button, onClick = onClick)
             .background(backgroundColor)
             .padding(spacing),
         Arrangement.spacedBy(spacing),

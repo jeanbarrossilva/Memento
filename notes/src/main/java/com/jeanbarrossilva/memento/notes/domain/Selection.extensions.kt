@@ -7,7 +7,7 @@ import kotlin.contracts.contract
 /**
  * Whether or not the given [note] is in the [Selection].
  *
- * @param note [ContextualActivity] whose presence will be checked.
+ * @param note [Note] whose presence will be checked.
  **/
 internal operator fun Selection.contains(note: Note): Boolean {
     return ifOn { isSelected(note) } ?: false
