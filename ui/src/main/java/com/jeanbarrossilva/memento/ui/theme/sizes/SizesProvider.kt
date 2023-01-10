@@ -21,7 +21,7 @@ internal fun SizesProvider(content: @Composable () -> Unit) {
             Margin(
                 statusBar = PaddingValues(top = statusBarHeight()),
                 fab = PaddingValues(bottom = navigationBarHeight() + 16.dp * 2 + 56.dp),
-                navigationBar = PaddingValues(navigationBarHeight())
+                navigationBar = PaddingValues(bottom = navigationBarHeight())
             )
         ),
         content = content
