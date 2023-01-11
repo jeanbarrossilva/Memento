@@ -31,14 +31,14 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun Notes(viewModel: NotesViewModel, modifier: Modifier = Modifier) {
     val folders by viewModel.folders.collectAsState()
-    val currentFolder by viewModel.getCurrentFolder().collectAsState()
+    val currentFolder by viewModel.currentFolder.collectAsState()
     val notes by viewModel.notes.collectAsState()
     val selection by viewModel.selection.collectAsState()
 
     Notes(
         folders,
         currentFolder,
-        onCurrentFolderChange = viewModel::setCurrentFolder,
+        onCurrentFolderChange = { viewModel.currentFolder.value = it },
         notes,
         selection,
         onSelectionToggle = { viewModel.selection.value = it },
