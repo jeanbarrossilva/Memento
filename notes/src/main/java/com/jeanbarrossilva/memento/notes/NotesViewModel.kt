@@ -3,11 +3,11 @@ package com.jeanbarrossilva.memento.notes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.jeanbarrossilva.aurelius.utils.flowOf
 import com.jeanbarrossilva.memento.notes.domain.Selection
 import com.jeanbarrossilva.memento.notes.domain.note.Note
 import com.jeanbarrossilva.memento.notes.domain.note.NoteFolder
 import com.jeanbarrossilva.memento.notes.infra.NotesGateway
-import com.jeanbarrossilva.memento.ui.utils.flowOf
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

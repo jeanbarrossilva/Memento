@@ -37,15 +37,15 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jeanbarrossilva.aurelius.component.Checkbox
+import com.jeanbarrossilva.aurelius.layout.background.Background
+import com.jeanbarrossilva.aurelius.layout.background.BackgroundContentSizing
+import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 import com.jeanbarrossilva.memento.notes.animation.bounce.rememberBouncer
 import com.jeanbarrossilva.memento.notes.domain.Selection
 import com.jeanbarrossilva.memento.notes.domain.contains
 import com.jeanbarrossilva.memento.notes.domain.ifOff
 import com.jeanbarrossilva.memento.notes.domain.note.Note
-import com.jeanbarrossilva.memento.ui.component.checkbox.Checkbox
-import com.jeanbarrossilva.memento.ui.layout.background.Background
-import com.jeanbarrossilva.memento.ui.layout.background.BackgroundContentSizing
-import com.jeanbarrossilva.memento.ui.theme.MementoTheme
 
 @Composable
 internal fun NoteCard(
@@ -61,15 +61,15 @@ internal fun NoteCard(
     }
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(MementoTheme.sizes.spacing.medium),
+        horizontalArrangement = Arrangement.spacedBy(AureliusTheme.sizes.spacing.medium),
         verticalAlignment = Alignment.CenterVertically
     ) {
         AnimatedVisibility(
             visible = selection is Selection.On,
-            enter = fadeIn(MementoTheme.animation.spec()) +
-                slideInHorizontally(MementoTheme.animation.spec()) { -it },
-            exit = fadeOut(MementoTheme.animation.spec()) +
-                slideOutHorizontally(MementoTheme.animation.spec()) { -it }
+            enter = fadeIn(AureliusTheme.animation.spec()) +
+                slideInHorizontally(AureliusTheme.animation.spec()) { -it },
+            exit = fadeOut(AureliusTheme.animation.spec()) +
+                slideOutHorizontally(AureliusTheme.animation.spec()) { -it }
         ) {
             Checkbox(note in selection, onToggle = { onSelectionToggle() })
         }
@@ -105,8 +105,11 @@ internal fun NoteCard(
     var isHovered by remember { mutableStateOf(false) }
     val shape = MaterialTheme.shapes.large
     val bouncer = rememberBouncer()
-    val scale by animateFloatAsState(bouncer.scale, MementoTheme.animation.spec())
-    val elevation by animateDpAsState(if (isHovered) 32.dp else 0.dp, MementoTheme.animation.spec())
+    val scale by animateFloatAsState(bouncer.scale, AureliusTheme.animation.spec())
+    val elevation by animateDpAsState(
+        if (isHovered) 32.dp else 0.dp,
+        AureliusTheme.animation.spec()
+    )
 
     LaunchedEffect(Unit) {
         interactionSource.interactions.collect {
@@ -148,20 +151,20 @@ internal fun NoteCard(
             )
             .clip(shape)
             .background(Brush.linearGradient(listOf(note.colors.start, note.colors.end)))
-            .padding(MementoTheme.sizes.spacing.huge),
-        Arrangement.spacedBy(MementoTheme.sizes.spacing.large)
+            .padding(AureliusTheme.sizes.spacing.huge),
+        Arrangement.spacedBy(AureliusTheme.sizes.spacing.large)
     ) {
         Text(
             note.title,
             color = Color.Black,
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
-            style = MementoTheme.text.title
+            style = AureliusTheme.text.title
         )
 
         Text(
             note.body,
-            color = Color.Black.copy(MementoTheme.colors.text.default.alpha),
+            color = Color.Black.copy(AureliusTheme.colors.text.default.alpha),
             overflow = TextOverflow.Ellipsis,
             maxLines = 7
         )
@@ -176,7 +179,7 @@ private fun NoteCard(selection: Selection, modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun NoteCardPreview() {
-    MementoTheme {
+    AureliusTheme {
         NoteCard(Selection.Off, Modifier.fillMaxWidth())
     }
 }
@@ -185,7 +188,7 @@ private fun NoteCardPreview() {
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun UnselectedNoteCardPreview() {
-    MementoTheme {
+    AureliusTheme {
         Background(contentSizing = BackgroundContentSizing.WRAP) {
             NoteCard(Selection.On())
         }
@@ -196,7 +199,7 @@ private fun UnselectedNoteCardPreview() {
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun SelectedNoteCardPreview() {
-    MementoTheme {
+    AureliusTheme {
         Background(contentSizing = BackgroundContentSizing.WRAP) {
             NoteCard(Selection.On.sample)
         }

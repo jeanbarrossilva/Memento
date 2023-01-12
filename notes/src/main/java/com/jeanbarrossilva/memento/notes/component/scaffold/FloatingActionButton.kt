@@ -8,9 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.jeanbarrossilva.aurelius.component.FloatingActionButton
+import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 import com.jeanbarrossilva.memento.notes.R
-import com.jeanbarrossilva.memento.ui.component.FloatingActionButton
-import com.jeanbarrossilva.memento.ui.theme.MementoTheme
 
 @Composable
 internal fun FloatingActionButton(
@@ -30,7 +30,7 @@ internal fun FloatingActionButton(
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun FloatingActionButtonPreview() {
-    MementoTheme {
+    AureliusTheme {
         FloatingActionButton(isVisible = true, onClick = { })
     }
 }

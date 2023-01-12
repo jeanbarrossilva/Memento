@@ -8,11 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.jeanbarrossilva.aurelius.component.scaffold.topappbar.ActionButton
+import com.jeanbarrossilva.aurelius.layout.background.Background
+import com.jeanbarrossilva.aurelius.layout.background.BackgroundContentSizing
+import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 import com.jeanbarrossilva.memento.notes.R
-import com.jeanbarrossilva.memento.ui.component.scaffold.topappbar.ActionButton
-import com.jeanbarrossilva.memento.ui.layout.background.Background
-import com.jeanbarrossilva.memento.ui.layout.background.BackgroundContentSizing
-import com.jeanbarrossilva.memento.ui.theme.MementoTheme
 
 @Composable
 internal fun DeleteAction(onClick: () -> Unit, modifier: Modifier = Modifier) {
@@ -28,7 +28,7 @@ internal fun DeleteAction(onClick: () -> Unit, modifier: Modifier = Modifier) {
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun DeleteActionPreview() {
-    MementoTheme {
+    AureliusTheme {
         Background(contentSizing = BackgroundContentSizing.WRAP) {
             DeleteAction(onClick = { })
         }
