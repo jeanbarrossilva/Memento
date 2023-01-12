@@ -14,6 +14,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.jeanbarrossilva.aurelius.component.scaffold.Scaffold
+import com.jeanbarrossilva.aurelius.layout.background.Background
+import com.jeanbarrossilva.aurelius.theme.AureliusTheme
+import com.jeanbarrossilva.aurelius.utils.isScrolling
+import com.jeanbarrossilva.aurelius.utils.plus
 import com.jeanbarrossilva.memento.notes.component.NoteCard
 import com.jeanbarrossilva.memento.notes.component.scaffold.FloatingActionButton
 import com.jeanbarrossilva.memento.notes.component.scaffold.menudrawer.MenuDrawer
@@ -21,11 +26,6 @@ import com.jeanbarrossilva.memento.notes.component.scaffold.topappbar.TopAppBar
 import com.jeanbarrossilva.memento.notes.domain.Selection
 import com.jeanbarrossilva.memento.notes.domain.note.Note
 import com.jeanbarrossilva.memento.notes.domain.note.NoteFolder
-import com.jeanbarrossilva.memento.ui.component.scaffold.Scaffold
-import com.jeanbarrossilva.memento.ui.layout.background.Background
-import com.jeanbarrossilva.memento.ui.theme.MementoTheme
-import com.jeanbarrossilva.memento.ui.utils.isScrolling
-import com.jeanbarrossilva.memento.ui.utils.plus
 import kotlinx.coroutines.launch
 
 @Composable
@@ -94,10 +94,10 @@ private fun Notes(
                     LazyColumn(
                         state = lazyListState,
                         verticalArrangement = Arrangement.spacedBy(
-                            MementoTheme.sizes.spacing.medium
+                            AureliusTheme.sizes.spacing.medium
                         ),
-                        contentPadding = PaddingValues(MementoTheme.sizes.spacing.large) +
-                            MementoTheme.sizes.margin.fab
+                        contentPadding = PaddingValues(AureliusTheme.sizes.spacing.large) +
+                            AureliusTheme.sizes.margin.fab
                     ) {
                         items(notes) { note ->
                             NoteCard(
@@ -119,7 +119,7 @@ private fun Notes(
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun NotesPreview() {
-    MementoTheme {
+    AureliusTheme {
         Notes(
             NoteFolder.samples,
             defaultFolder = NoteFolder.sample,
