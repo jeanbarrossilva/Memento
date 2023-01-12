@@ -30,10 +30,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun Notes(viewModel: NotesViewModel, modifier: Modifier = Modifier) {
-    val folders by viewModel.folders.collectAsState()
-    val defaultFolder by viewModel.defaultFolder.collectAsState()
+    val folders by viewModel.getFolders().collectAsState()
+    val defaultFolder by viewModel.getDefaultFolder().collectAsState()
     val currentFolder by viewModel.currentFolder.collectAsState()
-    val notes by viewModel.notes.collectAsState()
+    val notes by viewModel.getNotes().collectAsState()
     val selection by viewModel.selection.collectAsState()
 
     Notes(
