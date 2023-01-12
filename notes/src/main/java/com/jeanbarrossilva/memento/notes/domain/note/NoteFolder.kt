@@ -1,31 +1,13 @@
 package com.jeanbarrossilva.memento.notes.domain.note
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
-import com.jeanbarrossilva.memento.notes.R
+import com.jeanbarrossilva.memento.notes.utils.uuid
 
-internal sealed interface NoteFolder {
-    @Composable
-    fun title(): String
+internal data class NoteFolder(val id: String, val title: String) {
+    companion object {
+        private val stoicism = NoteFolder(uuid(), title = "Stoicism")
 
-    object All : NoteFolder {
-        @Composable
-        override fun title(): String {
-            return stringResource(R.string.feature_notes)
-        }
-    }
-
-    data class Custom(private val title: String) : NoteFolder {
-        @Composable
-        override fun title(): String {
-            return title
-        }
-
-        companion object {
-            private val stoicism = Custom(title = "Stoicism")
-
-            val sample = stoicism
-            val samples = listOf(stoicism)
-        }
+        val empty = NoteFolder(id = "", title = "")
+        val sample = stoicism
+        val samples = listOf(stoicism)
     }
 }

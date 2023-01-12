@@ -4,6 +4,8 @@ import com.jeanbarrossilva.memento.notes.domain.note.Note
 import com.jeanbarrossilva.memento.notes.domain.note.NoteFolder
 
 internal interface NotesGateway {
+    suspend fun getDefaultFolder(): NoteFolder
+
     suspend fun getFolders(): List<NoteFolder>
 
     suspend fun getCurrentFolder(): NoteFolder?

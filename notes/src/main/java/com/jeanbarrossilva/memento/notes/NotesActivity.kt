@@ -6,7 +6,7 @@ import com.jeanbarrossilva.memento.notes.infra.inmemory.InMemoryNotesGateway
 import com.jeanbarrossilva.memento.ui.core.ComposableActivity
 
 internal class NotesActivity : ComposableActivity() {
-    private val gateway = InMemoryNotesGateway()
+    private val gateway = InMemoryNotesGateway(this)
     private val viewModel by viewModels<NotesViewModel> { NotesViewModel.createFactory(gateway) }
 
     @Composable

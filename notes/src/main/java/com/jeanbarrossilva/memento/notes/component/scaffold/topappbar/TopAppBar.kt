@@ -12,6 +12,7 @@ import com.jeanbarrossilva.memento.notes.domain.Selection
 import com.jeanbarrossilva.memento.notes.domain.ifOn
 import com.jeanbarrossilva.memento.notes.domain.note.Note
 import com.jeanbarrossilva.memento.notes.domain.note.NoteFolder
+import com.jeanbarrossilva.memento.notes.utils.orEmpty
 import com.jeanbarrossilva.memento.ui.component.scaffold.topappbar.MenuButton
 import com.jeanbarrossilva.memento.ui.component.scaffold.topappbar.TopAppBar
 import com.jeanbarrossilva.memento.ui.layout.background.Background
@@ -21,7 +22,7 @@ import com.jeanbarrossilva.memento.ui.theme.MementoTheme
 @Composable
 internal fun TopAppBar(
     isCompact: Boolean,
-    currentFolder: NoteFolder,
+    currentFolder: NoteFolder?,
     noteCount: Int,
     selection: Selection,
     onNavigationRequest: () -> Unit,
@@ -43,7 +44,7 @@ internal fun TopAppBar(
     TopAppBar(
         isCompact,
         navigationButton = { MenuButton(onClick = onNavigationRequest) },
-        title = { Text(currentFolder.title()) },
+        title = { Text(currentFolder.orEmpty.title) },
         modifier,
         subtitle = { Text(subtitle) },
         actions = {
@@ -61,7 +62,7 @@ private fun TopAppBar(selection: Selection, modifier: Modifier = Modifier) {
     MementoTheme {
         TopAppBar(
             isCompact = true,
-            currentFolder = NoteFolder.All,
+            currentFolder = NoteFolder.sample,
             noteCount = Note.samples.size,
             selection,
             onNavigationRequest = { },

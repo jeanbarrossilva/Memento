@@ -10,7 +10,8 @@ import com.jeanbarrossilva.memento.ui.utils.flowOf
 import kotlinx.coroutines.flow.MutableStateFlow
 
 internal class NotesViewModel(private val gateway: NotesGateway) : ViewModel() {
-    val currentFolder = flowOf<NoteFolder>(NoteFolder.All) {
+    val defaultFolder = flowOf(NoteFolder.empty) { emit(gateway.getDefaultFolder()) }
+    val currentFolder = flowOf<NoteFolder?>(defaultFolder, NoteFolder.empty) {
         gateway.getCurrentFolder()?.let {
             emit(it)
         }
