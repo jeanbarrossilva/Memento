@@ -1,12 +1,37 @@
 package com.jeanbarrossilva.memento.notes.infra.inmemory
 
+import android.content.Context
+import com.jeanbarrossilva.memento.notes.R
 import com.jeanbarrossilva.memento.notes.domain.note.Note
 import com.jeanbarrossilva.memento.notes.domain.note.NoteFolder
 import com.jeanbarrossilva.memento.notes.infra.NotesGateway
+import com.jeanbarrossilva.memento.notes.utils.uuid
+import java.lang.ref.WeakReference
 
-internal class InMemoryNotesGateway : NotesGateway {
+internal class InMemoryNotesGateway(private val contextRef: WeakReference<Context>) :
+    NotesGateway {
+    private val context
+        get() = contextRef.get()
+
+    private var currentFolder: NoteFolder? = null
+
+    constructor(context: Context?) : this(WeakReference(context))
+
+    override suspend fun getDefaultFolder(): NoteFolder {
+        val title = context?.getString(R.string.feature_notes).orEmpty()
+        return NoteFolder(uuid(), title)
+    }
+
     override suspend fun getFolders(): List<NoteFolder> {
-        return NoteFolder.Custom.samples
+        return NoteFolder.samples
+    }
+
+    override suspend fun getCurrentFolder(): NoteFolder? {
+        return currentFolder
+    }
+
+    override suspend fun setCurrentFolder(currentFolder: NoteFolder) {
+        this.currentFolder = currentFolder
     }
 
     override suspend fun getNotes(): List<Note> {

@@ -19,7 +19,8 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun MenuDrawer(
     folders: List<NoteFolder>,
-    currentFolder: NoteFolder,
+    defaultFolder: NoteFolder,
+    currentFolder: NoteFolder?,
     onCurrentFolderChange: (folder: NoteFolder) -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable MenuDrawerScope.() -> Unit
@@ -35,9 +36,9 @@ internal fun MenuDrawer(
         title = { Text(stringResource(R.string.feature_notes_folders)) },
         items = {
             MenuDrawerItem(
-                NoteFolder.All,
-                isSelected = currentFolder == NoteFolder.All,
-                onClick = { changeCurrentFolderAndClose(NoteFolder.All) }
+                defaultFolder,
+                isSelected = currentFolder == defaultFolder,
+                onClick = { changeCurrentFolderAndClose(defaultFolder) }
             )
 
             folders.forEach {
@@ -60,8 +61,9 @@ internal fun MenuDrawer(
 private fun MenuDrawerPreview() {
     MementoTheme {
         MenuDrawer(
-            NoteFolder.Custom.samples,
-            currentFolder = NoteFolder.All,
+            NoteFolder.samples,
+            defaultFolder = NoteFolder.sample,
+            currentFolder = NoteFolder.sample,
             onCurrentFolderChange = { }
         ) {
             Background {

@@ -24,12 +24,12 @@ internal fun MenuDrawerItem(
 ) {
     MenuDrawerItem(
         Icons.Rounded.Folder,
-        contentDescription = stringResource(R.string.feature_notes_folder, folder.title()),
+        contentDescription = stringResource(R.string.feature_notes_folder, folder.title),
         isSelected,
         onClick,
         modifier
     ) {
-        Text(folder.title())
+        Text(folder.title)
     }
 }
 
@@ -39,7 +39,7 @@ internal fun MenuDrawerItem(
 private fun MenuDrawerItemPreview() {
     MementoTheme {
         Background(contentSizing = BackgroundContentSizing.WRAP) {
-            MenuDrawerItem(NoteFolder.Custom.sample, isSelected = false, onClick = { })
+            MenuDrawerItem(NoteFolder.sample, isSelected = false, onClick = { })
         }
     }
 }

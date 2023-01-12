@@ -30,15 +30,17 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun Notes(viewModel: NotesViewModel, modifier: Modifier = Modifier) {
-    val folders by viewModel.folders.collectAsState()
-    val currentFolder by viewModel.getCurrentFolder().collectAsState()
-    val notes by viewModel.notes.collectAsState()
+    val folders by viewModel.getFolders().collectAsState()
+    val defaultFolder by viewModel.getDefaultFolder().collectAsState()
+    val currentFolder by viewModel.currentFolder.collectAsState()
+    val notes by viewModel.getNotes().collectAsState()
     val selection by viewModel.selection.collectAsState()
 
     Notes(
         folders,
+        defaultFolder,
         currentFolder,
-        onCurrentFolderChange = viewModel::setCurrentFolder,
+        onCurrentFolderChange = { viewModel.currentFolder.value = it },
         notes,
         selection,
         onSelectionToggle = { viewModel.selection.value = it },
@@ -52,7 +54,8 @@ internal fun Notes(viewModel: NotesViewModel, modifier: Modifier = Modifier) {
 @Composable
 private fun Notes(
     folders: List<NoteFolder>,
-    currentFolder: NoteFolder,
+    defaultFolder: NoteFolder,
+    currentFolder: NoteFolder?,
     onCurrentFolderChange: (folder: NoteFolder) -> Unit,
     notes: List<Note>,
     selection: Selection,
@@ -65,7 +68,7 @@ private fun Notes(
     val coroutineScope = rememberCoroutineScope()
     val lazyListState = rememberLazyListState()
 
-    MenuDrawer(folders, currentFolder, onCurrentFolderChange, modifier) {
+    MenuDrawer(folders, defaultFolder, currentFolder, onCurrentFolderChange, modifier) {
         TopAppBar(
             isCompact = lazyListState.isScrolling,
             currentFolder,
@@ -118,8 +121,9 @@ private fun Notes(
 private fun NotesPreview() {
     MementoTheme {
         Notes(
-            NoteFolder.Custom.samples,
-            currentFolder = NoteFolder.All,
+            NoteFolder.samples,
+            defaultFolder = NoteFolder.sample,
+            currentFolder = NoteFolder.sample,
             onCurrentFolderChange = { },
             Note.samples,
             Selection.Off,
