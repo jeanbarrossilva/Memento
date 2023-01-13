@@ -45,5 +45,5 @@ android {
 
 dependencies {
     implementation project(':aurelius')
-    implementation project(':notes')
+    implementation project(':feature-notes')
 }

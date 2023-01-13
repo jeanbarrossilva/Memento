@@ -1,4 +1,4 @@
 rootProject.name = 'Memento'
 include ':app'
 include ':aurelius'
-include ':notes'
+include ':feature-notes'
