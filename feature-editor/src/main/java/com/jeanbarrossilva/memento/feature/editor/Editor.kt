@@ -64,11 +64,11 @@ private fun Editor(
 
     if (isDeletionConfirmationDialogVisible) {
         DeletionConfirmationDialog(
-            onConfirmationRequest = onDeletionRequest,
-            onDismissalRequest = {
-                isDeletionConfirmationDialogVisible = false
+            onConfirmationRequest = {
+                onDeletionRequest()
                 onNavigationRequest()
-            }
+            },
+            onDismissalRequest = { isDeletionConfirmationDialogVisible = false }
         )
     }
 
