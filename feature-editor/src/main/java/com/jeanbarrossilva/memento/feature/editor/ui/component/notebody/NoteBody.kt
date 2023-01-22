@@ -1,6 +1,5 @@
 package com.jeanbarrossilva.memento.feature.editor.ui.component.notebody
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,6 +27,8 @@ import com.jeanbarrossilva.aurelius.component.editabletext.EditableText
 import com.jeanbarrossilva.aurelius.component.editabletext.EditableTextDefaults
 import com.jeanbarrossilva.aurelius.effect.keyboard.Keyboard
 import com.jeanbarrossilva.aurelius.effect.keyboard.KeyboardEffect
+import com.jeanbarrossilva.aurelius.layout.background.Background
+import com.jeanbarrossilva.aurelius.layout.background.BackgroundContentSizing
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 import com.jeanbarrossilva.aurelius.utils.`if`
 import com.jeanbarrossilva.aurelius.utils.plus
@@ -74,7 +75,7 @@ internal fun NoteBody(
     }
 
     LazyColumn(
-        modifier.background(note.colors.container.primary),
+        modifier,
         lazyListState,
         contentPadding = PaddingValues(AureliusTheme.sizes.spacing.large) +
             AureliusTheme.sizes.margin.fab
@@ -117,7 +118,9 @@ private fun NoteBody(note: Note, modifier: Modifier = Modifier) {
 @Preview
 private fun EmptyNoteBodyPreview() {
     AureliusTheme {
-        NoteBody(Note.sample.copy(body = ""))
+        Background(contentSizing = BackgroundContentSizing.WRAP) {
+            NoteBody(Note.sample.copy(body = ""))
+        }
     }
 }
 
@@ -125,6 +128,8 @@ private fun EmptyNoteBodyPreview() {
 @Preview
 private fun NoteBodyPreview() {
     AureliusTheme {
-        NoteBody(Note.sample)
+        Background(contentSizing = BackgroundContentSizing.WRAP) {
+            NoteBody(Note.sample)
+        }
     }
 }

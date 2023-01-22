@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.component.scaffold.Scaffold
+import com.jeanbarrossilva.aurelius.layout.background.Background
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 import com.jeanbarrossilva.aurelius.utils.isScrolling
 import com.jeanbarrossilva.memento.feature.editor.domain.Note
@@ -85,14 +86,16 @@ private fun Editor(
         Scaffold(
             floatingActionButton = { FloatingActionButton(note.colors, isEditing, onFabClick) }
         ) { padding ->
-            NoteBody(
-                note,
-                focusMode,
-                onBodyChange,
-                lazyListState,
-                isEditing,
-                Modifier.padding(padding)
-            )
+            Background(color = note.colors.container.primary) {
+                NoteBody(
+                    note,
+                    focusMode,
+                    onBodyChange,
+                    lazyListState,
+                    isEditing,
+                    Modifier.padding(padding)
+                )
+            }
         }
     }
 }
