@@ -24,9 +24,19 @@ internal fun TextProvider(content: @Composable () -> Unit) {
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.DMSans
             ),
-            title = TypographyTokens.TitleLarge.copy(
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.DMSans
+            title = Title(
+                large = TypographyTokens.TitleLarge.copy(
+                    AureliusTheme.colors.text.highlighted,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.DMSans
+                ),
+                small = TypographyTokens.BodyLarge.copy(
+                    AureliusTheme.colors.text.highlighted,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.DMSans,
+                    letterSpacing = .3.sp,
+                    lineHeight = 18.sp
+                )
             ),
             body = TypographyTokens.BodyLarge.copy(
                 AureliusTheme.colors.text.default,
@@ -37,6 +47,7 @@ internal fun TextProvider(content: @Composable () -> Unit) {
                 lineHeight = 18.sp
             ),
             label = TypographyTokens.BodySmall.copy(
+                AureliusTheme.colors.text.highlighted,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.DMSans

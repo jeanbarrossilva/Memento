@@ -11,5 +11,8 @@ import com.jeanbarrossilva.aurelius.theme.AureliusTheme
  **/
 @Composable
 internal fun VisibilityProvider(content: @Composable () -> Unit) {
-    CompositionLocalProvider(LocalVisibility provides Visibility(medium = .5f), content = content)
+    CompositionLocalProvider(
+        LocalVisibility provides Visibility(medium = .5f, low = .38f),
+        content = content
+    )
 }

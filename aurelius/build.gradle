@@ -57,4 +57,9 @@ dependencies {
     implementation libraries.appcompat
     implementation libraries.constraintlayout_compose
     implementation libraries.compose.material
+    implementation libraries.kotlin.reflect
+
+    androidTestImplementation libraries.compose.ui.test.junit4
+    androidTestImplementation libraries.compose.ui.test.manifest
+    androidTestImplementation libraries.test.runner
 }

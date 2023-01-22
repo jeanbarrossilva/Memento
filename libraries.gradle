@@ -19,6 +19,10 @@ buildscript {
                     versions.compose_material,
                 material3: "androidx.compose.material3:material3:${versions.compose_material3}",
                 ui: [
+                    test: [
+                        junit4: "androidx.compose.ui:ui-test-junit4:${versions.compose_ui}",
+                        manifest: "androidx.compose.ui:ui-test-manifest:${versions.compose_ui}"
+                    ],
                     tooling: "androidx.compose.ui:ui-tooling:${versions.compose_ui}"
                 ]
             ],
@@ -31,8 +35,10 @@ buildscript {
                 versions.customview_poolingcontainer,
             fragment: "androidx.fragment:fragment-ktx:${versions.fragment}",
             junit: "junit:junit:${versions.junit}",
+            koin: "io.insert-koin:koin-android:${versions.koin}",
             kotlin: [
-                test: 'org.jetbrains.kotlin:kotlin-test'
+                test: 'org.jetbrains.kotlin:kotlin-test',
+                reflect: 'org.jetbrains.kotlin:kotlin-reflect'
             ],
             lifecycle: [
                 viewmodel: [
@@ -40,7 +46,10 @@ buildscript {
                         versions.lifecycle
                 ]
             ],
-            material: "com.google.android.material:material:${versions.material}"
+            material: "com.google.android.material:material:${versions.material}",
+            test: [
+                runner: "androidx.test:runner:${versions.test.runner}"
+            ]
         ]
     }
 }

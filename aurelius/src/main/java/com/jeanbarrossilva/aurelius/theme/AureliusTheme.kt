@@ -1,23 +1,31 @@
 package com.jeanbarrossilva.aurelius.theme
 
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocal
+import androidx.compose.ui.unit.dp
+import com.jeanbarrossilva.aurelius.composition.LocalMinimumTouchTargetProvider
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme.animation
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme.colors
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme.sizes
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme.text
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme.visibility
+import com.jeanbarrossilva.aurelius.theme.animation.Animation
 import com.jeanbarrossilva.aurelius.theme.animation.AnimationProvider
 import com.jeanbarrossilva.aurelius.theme.animation.LocalAnimation
+import com.jeanbarrossilva.aurelius.theme.colors.Colors
 import com.jeanbarrossilva.aurelius.theme.colors.ColorsProvider
 import com.jeanbarrossilva.aurelius.theme.colors.LocalColors
 import com.jeanbarrossilva.aurelius.theme.sizes.LocalSizes
+import com.jeanbarrossilva.aurelius.theme.sizes.Sizes
 import com.jeanbarrossilva.aurelius.theme.sizes.SizesProvider
 import com.jeanbarrossilva.aurelius.theme.text.LocalText
+import com.jeanbarrossilva.aurelius.theme.text.Text
 import com.jeanbarrossilva.aurelius.theme.text.TextProvider
 import com.jeanbarrossilva.aurelius.theme.visibility.LocalVisibility
+import com.jeanbarrossilva.aurelius.theme.visibility.Visibility
 import com.jeanbarrossilva.aurelius.theme.visibility.VisibilityProvider
 
 /**
@@ -61,12 +69,18 @@ fun AureliusTheme(content: @Composable () -> Unit) {
             VisibilityProvider {
                 TextProvider {
                     SizesProvider {
-                        MaterialTheme(
-                            colors.material,
-                            MaterialTheme.shapes.copy(extraSmall = CircleShape),
-                            text.material,
-                            content
-                        )
+                        LocalMinimumTouchTargetProvider {
+                            MaterialTheme(
+                                colors.material,
+                                MaterialTheme.shapes.copy(
+                                    extraSmall = CircleShape,
+                                    small = RoundedCornerShape(14.dp),
+                                    large = RoundedCornerShape(24.dp)
+                                ),
+                                text.material,
+                                content
+                            )
+                        }
                     }
                 }
             }

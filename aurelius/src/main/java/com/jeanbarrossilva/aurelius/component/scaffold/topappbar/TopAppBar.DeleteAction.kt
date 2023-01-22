@@ -1,4 +1,4 @@
-package com.jeanbarrossilva.memento.feature.notes.component.scaffold.topappbar // ktlint-disable filename
+package com.jeanbarrossilva.aurelius.component.scaffold.topappbar // ktlint-disable filename
 
 import android.content.res.Configuration
 import androidx.compose.material.icons.Icons
@@ -8,18 +8,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.jeanbarrossilva.aurelius.component.scaffold.topappbar.ActionButton
 import com.jeanbarrossilva.aurelius.layout.background.Background
 import com.jeanbarrossilva.aurelius.layout.background.BackgroundContentSizing
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
-import com.jeanbarrossilva.memento.notes.R
+import com.jeanbarrossilva.memento.ui.R
 
 @Composable
-internal fun DeleteAction(onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun DeleteAction(onClick: () -> Unit, modifier: Modifier = Modifier) {
     ActionButton(onClick, modifier) {
         Icon(
             Icons.Rounded.Delete,
-            contentDescription = stringResource(R.string.feature_notes_delete)
+            contentDescription = stringResource(R.string.top_app_bar_delete_action)
         )
     }
 }

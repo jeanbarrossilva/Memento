@@ -17,5 +17,10 @@
         <item name="android:windowLightStatusBar">@bool/is_system_in_light_theme</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="textAppearanceBodyLarge">@style/Theme.Aurelius.Text.Body</item>
+        <item name="textAppearanceHeadlineSmall">@style/Theme.Aurelius.Text.Headline</item>
+        <item name="textAppearanceLabelSmall">@style/Theme.Aurelius.Text.Label</item>
+        <item name="textAppearanceTitleLarge">@style/Theme.Aurelius.Text.Title.Large</item>
+        <item name="textAppearanceTitleSmall">@style/Theme.Aurelius.Text.Title.Small</item>
     </style>
 </resources>

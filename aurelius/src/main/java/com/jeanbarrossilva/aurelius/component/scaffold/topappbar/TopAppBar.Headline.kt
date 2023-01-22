@@ -10,6 +10,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,16 +30,13 @@ internal fun Headline(
     subtitle: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val compactTitleStyle = AureliusTheme.text.title
+    val compactTitleStyle = AureliusTheme.text.title.large
     val titleSize by animateTextUnitAsState(
         if (isCompact) compactTitleStyle.fontSize else AureliusTheme.text.headline.fontSize,
         AureliusTheme.animation.spec()
     )
     val titleStyle = if (isCompact) compactTitleStyle else AureliusTheme.text.headline
-    val animatedSizeTitleStyle = titleStyle.copy(
-        AureliusTheme.colors.content.secondary,
-        fontSize = titleSize
-    )
+    val animatedSizeTitleStyle = titleStyle.copy(fontSize = titleSize)
     val titleOffsetY by animateDpAsState(
         if (isCompact) (-8).dp else 0.dp,
         AureliusTheme.animation.spec()
@@ -58,7 +56,13 @@ internal fun Headline(
             exit = fadeOut(AureliusTheme.animation.spec()) +
                 slideOutVertically(AureliusTheme.animation.spec()) { -it }
         ) {
-            subtitle()
+            ProvideTextStyle(
+                AureliusTheme.text.body.copy(
+                    LocalContentColor.current.copy(AureliusTheme.visibility.low)
+                )
+            ) {
+                subtitle()
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.component.scaffold.Scaffold
 import com.jeanbarrossilva.aurelius.layout.background.Background
@@ -29,7 +30,12 @@ import com.jeanbarrossilva.memento.feature.notes.domain.note.NoteFolder
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun Notes(viewModel: NotesViewModel, modifier: Modifier = Modifier) {
+internal fun Notes(
+    viewModel: NotesViewModel,
+    boundary: NotesBoundary,
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
     val folders by viewModel.getFolders().collectAsState()
     val defaultFolder by viewModel.getDefaultFolder().collectAsState()
     val currentFolder by viewModel.currentFolder.collectAsState()
@@ -42,11 +48,12 @@ internal fun Notes(viewModel: NotesViewModel, modifier: Modifier = Modifier) {
         currentFolder,
         onCurrentFolderChange = { viewModel.currentFolder.value = it },
         notes,
+        onNoteClick = { boundary.navigateToEditor(context, it.id) },
         selection,
         onSelectionToggle = { viewModel.selection.value = it },
         onSearchRequest = { },
         onDeleteRequest = { },
-        onAddRequest = { },
+        onAddRequest = { boundary.navigateToEditor(context, noteID = null) },
         modifier
     )
 }
@@ -58,6 +65,7 @@ private fun Notes(
     currentFolder: NoteFolder?,
     onCurrentFolderChange: (folder: NoteFolder) -> Unit,
     notes: List<Note>,
+    onNoteClick: (Note) -> Unit,
     selection: Selection,
     onSelectionToggle: (Selection) -> Unit,
     onSearchRequest: () -> Unit,
@@ -104,7 +112,7 @@ private fun Notes(
                                 note,
                                 selection,
                                 onSelectionToggle,
-                                onClick = { },
+                                onClick = { onNoteClick(note) },
                                 Modifier.fillMaxWidth()
                             )
                         }
@@ -126,6 +134,7 @@ private fun NotesPreview() {
             currentFolder = NoteFolder.sample,
             onCurrentFolderChange = { },
             Note.samples,
+            onNoteClick = { },
             Selection.Off,
             onSelectionToggle = { },
             onSearchRequest = { },

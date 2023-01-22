@@ -13,7 +13,7 @@ import androidx.compose.ui.text.TextStyle
  **/
 data class Text internal constructor(
     val headline: TextStyle,
-    val title: TextStyle,
+    val title: Title,
     val body: TextStyle,
     val label: TextStyle
 ) {
@@ -26,22 +26,22 @@ data class Text internal constructor(
             headlineLarge = TextStyle.Default,
             headlineMedium = TextStyle.Default,
             headlineSmall = headline,
-            titleLarge = TextStyle.Default,
+            titleLarge = title.large,
             titleMedium = TextStyle.Default,
-            titleSmall = title,
+            titleSmall = title.small,
             labelLarge = TextStyle.Default,
             labelMedium = TextStyle.Default,
-            labelSmall = TextStyle.Default,
+            labelSmall = label,
             bodyLarge = body,
             bodyMedium = TextStyle.Default,
             bodySmall = TextStyle.Default
         )
 
     companion object {
-        /** [Text] with [TextStyle.Default] values. **/
+        /** [Text] with default values. **/
         internal val Default = Text(
             headline = TextStyle.Default,
-            title = TextStyle.Default,
+            title = Title.Default,
             body = TextStyle.Default,
             label = TextStyle.Default
         )

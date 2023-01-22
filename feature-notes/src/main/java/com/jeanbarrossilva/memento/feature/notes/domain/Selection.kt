@@ -4,6 +4,7 @@ import com.jeanbarrossilva.memento.feature.notes.domain.Selection.Off
 import com.jeanbarrossilva.memento.feature.notes.domain.Selection.Off.toggle
 import com.jeanbarrossilva.memento.feature.notes.domain.Selection.On
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
+import com.jeanbarrossilva.memento.feature.notes.utils.toggle
 
 /**
  * Controls the selection of [Note]s, aiming on a good UX.
