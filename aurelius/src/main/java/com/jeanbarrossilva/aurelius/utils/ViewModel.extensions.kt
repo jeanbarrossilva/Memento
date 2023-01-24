@@ -2,6 +2,7 @@ package com.jeanbarrossilva.aurelius.utils // ktlint-disable filename
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlin.experimental.ExperimentalTypeInference
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,12 +10,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
-import kotlin.experimental.ExperimentalTypeInference
 
 /**
  * Creates a [MutableStateFlow] that holds an [initialValue] and then receives the one that was
- * emitted to it most rapidly (either [origin]'s or its own, through the provided [block]); after
- * that, only values from the [block] are received.
+ * emitted to it most the rapidly (either [origin]'s or its own, through the provided [block]);
+ * after that, only values from the [block] are received.
  *
  * @param origin [Flow] that'll probably receive the value that's supposed to be the initial one of
  * the [Flow] that's being created.
@@ -25,7 +25,7 @@ import kotlin.experimental.ExperimentalTypeInference
 fun <T> ViewModel.flowOf(
     origin: Flow<T>,
     initialValue: T,
-    @BuilderInference block: suspend FlowCollector<T>.() -> Unit
+    @BuilderInference block: suspend FlowCollector<T>.() -> Unit = { }
 ): MutableStateFlow<T> {
     var isNewFlowConsumed = false
     return flowOf(initialValue) {

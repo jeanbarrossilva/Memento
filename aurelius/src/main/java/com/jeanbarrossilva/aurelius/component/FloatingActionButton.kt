@@ -9,9 +9,12 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.component.FloatingActionButton as _FloatingActionButton
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
@@ -21,6 +24,8 @@ fun FloatingActionButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     isVisible: Boolean = true,
+    containerColor: Color = FloatingActionButtonDefaults.containerColor,
+    contentColor: Color = contentColorFor(containerColor),
     content: @Composable () -> Unit
 ) {
     AnimatedVisibility(
@@ -30,7 +35,13 @@ fun FloatingActionButton(
         exit = fadeOut(AureliusTheme.animation.spec()) +
             slideOutVertically(AureliusTheme.animation.spec { fast }) { it }
     ) {
-        FloatingActionButton(onClick, modifier, content = content)
+        FloatingActionButton(
+            onClick,
+            modifier,
+            containerColor = containerColor,
+            contentColor = contentColor,
+            content = content
+        )
     }
 }
 

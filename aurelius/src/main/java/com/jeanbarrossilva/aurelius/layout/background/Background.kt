@@ -8,6 +8,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 
@@ -15,9 +16,10 @@ import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 fun Background(
     modifier: Modifier = Modifier,
     contentSizing: BackgroundContentSizing = BackgroundContentSizing.FILL,
+    color: Color = AureliusTheme.colors.background,
     content: @Composable BoxScope.() -> Unit
 ) {
-    Surface(color = AureliusTheme.colors.background) {
+    Surface(color = color) {
         Box(modifier then contentSizing.modifier) {
             CompositionLocalProvider(
                 LocalContentColor provides AureliusTheme.colors.content.secondary

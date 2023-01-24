@@ -11,17 +11,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.platform.LocalDensity
@@ -33,7 +30,6 @@ import androidx.compose.ui.unit.isUnspecified
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
-import com.jeanbarrossilva.aurelius.utils.Horizontal
 import com.jeanbarrossilva.aurelius.utils.`if`
 import com.jeanbarrossilva.aurelius.utils.toDpSize
 
@@ -46,6 +42,7 @@ fun TopAppBar(
     navigationButton: @Composable () -> Unit,
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    containerBrush: Brush = TopAppBarDefaults.containerBrush,
     subtitle: @Composable () -> Unit = { },
     actions: @Composable RowScope.() -> Unit = { },
     content: @Composable () -> Unit
@@ -62,6 +59,7 @@ fun TopAppBar(
                 top.linkTo(parent.top)
                 centerHorizontallyTo(parent)
             },
+            containerBrush,
             subtitle,
             actions
         )
@@ -86,6 +84,7 @@ fun TopAppBar(
     navigationButton: @Composable () -> Unit,
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    containerBrush: Brush = TopAppBarDefaults.containerBrush,
     subtitle: @Composable () -> Unit = { },
     actions: @Composable RowScope.() -> Unit = { }
 ) {
@@ -113,33 +112,23 @@ fun TopAppBar(
                     fullHeight = it.size.toDpSize(density).height
                 }
             }
-            .background(
-                Brush.linearGradient(
-                    listOf(topAppBarBackgroundColor, AureliusTheme.colors.container.tertiary),
-                    start = Offset.Horizontal
-                )
-            )
+            .background(containerBrush)
             .padding(AureliusTheme.sizes.margin.statusBar)
             .padding(spacing)
     ) {
         val (leadingRef, trailingRef) = createRefs()
 
         Row(
-            Modifier
-                .constrainAs(leadingRef) {
-                    width = Dimension.fillToConstraints
-                    start.linkTo(parent.start)
-                    end.linkTo(trailingRef.end)
-                    centerVerticallyTo(parent)
-                },
+            Modifier.constrainAs(leadingRef) {
+                width = Dimension.fillToConstraints
+                start.linkTo(parent.start)
+                end.linkTo(trailingRef.start)
+                centerVerticallyTo(parent)
+            },
             Arrangement.spacedBy(spacing),
             Alignment.CenterVertically
         ) {
-            CompositionLocalProvider(
-                LocalContentColor provides AureliusTheme.colors.content.secondary,
-                content = navigationButton
-            )
-
+            navigationButton()
             Headline(isCompact, title, subtitle)
         }
 

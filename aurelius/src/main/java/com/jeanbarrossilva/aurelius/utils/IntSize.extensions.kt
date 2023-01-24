@@ -5,7 +5,7 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
 
 /** Converts the given [IntSize] into a [DpSize]. **/
-internal fun IntSize.toDpSize(density: Density): DpSize {
+fun IntSize.toDpSize(density: Density): DpSize {
     val (widthInDp, heightInDp) = width.toDp(density) to height.toDp(density)
     return DpSize(widthInDp, heightInDp)
 }

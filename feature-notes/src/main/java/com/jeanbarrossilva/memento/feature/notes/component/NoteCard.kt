@@ -159,7 +159,7 @@ internal fun NoteCard(
             color = Color.Black,
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
-            style = AureliusTheme.text.title
+            style = AureliusTheme.text.title.large
         )
 
         Text(

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_editor_deletion_confirmation_title">
+        Are you sure you want to delete this note?
+    </string>
+    <string name="feature_editor_deletion_confirmation_body">
+        Keep in mind that this action cannot be undone.
+    </string>
+    <string name="feature_editor_deletion_confirmation_message">
+        The note has been successfully deleted.
+    </string>
+    <string name="feature_editor_edit">Edit</string>
+    <string name="feature_editor_note_label">Write your note here…</string>
+    <string name="feature_editor_save">Save</string>
+    <string name="feature_editor_selected_note_color">Selected</string>
+    <string name="feature_editor_title">Title</string>
+</resources>

@@ -19,7 +19,7 @@ fun MenuButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
     IconButton(onClick, modifier) {
         Icon(
             Icons.Rounded.Menu,
-            contentDescription = stringResource(R.string.top_app_bar_navigation_menu_button)
+            contentDescription = stringResource(R.string.top_app_bar_menu_button)
         )
     }
 }

@@ -7,6 +7,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.jeanbarrossilva.aurelius.component.scaffold.topappbar.DeleteAction
 import com.jeanbarrossilva.aurelius.component.scaffold.topappbar.MenuButton
 import com.jeanbarrossilva.aurelius.component.scaffold.topappbar.TopAppBar
 import com.jeanbarrossilva.aurelius.layout.background.Background
@@ -53,7 +54,7 @@ internal fun TopAppBar(
                 is Selection.On -> DeleteAction(onClick = { onDeleteRequest(selection.selected) })
             }
         },
-        content
+        content = content
     )
 }
 
