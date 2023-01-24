@@ -6,7 +6,9 @@ import com.jeanbarrossilva.memento.ui.R
 
 internal data class NoteContainerColors(val primary: Color, val secondary: Color) {
     companion object {
-        val sample = NoteContainerColors(primary = Color(0xFFFDFFA3), secondary = Color(0xFFFFDF70))
+        val Blue = NoteContainerColors(primary = Color(0xFFD1ECFF), secondary = Color(0xFFA5FFFA))
+        val Purple = NoteContainerColors(primary = Color(0xFFFFDBFB), secondary = Color(0xFFFFDBFB))
+        val Yellow = NoteContainerColors(primary = Color(0xFFFDFFA3), secondary = Color(0xFFFFDF70))
 
         fun getEmpty(context: Context): NoteContainerColors {
             val colorValue = context.getColor(R.color.background)

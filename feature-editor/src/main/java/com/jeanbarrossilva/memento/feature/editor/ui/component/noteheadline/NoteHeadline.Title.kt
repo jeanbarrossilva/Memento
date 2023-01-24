@@ -1,4 +1,4 @@
-package com.jeanbarrossilva.memento.feature.editor.ui.component
+package com.jeanbarrossilva.memento.feature.editor.ui.component.noteheadline
 
 import android.content.res.Configuration
 import androidx.compose.material3.Text
@@ -27,7 +27,7 @@ import com.jeanbarrossilva.memento.feature.editor.ui.focusmode.FocusMode
 import com.jeanbarrossilva.memento.feature.editor.utils.without
 
 @Composable
-internal fun NoteTitle(
+internal fun Title(
     note: Note,
     focusMode: FocusMode,
     isEditing: Boolean,
@@ -70,10 +70,10 @@ internal fun NoteTitle(
 @Composable
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-private fun NoteTitlePreview() {
+private fun TitlePreview() {
     AureliusTheme {
         Background(contentSizing = BackgroundContentSizing.WRAP) {
-            NoteTitle(Note.sample, FocusMode.Default, isEditing = false, onChange = { })
+            Title(Note.sample, FocusMode.Default, isEditing = false, onChange = { })
         }
     }
 }

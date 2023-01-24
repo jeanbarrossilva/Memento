@@ -2,7 +2,10 @@ package com.jeanbarrossilva.memento.feature.editor
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,7 +18,10 @@ import com.jeanbarrossilva.aurelius.component.scaffold.Scaffold
 import com.jeanbarrossilva.aurelius.layout.background.Background
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 import com.jeanbarrossilva.aurelius.utils.isScrolling
+import com.jeanbarrossilva.memento.feature.editor.domain.EditorMode
 import com.jeanbarrossilva.memento.feature.editor.domain.Note
+import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
+import com.jeanbarrossilva.memento.feature.editor.domain.isEditing
 import com.jeanbarrossilva.memento.feature.editor.ui.DeletionConfirmationDialog
 import com.jeanbarrossilva.memento.feature.editor.ui.component.notebody.NoteBody
 import com.jeanbarrossilva.memento.feature.editor.ui.component.scaffold.FloatingActionButton
@@ -30,16 +36,18 @@ internal fun Editor(
     modifier: Modifier = Modifier
 ) {
     val note by viewModel.getEditedNote().collectAsState()
-    val isEditing by viewModel.isEditing.collectAsState()
+    val mode by viewModel.getMode().collectAsState()
 
     Editor(
+        mode,
         note,
-        isEditing,
         onNavigationRequest,
         onTitleChange = viewModel::setTitle,
         onDeletionRequest,
+        onColorPickerVisibilityChange = viewModel::setColorPickerVisible,
+        onColorsChange = viewModel::setColors,
         onBodyChange = viewModel::setBody,
-        onEditRequest = { viewModel.isEditing.value = true },
+        onEditRequest = viewModel::edit,
         onSaveRequest = viewModel::save,
         modifier
     )
@@ -47,11 +55,13 @@ internal fun Editor(
 
 @Composable
 private fun Editor(
+    editorMode: EditorMode,
     note: Note,
-    isEditing: Boolean,
     onNavigationRequest: () -> Unit,
     onTitleChange: (title: String) -> Unit,
     onDeletionRequest: () -> Unit,
+    onColorPickerVisibilityChange: (isColorPickerVisible: Boolean) -> Unit,
+    onColorsChange: (colors: NoteColors) -> Unit,
     onBodyChange: (body: String) -> Unit,
     onEditRequest: () -> Unit,
     onSaveRequest: () -> Unit,
@@ -59,9 +69,19 @@ private fun Editor(
 ) {
     val context = LocalContext.current
     val lazyListState = rememberLazyListState()
-    val onFabClick = if (isEditing) onSaveRequest else onEditRequest
+    val isToolbarCompact = lazyListState.isScrolling
+    val isEditing = editorMode.isEditing()
+    val onFabClick = when (editorMode) {
+        is EditorMode.Reading -> onEditRequest
+        is EditorMode.Editing -> onSaveRequest
+    }
     var isDeletionConfirmationDialogVisible by remember { mutableStateOf(false) }
     val focusMode = remember(note) { FocusModeFactory.create(context, lazyListState, note) }
+
+    DisposableEffect(isToolbarCompact) {
+        onColorPickerVisibilityChange(!isToolbarCompact)
+        onDispose { }
+    }
 
     if (isDeletionConfirmationDialogVisible) {
         DeletionConfirmationDialog(
@@ -74,40 +94,48 @@ private fun Editor(
     }
 
     TopAppBar(
+        editorMode,
         note,
         focusMode,
-        isCompact = lazyListState.isScrolling,
-        isEditing,
+        isToolbarCompact,
         onNavigationRequest,
         onTitleChange,
         onDeletionRequest = { isDeletionConfirmationDialogVisible = true },
+        onColorsChange,
         modifier
     ) {
         Scaffold(
             floatingActionButton = { FloatingActionButton(note.colors, isEditing, onFabClick) }
         ) { padding ->
-            Background(color = note.colors.container.primary) {
-                NoteBody(
-                    note,
-                    focusMode,
-                    onBodyChange,
-                    lazyListState,
-                    isEditing,
-                    Modifier.padding(padding)
-                )
+            Background(
+                Modifier.padding(padding),
+                color = note.colors.container.primary
+            ) {
+                CompositionLocalProvider(LocalContentColor provides note.colors.content) {
+                    NoteBody(
+                        editorMode,
+                        note,
+                        focusMode,
+                        onBodyChange,
+                        lazyListState,
+                        isEditing
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-private fun Editor(isEditing: Boolean, modifier: Modifier = Modifier) {
+private fun Editor(mode: EditorMode, modifier: Modifier = Modifier) {
     Editor(
+        mode,
         Note.sample,
-        isEditing,
         onNavigationRequest = { },
         onTitleChange = { },
         onDeletionRequest = { },
+        onColorPickerVisibilityChange = { },
+        onColorsChange = { },
         onBodyChange = { },
         onEditRequest = { },
         onSaveRequest = { },
@@ -117,9 +145,9 @@ private fun Editor(isEditing: Boolean, modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-private fun NonEditingEditorPreview() {
+private fun ReadingEditorPreview() {
     AureliusTheme {
-        Editor(isEditing = false)
+        Editor(EditorMode.Reading)
     }
 }
 
@@ -127,6 +155,6 @@ private fun NonEditingEditorPreview() {
 @Preview
 private fun EditingEditorPreview() {
     AureliusTheme {
-        Editor(isEditing = true)
+        Editor(EditorMode.Editing(NoteColors.samples))
     }
 }

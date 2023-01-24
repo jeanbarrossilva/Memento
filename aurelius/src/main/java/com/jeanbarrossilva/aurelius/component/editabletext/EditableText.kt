@@ -52,6 +52,7 @@ fun EditableText(
     colors: EditableTextColors = EditableTextDefaults.colors(),
     label: (@Composable () -> Unit)? = null
 ) {
+    val textStyle = LocalTextStyle.current.copy(colors.text)
     val isSingleLined = false
     val visualTransformation = VisualTransformation.None
     val interactionSource = remember(::MutableInteractionSource)
@@ -62,7 +63,7 @@ fun EditableText(
         onTextChange,
         modifier,
         enabled = isActive,
-        textStyle = LocalTextStyle.current,
+        textStyle = textStyle,
         keyboardOptions = remember(imeAction) { KeyboardOptions(imeAction = imeAction) },
         singleLine = isSingleLined,
         visualTransformation = visualTransformation,
@@ -76,7 +77,11 @@ fun EditableText(
             isSingleLined,
             visualTransformation,
             interactionSource,
-            placeholder = label,
+            placeholder = label?.let {
+                {
+                    ProvideTextStyle(textStyle.copy(LocalContentColor.current), it)
+                }
+            },
             colors = TextFieldDefaults.textFieldColors(
                 colors.text,
                 disabledIndicatorColor = Color.Transparent,
@@ -110,7 +115,7 @@ fun EditableText(
     colors: EditableTextColors = EditableTextDefaults.colors(),
     label: (@Composable () -> Unit)? = null
 ) {
-    val textStyle = LocalTextStyle.current
+    val textStyle = LocalTextStyle.current.copy(colors.text)
     val isSingleLined = false
     val visualTransformation = VisualTransformation.None
     val interactionSource = remember(::MutableInteractionSource)
@@ -161,16 +166,18 @@ fun EditableText(
  **/
 @Composable
 internal fun EditableText(
-    isActive: Boolean,
     modifier: Modifier = Modifier,
     text: String = "Text",
-    onTextChange: (text: String) -> Unit = { }
+    onTextChange: (text: String) -> Unit = { },
+    isActive: Boolean = true,
+    colors: EditableTextColors = EditableTextDefaults.colors()
 ) {
     EditableText(
         text,
         onTextChange,
         isActive,
-        modifier.testTag(EDITABLE_TEXT_TAG)
+        modifier.testTag(EDITABLE_TEXT_TAG),
+        colors = colors
     ) {
         Text("Label")
     }
@@ -182,7 +189,7 @@ internal fun EditableText(
 private fun InactiveEmptyEditableTextPreview() {
     AureliusTheme {
         Background(contentSizing = BackgroundContentSizing.WRAP) {
-            EditableText(isActive = false, text = "")
+            EditableText(text = "", isActive = false)
         }
     }
 }
@@ -204,7 +211,17 @@ private fun InactiveEditableTextPreview() {
 private fun ActiveEditableTextPreview() {
     AureliusTheme {
         Background(contentSizing = BackgroundContentSizing.WRAP) {
-            EditableText(isActive = true)
+            EditableText()
+        }
+    }
+}
+
+@Composable
+@Preview
+private fun ColoredEditableTextPreview() {
+    AureliusTheme {
+        Background(contentSizing = BackgroundContentSizing.WRAP) {
+            EditableText(colors = EditableTextDefaults.colors(text = Color.Blue))
         }
     }
 }

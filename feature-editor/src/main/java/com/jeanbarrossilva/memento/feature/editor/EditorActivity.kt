@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import com.jeanbarrossilva.aurelius.core.ComposableActivity
 import com.jeanbarrossilva.aurelius.utils.argumentOf
 import com.jeanbarrossilva.aurelius.utils.startActivity
+import com.jeanbarrossilva.memento.feature.editor.domain.EditorMode
 import com.jeanbarrossilva.memento.feature.editor.infra.inmemory.InMemoryEditorGateway
 
 class EditorActivity internal constructor() : ComposableActivity() {
@@ -33,10 +34,9 @@ class EditorActivity internal constructor() : ComposableActivity() {
 
     private fun saveOnBackPress() {
         onBackPressedDispatcher.addCallback {
-            if (viewModel.isEditing.value) {
-                viewModel.save()
-            } else {
-                finish()
+            when (viewModel.getMode().value) {
+                is EditorMode.Reading -> finish()
+                is EditorMode.Editing -> viewModel.save()
             }
         }
     }

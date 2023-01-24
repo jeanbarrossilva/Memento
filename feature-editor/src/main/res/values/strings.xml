@@ -12,5 +12,6 @@
     <string name="feature_editor_edit">Edit</string>
     <string name="feature_editor_note_label">Write your note here…</string>
     <string name="feature_editor_save">Save</string>
+    <string name="feature_editor_selected_note_color">Selected</string>
     <string name="feature_editor_title">Title</string>
 </resources>

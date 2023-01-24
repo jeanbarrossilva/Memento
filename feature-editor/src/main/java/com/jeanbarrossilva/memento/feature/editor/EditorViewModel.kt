@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.jeanbarrossilva.aurelius.utils.flowOf
+import com.jeanbarrossilva.memento.feature.editor.domain.EditorMode
 import com.jeanbarrossilva.memento.feature.editor.domain.Note
+import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
+import com.jeanbarrossilva.memento.feature.editor.domain.isEditing
 import com.jeanbarrossilva.memento.feature.editor.infra.EditorGateway
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
@@ -19,6 +21,7 @@ internal class EditorViewModel(
     private val gateway: EditorGateway,
     private val noteID: String?
 ) : AndroidViewModel(application) {
+    private val mode = flowOf<EditorMode>(flow { emit(getInitialMode()) }, EditorMode.Reading)
     private val originalNote = flow {
         noteID?.let {
             emit(gateway.getNoteById(it))
@@ -26,10 +29,29 @@ internal class EditorViewModel(
     }
     private val editedNote = flowOf(originalNote, Note.getEmpty(application))
 
-    val isEditing = MutableStateFlow(noteID == null)
+    fun getMode(): StateFlow<EditorMode> {
+        return mode.asStateFlow()
+    }
 
     fun getEditedNote(): StateFlow<Note> {
         return editedNote.asStateFlow()
+    }
+
+    fun edit() {
+        viewModelScope.launch {
+            mode.value = getEditingMode()
+        }
+    }
+
+    fun setColorPickerVisible(isColorPickerVisible: Boolean) {
+        viewModelScope.launch {
+            val currentMode = getMode().value
+            if (currentMode.isEditing()) {
+                mode.value = currentMode.copy(
+                    colors = if (isColorPickerVisible) gateway.getColors() else null
+                )
+            }
+        }
     }
 
     fun setTitle(title: String) {
@@ -44,11 +66,26 @@ internal class EditorViewModel(
         }
     }
 
+    fun setColors(colors: NoteColors) {
+        edit {
+            copy(colors = colors)
+        }
+    }
+
     fun save() {
         viewModelScope.launch {
             gateway.save(noteID, getEditedNote().value.title, getEditedNote().value.body)
         }
-        isEditing.value = false
+        mode.value = EditorMode.Reading
+    }
+
+    private suspend fun getInitialMode(): EditorMode {
+        return noteID?.let { EditorMode.Reading } ?: getEditingMode()
+    }
+
+    private suspend fun getEditingMode(): EditorMode.Editing {
+        val colors = gateway.getColors()
+        return EditorMode.Editing(colors)
     }
 
     private fun edit(edit: Note.() -> Note) {

@@ -9,7 +9,7 @@ internal enum class NoteColors {
     },
     PURPLE {
         override val start = Color(0xFFFFDBFB)
-        override val end = Color(0xFFDFCBF9)
+        override val end = Color(0xFFFFDBFB)
     },
     YELLOW {
         override val start = Color(0xFFFDFFA3)
