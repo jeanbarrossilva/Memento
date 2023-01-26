@@ -9,12 +9,8 @@ java {
 }
 
 dependencies {
-    testImplementation libraries.assertj
-    testImplementation libraries.junit.jupiter.api
+    implementation libraries.kotlinx.coroutines.core
 
-    testRuntimeOnly libraries.junit.jupiter.engine
-}
-
-test {
-    useJUnitPlatform()
+    testImplementation libraries.kotlin.test
+    testImplementation libraries.kotlinx.coroutines.test
 }
