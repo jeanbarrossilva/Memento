@@ -21,8 +21,8 @@ class TestEditor implements Editor {
     public CompletableFuture<Void> setTitle(@NotNull String noteID, @NotNull String title) {
         return CompletableFuture.runAsync(() -> ListUtils.replace(
             register.getNotes(),
-            note -> note.getID().equals(noteID),
-            note -> note.copy(title)
+            note -> note.getId().equals(noteID),
+            note -> note.copy(note.getId(), title, note.getBody(), note.getColor())
         ));
     }
 
@@ -31,8 +31,8 @@ class TestEditor implements Editor {
     public CompletableFuture<Void> setBody(@NotNull String noteID, @NotNull String body) {
         return CompletableFuture.runAsync(() -> ListUtils.replace(
             register.getNotes(),
-            note -> note.getID().equals(noteID),
-            note -> note.copy(note.getTitle(), body, note.getColor())
+            note -> note.getId().equals(noteID),
+            note -> note.copy(note.getId(), note.getTitle(), body, note.getColor())
         ));
     }
 
@@ -41,8 +41,8 @@ class TestEditor implements Editor {
     public CompletableFuture<Void> setColors(@NotNull String noteID, @NotNull Color color) {
         return CompletableFuture.runAsync(() -> ListUtils.replace(
             register.getNotes(),
-            note -> note.getID().equals(noteID),
-            note -> note.copy(note.getTitle(), note.getBody(), color)
+            note -> note.getId().equals(noteID),
+            note -> note.copy(note.getId(), note.getTitle(), note.getBody(), color)
         ));
     }
 }

@@ -20,7 +20,7 @@ public class TestRegister extends Register {
     public CompletableFuture<Note> getNoteByID(@NotNull String noteID) {
         return CompletableFuture.supplyAsync(() -> notes
             .stream()
-            .filter(note -> note.getID().equals(noteID))
+            .filter(note -> note.getId().equals(noteID))
             .findFirst()
             .orElse(null));
     }
@@ -29,7 +29,7 @@ public class TestRegister extends Register {
     @NotNull
     public CompletableFuture<Void> unregister(@NotNull String noteID) {
         return CompletableFuture.runAsync(
-            () -> notes.removeIf(note -> note.getID().equals(noteID))
+            () -> notes.removeIf(note -> note.getId().equals(noteID))
         );
     }
 
