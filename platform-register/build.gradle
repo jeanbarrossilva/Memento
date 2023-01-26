@@ -1,20 +1,19 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
+    id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace 'com.jeanbarrossilva.memento'
+    namespace 'com.jeanbarrossilva.memento.platform.register'
     compileSdk versions.memento.sdk.compile
 
     defaultConfig {
-        applicationId 'com.jeanbarrossilva.memento'
         minSdk versions.memento.sdk.min
         targetSdk versions.memento.sdk.target
-        versionCode versions.memento.code
-        versionName versions.memento.name
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
@@ -25,10 +24,6 @@ android {
         }
     }
 
-    buildFeatures {
-        compose true
-    }
-
     compileOptions {
         sourceCompatibility versions.java
         targetCompatibility versions.java
@@ -37,16 +32,16 @@ android {
     kotlinOptions {
         jvmTarget = versions.java.toString()
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion versions.compose
-    }
 }
 
 dependencies {
-    implementation project(':aurelius')
-    implementation project(':feature-editor')
-    implementation project(':feature-notes')
-    implementation project(':platform-register')
+    kapt _plugins.room
+
+    implementation project(':core-register')
     implementation libraries.koin
+    implementation libraries.room
+
+    androidTestImplementation libraries.kotlinx.coroutines.test
+    androidTestImplementation libraries.test.core
+    androidTestImplementation libraries.test.runner
 }
