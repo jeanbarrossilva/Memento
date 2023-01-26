@@ -1,0 +1,20 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+java {
+    sourceCompatibility = versions.java
+    targetCompatibility = versions.java
+}
+
+dependencies {
+    testImplementation libraries.assertj
+    testImplementation libraries.junit.jupiter.api
+
+    testRuntimeOnly libraries.junit.jupiter.engine
+}
+
+test {
+    useJUnitPlatform()
+}
