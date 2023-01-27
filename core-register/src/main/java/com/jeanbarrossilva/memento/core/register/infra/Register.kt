@@ -12,8 +12,6 @@ abstract class Register {
         return id
     }
 
-    abstract suspend fun getNoteByID(noteID: String): Note?
-
     abstract suspend fun unregister(noteID: String)
 
     abstract suspend fun unregisterAll()

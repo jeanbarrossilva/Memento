@@ -1,6 +1,7 @@
 package com.jeanbarrossilva.memento.core.register
 
 import com.jeanbarrossilva.memento.core.register.domain.Color
+import com.jeanbarrossilva.memento.core.register.repository.TestRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
@@ -9,7 +10,8 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 internal class RegisterTests {
-    private val register = TestRegister()
+    private val repository = TestRepository()
+    private val register = TestRegister(repository)
 
     @AfterTest
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -28,7 +30,7 @@ internal class RegisterTests {
                 body = "'You don't have to turn it into something.'",
                 Color.BLUE
             )
-            assertNotNull(register.getNoteByID(noteID))
+            assertNotNull(repository.getNoteByID(noteID))
         }
     }
 
@@ -42,7 +44,7 @@ internal class RegisterTests {
                 Color.PURPLE
             )
             register.unregister(noteID)
-            assertNull(register.getNoteByID(noteID))
+            assertNull(repository.getNoteByID(noteID))
         }
     }
 }

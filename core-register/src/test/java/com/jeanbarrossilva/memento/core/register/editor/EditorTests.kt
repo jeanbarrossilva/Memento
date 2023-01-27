@@ -2,6 +2,7 @@ package com.jeanbarrossilva.memento.core.register.editor
 
 import com.jeanbarrossilva.memento.core.register.TestRegister
 import com.jeanbarrossilva.memento.core.register.domain.Color
+import com.jeanbarrossilva.memento.core.register.repository.TestRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
@@ -10,8 +11,9 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 internal class EditorTests {
-    private val register = TestRegister()
-    private val editor = TestEditor(register)
+    private val repository = TestRepository()
+    private val register = TestRegister(repository)
+    private val editor = TestEditor(repository)
     private lateinit var noteID: String
 
     @BeforeTest
@@ -35,7 +37,7 @@ internal class EditorTests {
     fun `GIVEN a note WHEN setting its title THEN it's set`() {
         runTest {
             editor.setTitle(noteID, "New title")
-            assertEquals(register.getNoteByID(noteID)?.title, "New title")
+            assertEquals(repository.getNoteByID(noteID)?.title, "New title")
         }
     }
 
@@ -44,7 +46,7 @@ internal class EditorTests {
     fun `GIVEN a note WHEN setting its body THEN it's set`() {
         runTest {
             editor.setBody(noteID, "New body")
-            assertEquals(register.getNoteByID(noteID)?.body, "New body")
+            assertEquals(repository.getNoteByID(noteID)?.body, "New body")
         }
     }
 
@@ -53,7 +55,7 @@ internal class EditorTests {
     fun `GIVEN a note WHEN setting its color THEN it's set`() {
         runTest {
             editor.setColor(noteID, Color.YELLOW)
-            assertEquals(register.getNoteByID(noteID)?.color, Color.YELLOW)
+            assertEquals(repository.getNoteByID(noteID)?.color, Color.YELLOW)
         }
     }
 }

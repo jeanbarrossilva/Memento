@@ -18,7 +18,7 @@ internal class RoomRegisterTests {
     fun register() {
         runTest {
             val noteID = rule.register.register("Title", "Body", Color.YELLOW)
-            assertNotNull(rule.register.getNoteByID(noteID))
+            assertNotNull(rule.repository.getNoteByID(noteID))
         }
     }
 
@@ -28,7 +28,7 @@ internal class RoomRegisterTests {
         runTest {
             val noteID = rule.register.register("A title", "A body", Color.PURPLE)
             rule.register.unregister(noteID)
-            assertNull(rule.register.getNoteByID(noteID))
+            assertNull(rule.repository.getNoteByID(noteID))
         }
     }
 }

@@ -6,6 +6,9 @@ import androidx.room.Query
 
 @Dao
 internal interface NoteDao {
+    @Query("SELECT * FROM notes")
+    suspend fun selectAll(): List<NoteEntity>
+
     @Query("SELECT * FROM notes WHERE id = :entityID")
     suspend fun selectByID(entityID: String): NoteEntity?
 

@@ -28,7 +28,7 @@ internal class RoomEditorTests {
     fun setTitle() {
         runTest {
             rule.editor.setTitle(noteID, "New title")
-            assertEquals("New title", rule.register.getNoteByID(noteID)?.title)
+            assertEquals("New title", rule.repository.getNoteByID(noteID)?.title)
         }
     }
 
@@ -37,7 +37,7 @@ internal class RoomEditorTests {
     fun setBody() {
         runTest {
             rule.editor.setBody(noteID, "New body")
-            assertEquals("New body", rule.register.getNoteByID(noteID)?.body)
+            assertEquals("New body", rule.repository.getNoteByID(noteID)?.body)
         }
     }
 
@@ -46,7 +46,7 @@ internal class RoomEditorTests {
     fun setColors() {
         runTest {
             rule.editor.setColor(noteID, Color.YELLOW)
-            assertEquals(Color.YELLOW, rule.register.getNoteByID(noteID)?.color)
+            assertEquals(Color.YELLOW, rule.repository.getNoteByID(noteID)?.color)
         }
     }
 }

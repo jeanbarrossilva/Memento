@@ -1,12 +1,12 @@
 package com.jeanbarrossilva.memento.core.register.editor
 
-import com.jeanbarrossilva.memento.core.register.TestRegister
 import com.jeanbarrossilva.memento.core.register.domain.Color
 import com.jeanbarrossilva.memento.core.register.domain.Note
 import com.jeanbarrossilva.memento.core.register.infra.Editor
+import com.jeanbarrossilva.memento.core.register.repository.TestRepository
 import com.jeanbarrossilva.memento.core.register.utils.replaceBy
 
-internal class TestEditor(private val register: TestRegister) : Editor {
+internal class TestEditor(private val repository: TestRepository) : Editor {
     override suspend fun setTitle(noteID: String, title: String) {
         edit(noteID) {
             copy(title = title)
@@ -26,7 +26,7 @@ internal class TestEditor(private val register: TestRegister) : Editor {
     }
 
     private fun edit(noteID: String, edit: Note.() -> Note) {
-        register.notes.replaceBy(edit) {
+        repository.notes.replaceBy(edit) {
             it.id == noteID
         }
     }
