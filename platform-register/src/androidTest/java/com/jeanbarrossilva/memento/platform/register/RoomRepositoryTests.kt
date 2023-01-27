@@ -23,7 +23,7 @@ internal class RoomRepositoryTests {
                 rule.register.register("2nd title", path = "/folder", body = "2nd body")
             val secondNote = rule.repository.getNoteByID(secondNoteID)
             assertEquals(
-                mapOf(Path.root to listOf(firstNote), Path("/folder") to listOf(secondNote)),
+                mapOf(Path.root to listOf(firstNote), Path to "/folder" to listOf(secondNote)),
                 rule.repository.getNotes()
             )
         }

@@ -14,7 +14,7 @@ abstract class Register {
         color: Color = Color.values().random()
     ): String {
         val id = UUID.randomUUID().toString()
-        val path = Path(path)
+        val path = Path to path
         val note = Note(id, path, title, body, color)
         onRegister(note)
         return id
