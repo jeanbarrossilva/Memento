@@ -1,5 +1,6 @@
 package com.jeanbarrossilva.memento.platform.register
 
+import com.jeanbarrossilva.memento.core.register.domain.Path
 import com.jeanbarrossilva.memento.platform.register.rule.RegisterTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -18,9 +19,13 @@ internal class RoomRepositoryTests {
         runTest {
             val firstNoteID = rule.register.register("1st title", body = "1st body")
             val firstNote = rule.repository.getNoteByID(firstNoteID)
-            val secondNoteID = rule.register.register("2nd title", body = "2nd body")
+            val secondNoteID =
+                rule.register.register("2nd title", path = "/folder", body = "2nd body")
             val secondNote = rule.repository.getNoteByID(secondNoteID)
-            assertEquals(listOfNotNull(firstNote, secondNote), rule.repository.getNotes())
+            assertEquals(
+                mapOf(Path.root to listOf(firstNote), Path("/folder") to listOf(secondNote)),
+                rule.repository.getNotes()
+            )
         }
     }
 
