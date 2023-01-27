@@ -20,7 +20,7 @@ internal class EditorTests {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun setUp() {
         runTest {
-            noteID = register.register("Title", "Body", Color.BLUE)
+            noteID = register.register("Title", body = "Body")
         }
     }
 

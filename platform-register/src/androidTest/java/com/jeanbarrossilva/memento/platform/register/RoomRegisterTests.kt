@@ -1,6 +1,5 @@
 package com.jeanbarrossilva.memento.platform.register
 
-import com.jeanbarrossilva.memento.core.register.domain.Color
 import com.jeanbarrossilva.memento.platform.register.rule.RegisterTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -17,7 +16,7 @@ internal class RoomRegisterTests {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun register() {
         runTest {
-            val noteID = rule.register.register("Title", "Body", Color.YELLOW)
+            val noteID = rule.register.register("Title", body = "Body")
             assertNotNull(rule.repository.getNoteByID(noteID))
         }
     }
@@ -26,7 +25,7 @@ internal class RoomRegisterTests {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun unregister() {
         runTest {
-            val noteID = rule.register.register("A title", "A body", Color.PURPLE)
+            val noteID = rule.register.register("A title", body = "A body")
             rule.register.unregister(noteID)
             assertNull(rule.repository.getNoteByID(noteID))
         }

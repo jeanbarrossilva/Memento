@@ -19,7 +19,7 @@ internal class RoomEditorTests {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun setUp() {
         runTest {
-            noteID = rule.register.register("Title", "Body", Color.BLUE)
+            noteID = rule.register.register("Title", body = "Body", color = Color.BLUE)
         }
     }
 

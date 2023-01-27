@@ -1,6 +1,5 @@
 package com.jeanbarrossilva.memento.core.register
 
-import com.jeanbarrossilva.memento.core.register.domain.Color
 import com.jeanbarrossilva.memento.core.register.repository.TestRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -27,8 +26,7 @@ internal class RegisterTests {
         runTest {
             val noteID = register.register(
                 title = "Marcus Aurelius",
-                body = "'You don't have to turn it into something.'",
-                Color.BLUE
+                body = "'You don't have to turn it into something.'"
             )
             assertNotNull(repository.getNoteByID(noteID))
         }
@@ -40,8 +38,7 @@ internal class RegisterTests {
         runTest {
             val noteID = register.register(
                 title = "Seneca",
-                body = "'He who is brave is free.'",
-                Color.PURPLE
+                body = "'He who is brave is free.'"
             )
             register.unregister(noteID)
             assertNull(repository.getNoteByID(noteID))

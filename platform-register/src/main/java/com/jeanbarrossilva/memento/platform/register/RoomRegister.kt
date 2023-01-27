@@ -15,7 +15,7 @@ internal class RoomRegister(private val dao: NoteDao) : Register() {
     }
 
     override suspend fun onRegister(note: Note) {
-        val entity = NoteEntity(note.id, note.title, note.body, note.color.id)
+        val entity = NoteEntity(note.id, note.path.value, note.title, note.body, note.color.id)
         dao.insert(entity)
     }
 }
