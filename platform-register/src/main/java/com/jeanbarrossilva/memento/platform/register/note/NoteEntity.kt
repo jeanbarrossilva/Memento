@@ -17,7 +17,7 @@ internal data class NoteEntity(
 ) {
     fun toNote(): Note {
         val color = Color.values().first { it.id == colorID }
-        val path = Path to pathValue
+        val path = Path.createInstance(pathValue)
         return Note(id, path, title, body, color)
     }
 }
