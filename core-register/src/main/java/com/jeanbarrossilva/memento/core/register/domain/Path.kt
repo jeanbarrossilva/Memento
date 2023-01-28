@@ -1,7 +1,12 @@
 package com.jeanbarrossilva.memento.core.register.domain
 
+import java.net.URLDecoder
+import java.net.URLEncoder
+
 @JvmInline
 value class Path internal constructor(val value: String) {
+    val name
+        get() = value.replace("$SEPARATOR", "").let(URLDecoder::decode)
     val isRoot
         get() = this == root
 
@@ -25,14 +30,9 @@ value class Path internal constructor(val value: String) {
         val root = Path("$SEPARATOR")
 
         infix fun to(value: String): Path {
-            val bytes = value.toByteArray(charset)
-            val encoded = String(bytes, charset)
-            return Path(encoded)
-        }
-
-        fun decode(value: String): String {
-            val bytes = value.toByteArray(charset)
-            return String(bytes, charset)
+            val encodedSeparator = URLEncoder.encode("$SEPARATOR")
+            val encodedValue = URLEncoder.encode(value).replace(encodedSeparator, "$SEPARATOR")
+            return Path(encodedValue)
         }
     }
 }
