@@ -56,7 +56,7 @@ internal fun Bubble(
 
 @Composable
 private fun Bubble(isSelected: Boolean, modifier: Modifier = Modifier) {
-    Bubble(NoteColors.sample, isSelected, onClick = { }, modifier)
+    Bubble(NoteColors.YELLOW, isSelected, onClick = { }, modifier)
 }
 
 @Composable

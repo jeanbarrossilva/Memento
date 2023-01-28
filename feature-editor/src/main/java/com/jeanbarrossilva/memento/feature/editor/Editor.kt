@@ -12,7 +12,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.component.scaffold.Scaffold
 import com.jeanbarrossilva.aurelius.layout.background.Background
@@ -67,7 +66,6 @@ private fun Editor(
     onSaveRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
     val lazyListState = rememberLazyListState()
     val isToolbarCompact = lazyListState.isScrolling
     val isEditing = editorMode.isEditing()
@@ -76,7 +74,7 @@ private fun Editor(
         is EditorMode.Editing -> onSaveRequest
     }
     var isDeletionConfirmationDialogVisible by remember { mutableStateOf(false) }
-    val focusMode = remember(note) { FocusModeFactory.create(context, lazyListState, note) }
+    val focusMode = remember(note) { FocusModeFactory.create(lazyListState, note) }
 
     DisposableEffect(isToolbarCompact) {
         onColorPickerVisibilityChange(!isToolbarCompact)
@@ -113,7 +111,6 @@ private fun Editor(
             ) {
                 CompositionLocalProvider(LocalContentColor provides note.colors.content) {
                     NoteBody(
-                        editorMode,
                         note,
                         focusMode,
                         onBodyChange,
@@ -155,6 +152,6 @@ private fun ReadingEditorPreview() {
 @Preview
 private fun EditingEditorPreview() {
     AureliusTheme {
-        Editor(EditorMode.Editing(NoteColors.samples))
+        Editor(EditorMode.Editing(isColorPickerVisible = true))
     }
 }

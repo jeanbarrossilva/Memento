@@ -51,17 +51,13 @@ internal fun NoteColorsCarousel(
     val innerShadowAlpha by animateFloatAsState(if (state.isScrolling) 1f else 0f)
 
     AnimatedVisibility(
-        visible = mode.isEditing() && mode.colors != null,
+        visible = mode.isEditing() && mode.isColorPickerVisible,
         enter = slideInVertically(AureliusTheme.animation.spec { fast }) { -it },
         exit = slideOutVertically(AureliusTheme.animation.spec { fast }) { -it }
     ) {
         Box(modifier) {
             NoteColorsCarousel(
                 note,
-                when (mode) {
-                    is EditorMode.Reading -> emptyList()
-                    is EditorMode.Editing -> mode.colors.orEmpty()
-                },
                 onColorsChange,
                 Modifier.onPlaced {
                     if (height.isUnspecified) {
@@ -90,7 +86,6 @@ internal fun NoteColorsCarousel(
 @Composable
 internal fun NoteColorsCarousel(
     note: Note,
-    colors: List<NoteColors>,
     onColorsChange: (colors: NoteColors) -> Unit,
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState()
@@ -100,7 +95,7 @@ internal fun NoteColorsCarousel(
         state,
         horizontalArrangement = Arrangement.spacedBy(AureliusTheme.sizes.spacing.medium)
     ) {
-        items(colors) {
+        items(NoteColors.values()) {
             Bubble(it, isSelected = note.colors == it, onClick = { onColorsChange(it) })
         }
     }
@@ -111,6 +106,6 @@ internal fun NoteColorsCarousel(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun NoteColorsCarouselPreview() {
     AureliusTheme {
-        NoteColorsCarousel(Note.sample, NoteColors.samples, onColorsChange = { })
+        NoteColorsCarousel(Note.sample, onColorsChange = { })
     }
 }

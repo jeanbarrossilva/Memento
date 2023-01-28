@@ -15,7 +15,7 @@ class EditorActivity internal constructor() : ComposableActivity() {
     private val gateway = InMemoryEditorGateway()
     private val noteID by argumentOf<String?>(NOTE_ID_KEY)
     private val viewModel by viewModels<EditorViewModel> {
-        EditorViewModel.createFactory(application, gateway, noteID)
+        EditorViewModel.createFactory(gateway, noteID)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,6 +1,5 @@
 package com.jeanbarrossilva.memento.feature.editor.domain
 
-import android.content.Context
 import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
 
 internal data class Note(
@@ -9,11 +8,11 @@ internal data class Note(
     val colors: NoteColors,
     val lastEditedAt: String
 ) {
-    fun isEmpty(context: Context): Boolean {
-        return this == getEmpty(context)
-    }
+    val isEmpty
+        get() = title.isEmpty() && body.isEmpty()
 
     companion object {
+        val empty = Note(title = "", body = "", NoteColors.values().random(), lastEditedAt = "")
         val sample = Note(
             title = "Marcus Aurelius",
             body = "”The happiness of your life depends upon the quality of your thoughts: " +
@@ -28,12 +27,8 @@ internal data class Note(
                 "which today arm you against the present.”\n\n”Very little is needed to make a " +
                 "happy life; it is all within yourself, in your way of thinking.”\n\n”If it is " +
                 "not right do not do it; if it is not true do not say it.”",
-            NoteColors.sample,
+            NoteColors.YELLOW,
             lastEditedAt = "Edited yesterday, 23:59"
         )
-
-        fun getEmpty(context: Context): Note {
-            return Note(title = "", body = "", NoteColors.getEmpty(context), lastEditedAt = "")
-        }
     }
 }

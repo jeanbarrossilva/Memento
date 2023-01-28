@@ -16,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,13 +30,11 @@ import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 import com.jeanbarrossilva.aurelius.utils.`if`
 import com.jeanbarrossilva.aurelius.utils.plus
 import com.jeanbarrossilva.memento.editor.R
-import com.jeanbarrossilva.memento.feature.editor.domain.EditorMode
 import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.ui.focusmode.FocusMode
 
 @Composable
 internal fun NoteBody(
-    editorMode: EditorMode,
     note: Note,
     focusMode: FocusMode,
     onChange: (body: String) -> Unit,
@@ -45,7 +42,6 @@ internal fun NoteBody(
     isEditing: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     var textFieldValue by remember { mutableStateOf(TextFieldValue(note.body)) }
     val onTextFieldValueChange: (TextFieldValue) -> Unit = remember {
@@ -56,7 +52,6 @@ internal fun NoteBody(
     }
     val focusRequester = remember(::FocusRequester)
     var bottomPadding by remember { mutableStateOf(PaddingValues(0.dp)) }
-    val isNoteEmpty = remember { note.isEmpty(context) }
     val contentColor = remember(note) { note.colors.content }
 
     focusMode.FocusEffect(
@@ -64,8 +59,8 @@ internal fun NoteBody(
         focusRequester,
         textFieldValue,
         onTextFieldValueChange,
-        isNoteEmpty,
-        isFocused = isEditing && !isNoteEmpty
+        note.isEmpty,
+        isFocused = isEditing && !note.isEmpty
     )
 
     KeyboardEffect { keyboard ->
@@ -106,7 +101,6 @@ internal fun NoteBody(
 @Composable
 private fun NoteBody(note: Note, modifier: Modifier = Modifier) {
     NoteBody(
-        EditorMode.Reading,
         note,
         FocusMode.Default,
         onChange = { },

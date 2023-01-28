@@ -11,7 +11,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -34,7 +33,6 @@ internal fun Title(
     onChange: (title: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     var textFieldValue by remember { mutableStateOf(TextFieldValue(note.title)) }
     val onTextFieldValueChange: (TextFieldValue) -> Unit = remember {
@@ -44,15 +42,14 @@ internal fun Title(
         }
     }
     val focusRequester = remember(::FocusRequester)
-    val isNoteEmpty = remember { note.isEmpty(context) }
 
     focusMode.FocusEffect(
         coroutineScope,
         focusRequester,
         textFieldValue,
         onTextFieldValueChange,
-        isNoteEmpty,
-        isFocused = isEditing && isNoteEmpty
+        note.isEmpty,
+        isFocused = isEditing && note.isEmpty
     )
 
     EditableText(

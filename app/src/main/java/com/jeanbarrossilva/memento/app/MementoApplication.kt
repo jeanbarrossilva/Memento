@@ -2,6 +2,7 @@ package com.jeanbarrossilva.memento.app
 
 import android.app.Application
 import com.jeanbarrossilva.memento.app.boundary.boundariesModule
+import com.jeanbarrossilva.memento.feature.editor.editorModule
 import com.jeanbarrossilva.memento.feature.notes.notesModule
 import com.jeanbarrossilva.memento.platform.register.registerModule
 import org.koin.android.ext.koin.androidContext
@@ -16,7 +17,7 @@ class MementoApplication : Application() {
     private fun inject() {
         startKoin {
             androidContext(this@MementoApplication)
-            modules(boundariesModule, notesModule, registerModule)
+            modules(boundariesModule, editorModule, notesModule, registerModule)
         }
     }
 }

@@ -9,9 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.component.scaffold.topappbar.BackButton
 import com.jeanbarrossilva.aurelius.component.scaffold.topappbar.CloseButton
-import com.jeanbarrossilva.aurelius.component.scaffold.topappbar.TopAppBarDefaults as AureliusTopAppBarDefaults
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
+import com.jeanbarrossilva.aurelius.component.scaffold.topappbar.TopAppBarDefaults as AureliusTopAppBarDefaults
 import com.jeanbarrossilva.memento.feature.editor.ui.component.scaffold.topappbar.TopAppBarDefaults as EditorTopAppBarDefaults
 
 @Composable
@@ -40,7 +40,7 @@ internal fun NavigationButton(
 
 @Composable
 private fun NavigationButton(isEditing: Boolean, modifier: Modifier = Modifier) {
-    NavigationButton(NoteColors.sample, isEditing, onClick = { }, modifier)
+    NavigationButton(NoteColors.YELLOW, isEditing, onClick = { }, modifier)
 }
 
 @Composable
