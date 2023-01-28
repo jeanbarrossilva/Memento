@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.jeanbarrossilva.memento.feature.notes.infra.main.folder.CurrentNoteFolderDao
-import com.jeanbarrossilva.memento.feature.notes.infra.main.folder.NoteFolderEntity
+import com.jeanbarrossilva.memento.feature.notes.infra.main.folder.CurrentNoteFolderEntity
 
-@Database(entities = [NoteFolderEntity::class], version = 1)
+@Database(entities = [CurrentNoteFolderEntity::class], version = 1)
 internal abstract class NotesDatabase : RoomDatabase() {
     abstract val dao: CurrentNoteFolderDao
 
