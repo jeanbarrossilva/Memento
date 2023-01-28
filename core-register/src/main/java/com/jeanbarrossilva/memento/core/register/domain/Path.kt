@@ -19,16 +19,20 @@ value class Path internal constructor(val value: String) {
     }
 
     companion object {
-        private val charset = Charsets.UTF_8
-
         internal const val SEPARATOR = '/'
 
+        val charset = Charsets.UTF_8
         val root = Path("$SEPARATOR")
 
         infix fun to(value: String): Path {
             val bytes = value.toByteArray(charset)
             val encoded = String(bytes, charset)
             return Path(encoded)
+        }
+
+        fun decode(value: String): String {
+            val bytes = value.toByteArray(charset)
+            return String(bytes, charset)
         }
     }
 }

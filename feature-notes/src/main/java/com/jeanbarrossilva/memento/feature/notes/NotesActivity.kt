@@ -8,7 +8,9 @@ import org.koin.android.ext.android.inject
 
 internal class NotesActivity : ComposableActivity() {
     private val gateway by inject<NotesGateway>()
-    private val viewModel by viewModels<NotesViewModel> { NotesViewModel.createFactory(gateway) }
+    private val viewModel by viewModels<NotesViewModel> {
+        NotesViewModel.createFactory(application, gateway)
+    }
     private val boundary by inject<NotesBoundary>()
 
     @Composable

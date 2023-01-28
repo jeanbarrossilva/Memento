@@ -1,6 +1,7 @@
 package com.jeanbarrossilva.memento.feature.notes
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.jeanbarrossilva.aurelius.utils.flowOf
@@ -12,8 +13,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-internal class NotesViewModel(private val gateway: NotesGateway) : ViewModel() {
-    private val defaultFolder = flowOf(NoteFolder.empty) { emit(gateway.getDefaultFolder()) }
+internal class NotesViewModel(application: Application, private val gateway: NotesGateway) :
+    AndroidViewModel(application) {
+    private val defaultFolder =
+        flowOf(NoteFolder.empty) { emit(gateway.getDefaultFolder(application)) }
     private val folders = flowOf(emptyList()) { emit(gateway.getFolders()) }
     private val notes = flowOf(emptyList()) { emit(gateway.getNotes()) }
 
@@ -37,10 +40,11 @@ internal class NotesViewModel(private val gateway: NotesGateway) : ViewModel() {
     }
 
     companion object {
-        fun createFactory(gateway: NotesGateway): ViewModelProvider.Factory {
+        fun createFactory(application: Application, gateway: NotesGateway):
+            ViewModelProvider.Factory {
             return viewModelFactory {
                 addInitializer(NotesViewModel::class) {
-                    NotesViewModel(gateway)
+                    NotesViewModel(application, gateway)
                 }
             }
         }
