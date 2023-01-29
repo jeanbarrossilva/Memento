@@ -12,6 +12,7 @@ import com.jeanbarrossilva.memento.feature.editor.domain.isEditing
 import com.jeanbarrossilva.memento.feature.editor.infra.EditorGateway
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ internal class EditorViewModel(private val gateway: EditorGateway, private val n
     private val mode = flowOf<EditorMode>(flow { emit(initialMode) }, EditorMode.Reading)
     private val originalNote = flow {
         noteID?.let {
-            emit(gateway.getNoteById(it))
+            emitAll(gateway.getNoteById(it))
         }
     }
     private val editedNote = flowOf(originalNote.filterNotNull(), Note.empty)

@@ -3,14 +3,15 @@ package com.jeanbarrossilva.memento.platform.register.note
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 abstract class NoteDao {
     @Query("SELECT * FROM notes")
-    internal abstract suspend fun selectAll(): List<NoteEntity>
+    internal abstract fun selectAll(): Flow<List<NoteEntity>>
 
     @Query("SELECT * FROM notes WHERE id = :entityID")
-    internal abstract suspend fun selectByID(entityID: String): NoteEntity?
+    internal abstract fun selectByID(entityID: String): Flow<NoteEntity?>
 
     @Insert
     internal abstract suspend fun insert(entity: NoteEntity)

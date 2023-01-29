@@ -39,7 +39,8 @@ buildscript {
                     junit: '1.1.5'
                 ],
                 runner: '1.5.2'
-            ]
+            ],
+            turbine: '0.12.1'
         ]
     }
 }

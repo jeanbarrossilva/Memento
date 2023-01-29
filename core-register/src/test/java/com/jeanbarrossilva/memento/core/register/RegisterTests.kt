@@ -1,5 +1,6 @@
 package com.jeanbarrossilva.memento.core.register
 
+import app.cash.turbine.test
 import com.jeanbarrossilva.memento.core.register.repository.TestRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -28,7 +29,7 @@ internal class RegisterTests {
                 title = "Marcus Aurelius",
                 body = "'You don't have to turn it into something.'"
             )
-            assertNotNull(repository.getNoteByID(noteID))
+            repository.getNoteByID(noteID).test { assertNotNull(awaitItem()) }
         }
     }
 
@@ -41,7 +42,7 @@ internal class RegisterTests {
                 body = "'He who is brave is free.'"
             )
             register.unregister(noteID)
-            assertNull(repository.getNoteByID(noteID))
+            repository.getNoteByID(noteID).test { assertNull(awaitItem()) }
         }
     }
 }

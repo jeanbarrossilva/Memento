@@ -13,4 +13,5 @@ dependencies {
 
     testImplementation libraries.kotlin.test
     testImplementation libraries.kotlinx.coroutines.test
+    testImplementation libraries.turbine
 }

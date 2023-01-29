@@ -6,16 +6,15 @@ import com.jeanbarrossilva.memento.core.register.repository.TestRepository
 
 internal class TestRegister(private val repository: TestRepository) : Register() {
     override suspend fun onRegister(note: Note) {
-        repository.notes.add(note)
+        repository.notes.value = repository.notes.value + note
     }
 
     override suspend fun unregister(noteID: String) {
-        repository.notes.removeIf {
-            it.id == noteID
-        }
+        val notes = repository.notes.value
+        notes.find { it.id == noteID }?.let { repository.notes.value = notes - it }
     }
 
     override suspend fun unregisterAll() {
-        repository.notes.clear()
+        repository.notes.value = emptyList()
     }
 }

@@ -1,5 +1,6 @@
 package com.jeanbarrossilva.memento.core.register.editor
 
+import app.cash.turbine.test
 import com.jeanbarrossilva.memento.core.register.TestRegister
 import com.jeanbarrossilva.memento.core.register.domain.Color
 import com.jeanbarrossilva.memento.core.register.repository.TestRepository
@@ -37,7 +38,7 @@ internal class EditorTests {
     fun `GIVEN a note WHEN setting its title THEN it's set`() {
         runTest {
             editor.setTitle(noteID, "New title")
-            assertEquals(repository.getNoteByID(noteID)?.title, "New title")
+            repository.getNoteByID(noteID).test { assertEquals("New title", awaitItem()?.title) }
         }
     }
 
@@ -46,7 +47,7 @@ internal class EditorTests {
     fun `GIVEN a note WHEN setting its body THEN it's set`() {
         runTest {
             editor.setBody(noteID, "New body")
-            assertEquals(repository.getNoteByID(noteID)?.body, "New body")
+            repository.getNoteByID(noteID).test { assertEquals("New body", awaitItem()?.body) }
         }
     }
 
@@ -55,7 +56,7 @@ internal class EditorTests {
     fun `GIVEN a note WHEN setting its color THEN it's set`() {
         runTest {
             editor.setColor(noteID, Color.YELLOW)
-            assertEquals(repository.getNoteByID(noteID)?.color, Color.YELLOW)
+            repository.getNoteByID(noteID).test { assertEquals(Color.YELLOW, awaitItem()?.color) }
         }
     }
 }

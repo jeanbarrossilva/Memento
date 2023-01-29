@@ -12,19 +12,17 @@ import com.jeanbarrossilva.memento.feature.notes.infra.NotesGateway
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.emitAll
 
 internal class NotesViewModel(application: Application, private val gateway: NotesGateway) :
     AndroidViewModel(application) {
     private val defaultFolder =
         flowOf(NoteFolder.empty) { emit(gateway.getDefaultFolder(application)) }
-    private val folders = flowOf(emptyList()) { emit(gateway.getFolders()) }
-    private val notes = flowOf(emptyList()) { emit(gateway.getNotes()) }
+    private val folders = flowOf(emptyList()) { emitAll(gateway.getFolders()) }
+    private val notes = flowOf(emptyList()) { emitAll(gateway.getNotes()) }
 
-    val currentFolder = flowOf<NoteFolder?>(defaultFolder, NoteFolder.empty) {
-        gateway.getCurrentFolder()?.let {
-            emit(it)
-        }
-    }
+    val currentFolder =
+        flowOf<NoteFolder?>(defaultFolder, NoteFolder.empty) { emitAll(gateway.getCurrentFolder()) }
     val selection = MutableStateFlow<Selection>(Selection.Off)
 
     fun getDefaultFolder(): StateFlow<NoteFolder> {

@@ -8,14 +8,18 @@ import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
 import com.jeanbarrossilva.memento.feature.editor.infra.EditorGateway
 import com.jeanbarrossilva.memento.feature.editor.utils.adapt
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 internal class MainEditorGateway(
     private val repository: Repository,
     private val register: Register,
     private val editor: Editor
 ) : EditorGateway {
-    override suspend fun getNoteById(noteID: String): Note? {
-        return repository.getNoteByID(noteID)?.adapt()
+    override suspend fun getNoteById(noteID: String): Flow<Note?> {
+        return repository.getNoteByID(noteID).map {
+            it?.adapt()
+        }
     }
 
     override suspend fun save(noteID: String?, title: String, body: String, colors: NoteColors) {

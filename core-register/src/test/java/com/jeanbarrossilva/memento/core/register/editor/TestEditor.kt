@@ -26,8 +26,15 @@ internal class TestEditor(private val repository: TestRepository) : Editor {
     }
 
     private fun edit(noteID: String, edit: Note.() -> Note) {
-        repository.notes.replaceBy(edit) {
-            it.id == noteID
-        }
+        repository.notes.value = repository
+            .notes
+            .value
+            .toMutableList()
+            .apply {
+                replaceBy(edit) {
+                    it.id == noteID
+                }
+            }
+            .toList()
     }
 }

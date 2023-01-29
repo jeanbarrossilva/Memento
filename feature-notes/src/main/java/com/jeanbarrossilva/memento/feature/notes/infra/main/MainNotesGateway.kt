@@ -11,6 +11,9 @@ import com.jeanbarrossilva.memento.feature.notes.infra.main.folder.CurrentNoteFo
 import com.jeanbarrossilva.memento.feature.notes.utils.toNoteFolder
 import com.jeanbarrossilva.memento.feature.notes.utils.toNoteFolderEntity
 import com.jeanbarrossilva.memento.notes.R
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
 
 internal class MainNotesGateway(
     private val repository: Repository,
@@ -21,25 +24,35 @@ internal class MainNotesGateway(
         return NoteFolder(Path.root.value, title)
     }
 
-    override suspend fun getFolders(): List<NoteFolder> {
-        return repository.getNotes().keys.map {
-            it.toNoteFolder()
+    override suspend fun getFolders(): Flow<List<NoteFolder>> {
+        return repository.getNotes().map { map ->
+            map.keys.map { paths ->
+                paths.toNoteFolder()
+            }
         }
     }
 
-    override suspend fun getCurrentFolder(): NoteFolder? {
-        return currentNoteFolderDao.select()?.toNoteFolder()
+    override suspend fun getCurrentFolder(): Flow<NoteFolder?> {
+        return currentNoteFolderDao.select().map {
+            it?.toNoteFolder()
+        }
     }
 
     override suspend fun setCurrentFolder(currentFolder: NoteFolder) {
         val entity = currentFolder.toNoteFolderEntity()
-        currentNoteFolderDao.select()?.pathValue?.let { currentNoteFolderDao.delete(it) }
+        currentNoteFolderDao
+            .select()
+            .filterNotNull()
+            .map { it.pathValue }
+            .collect(currentNoteFolderDao::delete)
         currentNoteFolderDao.insert(entity)
     }
 
-    override suspend fun getNotes(): List<Note> {
-        return repository.getNotes().values.flatten().map {
-            it.adapt()
+    override suspend fun getNotes(): Flow<List<Note>> {
+        return repository.getNotes().map { map ->
+            map.values.flatten().map {
+                it.adapt()
+            }
         }
     }
 }
