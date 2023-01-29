@@ -11,6 +11,6 @@ import androidx.compose.ui.unit.TextUnit
  **/
 internal fun TextUnit.toDp(density: Density): Dp {
     return with(density) {
-        toDp()
+        if (isSp) toDp() else Dp.Unspecified
     }
 }

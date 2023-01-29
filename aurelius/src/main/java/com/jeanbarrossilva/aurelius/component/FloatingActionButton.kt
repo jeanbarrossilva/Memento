@@ -15,9 +15,13 @@ import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
-import com.jeanbarrossilva.aurelius.component.FloatingActionButton as _FloatingActionButton
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
+import com.jeanbarrossilva.aurelius.component.FloatingActionButton as _FloatingActionButton
+
+/** Tag that identifies the [FloatingActionButton] for testing purposes. **/
+const val FLOATING_ACTION_BUTTON_TAG = "floating_action_button"
 
 @Composable
 fun FloatingActionButton(
@@ -37,7 +41,7 @@ fun FloatingActionButton(
     ) {
         FloatingActionButton(
             onClick,
-            modifier,
+            modifier.testTag(FLOATING_ACTION_BUTTON_TAG),
             containerColor = containerColor,
             contentColor = contentColor,
             content = content

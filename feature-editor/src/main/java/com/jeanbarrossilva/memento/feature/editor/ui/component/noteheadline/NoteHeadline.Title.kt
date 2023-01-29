@@ -11,6 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -24,6 +25,8 @@ import com.jeanbarrossilva.memento.editor.R
 import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.ui.focusmode.FocusMode
 import com.jeanbarrossilva.memento.feature.editor.utils.without
+
+internal const val NOTE_HEADLINE_TITLE_TAG = "note_headline_title"
 
 @Composable
 internal fun Title(
@@ -56,7 +59,9 @@ internal fun Title(
         textFieldValue,
         onTextFieldValueChange,
         isActive = isEditing,
-        modifier.focusRequester(focusRequester),
+        modifier
+            .testTag(NOTE_HEADLINE_TITLE_TAG)
+            .focusRequester(focusRequester),
         ImeAction.Next,
         EditableTextDefaults.colors(text = note.colors.content)
     ) {

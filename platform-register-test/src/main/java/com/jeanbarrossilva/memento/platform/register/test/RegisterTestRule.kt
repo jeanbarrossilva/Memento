@@ -3,6 +3,9 @@ package com.jeanbarrossilva.memento.platform.register.test
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
+import com.jeanbarrossilva.memento.core.register.infra.Editor
+import com.jeanbarrossilva.memento.core.register.infra.Register
+import com.jeanbarrossilva.memento.core.register.infra.Repository
 import com.jeanbarrossilva.memento.platform.register.RegisterDatabase
 import com.jeanbarrossilva.memento.platform.register.RoomEditor
 import com.jeanbarrossilva.memento.platform.register.RoomRegister
@@ -14,11 +17,11 @@ import org.junit.rules.ExternalResource
 class RegisterTestRule : ExternalResource() {
     private lateinit var database: RegisterDatabase
 
-    lateinit var repository: RoomRepository
+    lateinit var repository: Repository
         private set
-    lateinit var register: RoomRegister
+    lateinit var register: Register
         private set
-    lateinit var editor: RoomEditor
+    lateinit var editor: Editor
         private set
 
     override fun before() {

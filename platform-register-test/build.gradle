@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.jeanbarrossilva.memento.platform.register'
+    namespace 'com.jeanbarrossilva.memento.platform.register.test'
     compileSdk versions.memento.sdk.compile
 
     defaultConfig {

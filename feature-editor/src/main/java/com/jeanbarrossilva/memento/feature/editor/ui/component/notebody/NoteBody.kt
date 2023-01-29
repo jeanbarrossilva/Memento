@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +33,8 @@ import com.jeanbarrossilva.aurelius.utils.plus
 import com.jeanbarrossilva.memento.editor.R
 import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.ui.focusmode.FocusMode
+
+internal const val NOTE_BODY_TAG = "note_body"
 
 @Composable
 internal fun NoteBody(
@@ -83,6 +86,7 @@ internal fun NoteBody(
                 onTextFieldValueChange,
                 isActive = isEditing,
                 Modifier
+                    .testTag(NOTE_BODY_TAG)
                     .fillMaxWidth()
                     .`if`(note.body.isBlank(), Modifier::fillMaxHeight)
                     .focusRequester(focusRequester),

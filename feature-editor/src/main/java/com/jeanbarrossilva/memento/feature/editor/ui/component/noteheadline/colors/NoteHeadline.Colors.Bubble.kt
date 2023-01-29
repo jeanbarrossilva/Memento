@@ -15,6 +15,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
@@ -23,6 +24,10 @@ import androidx.compose.ui.unit.dp
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 import com.jeanbarrossilva.memento.editor.R
 import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
+
+internal fun noteHeadlineColorBubbleTagFor(colors: NoteColors): String {
+    return "note_headline_colors_bubble_${colors.name.lowercase()}"
+}
 
 @Composable
 internal fun Bubble(
@@ -36,6 +41,7 @@ internal fun Bubble(
     ) {
         Box(
             modifier
+                .testTag(noteHeadlineColorBubbleTagFor(colors))
                 .semantics { selected = isSelected }
                 .requiredSize(42.dp)
                 .clip(CircleShape)

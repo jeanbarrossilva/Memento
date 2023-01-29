@@ -70,9 +70,8 @@ internal class EditorViewModel(private val gateway: EditorGateway, private val n
     }
 
     fun save() {
-        viewModelScope.launch {
-            gateway.save(noteID, getEditedNote().value.title, getEditedNote().value.body)
-        }
+        val note = getEditedNote().value
+        viewModelScope.launch { gateway.save(noteID, note.title, note.body, note.colors) }
         mode.value = EditorMode.Reading
     }
 
