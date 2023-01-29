@@ -5,7 +5,7 @@ import com.jeanbarrossilva.memento.core.register.infra.Register
 import com.jeanbarrossilva.memento.platform.register.note.NoteDao
 import com.jeanbarrossilva.memento.platform.register.note.NoteEntity
 
-internal class RoomRegister(private val dao: NoteDao) : Register() {
+class RoomRegister(private val dao: NoteDao) : Register() {
     override suspend fun unregister(noteID: String) {
         dao.delete(noteID)
     }

@@ -1,7 +1,7 @@
 package com.jeanbarrossilva.memento.platform.register
 
 import com.jeanbarrossilva.memento.core.register.domain.Path
-import com.jeanbarrossilva.memento.platform.register.rule.RegisterTestRule
+import com.jeanbarrossilva.memento.platform.register.test.RegisterTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

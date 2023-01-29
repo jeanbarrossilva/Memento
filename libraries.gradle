@@ -57,6 +57,9 @@ buildscript {
             room: "androidx.room:room-ktx:${versions.room}",
             test: [
                 core: "androidx.test:core-ktx:${versions.test.core}",
+                ext: [
+                    junit: "androidx.test.ext:junit-ktx:${versions.test.ext.junit}"
+                ],
                 runner: "androidx.test:runner:${versions.test.runner}"
             ]
         ]

@@ -4,7 +4,7 @@ import com.jeanbarrossilva.memento.core.register.domain.Color
 import com.jeanbarrossilva.memento.core.register.infra.Editor
 import com.jeanbarrossilva.memento.platform.register.note.NoteDao
 
-internal class RoomEditor(private val dao: NoteDao) : Editor {
+class RoomEditor(private val dao: NoteDao) : Editor {
     override suspend fun setTitle(noteID: String, title: String) {
         dao.updateTitle(noteID, title)
     }

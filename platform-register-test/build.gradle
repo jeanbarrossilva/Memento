@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.android'
 }
 
@@ -35,14 +34,9 @@ android {
 }
 
 dependencies {
-    kapt _plugins.room
-
     implementation project(':core-register')
-    implementation libraries.koin
+    implementation project(':platform-register')
+    implementation libraries.kotlinx.coroutines.test
+    implementation libraries.test.ext.junit
     implementation libraries.room
-
-    androidTestImplementation project(':platform-register-test')
-    androidTestImplementation libraries.kotlinx.coroutines.test
-    androidTestImplementation libraries.test.core
-    androidTestImplementation libraries.test.runner
 }

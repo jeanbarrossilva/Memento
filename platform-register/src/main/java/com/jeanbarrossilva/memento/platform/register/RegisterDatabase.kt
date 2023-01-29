@@ -8,13 +8,13 @@ import com.jeanbarrossilva.memento.platform.register.note.NoteDao
 import com.jeanbarrossilva.memento.platform.register.note.NoteEntity
 
 @Database(entities = [NoteEntity::class], version = 1)
-abstract class RegisterDatabase : RoomDatabase() {
-    internal abstract val dao: NoteDao
+abstract class RegisterDatabase internal constructor() : RoomDatabase() {
+    abstract val dao: NoteDao
 
     companion object {
         private lateinit var instance: RegisterDatabase
 
-        fun getInstance(context: Context): RegisterDatabase {
+        internal fun getInstance(context: Context): RegisterDatabase {
             return if (this::instance.isInitialized) {
                 instance
             } else {

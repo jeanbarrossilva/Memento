@@ -5,28 +5,28 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-internal interface NoteDao {
+abstract class NoteDao {
     @Query("SELECT * FROM notes")
-    suspend fun selectAll(): List<NoteEntity>
+    internal abstract suspend fun selectAll(): List<NoteEntity>
 
     @Query("SELECT * FROM notes WHERE id = :entityID")
-    suspend fun selectByID(entityID: String): NoteEntity?
+    internal abstract suspend fun selectByID(entityID: String): NoteEntity?
 
     @Insert
-    suspend fun insert(entity: NoteEntity)
+    internal abstract suspend fun insert(entity: NoteEntity)
 
     @Query("UPDATE notes SET title = :title WHERE id = :entityID")
-    suspend fun updateTitle(entityID: String, title: String)
+    internal abstract suspend fun updateTitle(entityID: String, title: String)
 
     @Query("UPDATE notes SET body = :body WHERE id = :entityID")
-    suspend fun updateBody(entityID: String, body: String)
+    internal abstract suspend fun updateBody(entityID: String, body: String)
 
     @Query("UPDATE notes SET color_id = :colorID WHERE id = :entityID")
-    suspend fun updateColorID(entityID: String, colorID: String)
+    internal abstract suspend fun updateColorID(entityID: String, colorID: String)
 
     @Query("DELETE FROM notes WHERE id = :entityID")
-    suspend fun delete(entityID: String)
+    internal abstract suspend fun delete(entityID: String)
 
     @Query("DELETE FROM notes")
-    suspend fun deleteAll()
+    internal abstract suspend fun deleteAll()
 }

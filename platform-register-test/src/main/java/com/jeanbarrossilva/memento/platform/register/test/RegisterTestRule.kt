@@ -1,4 +1,4 @@
-package com.jeanbarrossilva.memento.platform.register.rule
+package com.jeanbarrossilva.memento.platform.register.test
 
 import android.content.Context
 import androidx.room.Room
@@ -11,7 +11,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.rules.ExternalResource
 
-internal class RegisterTestRule : ExternalResource() {
+class RegisterTestRule : ExternalResource() {
     private lateinit var database: RegisterDatabase
 
     lateinit var repository: RoomRepository
