@@ -1,6 +1,5 @@
 package com.jeanbarrossilva.memento.platform.register
 
-import com.jeanbarrossilva.memento.core.register.domain.Folder
 import com.jeanbarrossilva.memento.core.register.domain.Note
 import com.jeanbarrossilva.memento.core.register.infra.Repository
 import com.jeanbarrossilva.memento.platform.register.note.NoteDao
@@ -9,9 +8,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class RoomRepository(private val dao: NoteDao) : Repository {
-    override suspend fun getNotes(): Flow<Map<Folder?, List<Note>>> {
+    override suspend fun getNotes(): Flow<List<Note>> {
         return dao.selectAll().map {
-            it.map(NoteEntity::toNote).groupBy(Note::folder)
+            it.map(NoteEntity::toNote)
         }
     }
 
