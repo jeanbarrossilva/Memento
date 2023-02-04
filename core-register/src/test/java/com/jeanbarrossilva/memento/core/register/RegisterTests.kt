@@ -37,10 +37,7 @@ internal class RegisterTests {
     @OptIn(ExperimentalCoroutinesApi::class)
     fun `GIVEN a note WHEN unregistering it THEN it's unregistered`() {
         runTest {
-            val noteID = register.register(
-                title = "Seneca",
-                body = "'He who is brave is free.'"
-            )
+            val noteID = register.register(title = "Seneca", body = "'He who is brave is free.'")
             register.unregister(noteID)
             repository.getNoteByID(noteID).test { assertNull(awaitItem()) }
         }

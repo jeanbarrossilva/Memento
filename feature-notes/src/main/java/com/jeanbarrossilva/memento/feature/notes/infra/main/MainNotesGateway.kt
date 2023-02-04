@@ -1,7 +1,7 @@
 package com.jeanbarrossilva.memento.feature.notes.infra.main
 
 import android.content.Context
-import com.jeanbarrossilva.memento.core.register.domain.Path
+import com.jeanbarrossilva.memento.core.register.domain.Folder
 import com.jeanbarrossilva.memento.core.register.infra.Repository
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
 import com.jeanbarrossilva.memento.feature.notes.domain.note.NoteFolder
@@ -21,13 +21,13 @@ internal class MainNotesGateway(
 ) : NotesGateway {
     override suspend fun getDefaultFolder(context: Context): NoteFolder {
         val title = context.getString(R.string.feature_notes)
-        return NoteFolder(Path.root.value, title)
+        return Folder.titled(title).toNoteFolder()
     }
 
-    override suspend fun getFolders(): Flow<List<NoteFolder>> {
+    override suspend fun getFolders(context: Context): Flow<List<NoteFolder>> {
         return repository.getNotes().map { map ->
-            map.keys.map { paths ->
-                paths.toNoteFolder()
+            map.keys.map { folder ->
+                folder?.toNoteFolder() ?: getDefaultFolder(context)
             }
         }
     }
@@ -43,7 +43,7 @@ internal class MainNotesGateway(
         currentNoteFolderDao
             .select()
             .filterNotNull()
-            .map { it.pathValue }
+            .map { it.path }
             .collect(currentNoteFolderDao::delete)
         currentNoteFolderDao.insert(entity)
     }

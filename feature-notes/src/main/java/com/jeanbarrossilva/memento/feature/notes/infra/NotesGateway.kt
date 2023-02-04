@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 internal interface NotesGateway {
     suspend fun getDefaultFolder(context: Context): NoteFolder
 
-    suspend fun getFolders(): Flow<List<NoteFolder>>
+    suspend fun getFolders(context: Context): Flow<List<NoteFolder>>
 
     suspend fun getCurrentFolder(): Flow<NoteFolder?>
 

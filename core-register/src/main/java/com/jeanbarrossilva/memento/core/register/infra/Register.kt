@@ -1,21 +1,19 @@
 package com.jeanbarrossilva.memento.core.register.infra
 
 import com.jeanbarrossilva.memento.core.register.domain.Color
+import com.jeanbarrossilva.memento.core.register.domain.Folder
 import com.jeanbarrossilva.memento.core.register.domain.Note
-import com.jeanbarrossilva.memento.core.register.domain.Path
 import java.util.UUID
 
 abstract class Register {
-    @Suppress("NAME_SHADOWING")
     suspend fun register(
         title: String,
-        path: String = Path.root.value,
+        folder: Folder? = null,
         body: String = "",
         color: Color = Color.values().random()
     ): String {
         val id = UUID.randomUUID().toString()
-        val path = Path.createInstance(path)
-        val note = Note(id, path, title, body, color)
+        val note = Note(id, folder, title, body, color)
         onRegister(note)
         return id
     }

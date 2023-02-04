@@ -13,6 +13,6 @@ internal interface CurrentNoteFolderDao {
     @Insert
     suspend fun insert(entity: CurrentNoteFolderEntity)
 
-    @Query("DELETE FROM current_folders WHERE path_value = :pathValue")
-    suspend fun delete(pathValue: String)
+    @Query("DELETE FROM current_folders WHERE path = :path")
+    suspend fun delete(path: String)
 }

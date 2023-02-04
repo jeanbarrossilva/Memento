@@ -18,7 +18,7 @@ internal class NotesViewModel(application: Application, private val gateway: Not
     AndroidViewModel(application) {
     private val defaultFolder =
         flowOf(NoteFolder.empty) { emit(gateway.getDefaultFolder(application)) }
-    private val folders = flowOf(emptyList()) { emitAll(gateway.getFolders()) }
+    private val folders = flowOf(emptyList()) { emitAll(gateway.getFolders(application)) }
     private val notes = flowOf(emptyList()) { emitAll(gateway.getNotes()) }
 
     val currentFolder =
