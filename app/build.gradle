@@ -47,5 +47,6 @@ dependencies {
     implementation project(':aurelius')
     implementation project(':feature-editor')
     implementation project(':feature-notes')
+    implementation project(':platform-register')
     implementation libraries.koin
 }

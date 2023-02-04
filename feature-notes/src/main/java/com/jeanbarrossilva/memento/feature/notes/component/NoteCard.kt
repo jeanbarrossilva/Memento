@@ -146,11 +146,11 @@ internal fun NoteCard(
                 elevation,
                 shape,
                 clip = false,
-                ambientColor = note.colors.end,
-                spotColor = note.colors.start
+                ambientColor = note.gradient.end,
+                spotColor = note.gradient.start
             )
             .clip(shape)
-            .background(Brush.linearGradient(listOf(note.colors.start, note.colors.end)))
+            .background(Brush.linearGradient(listOf(note.gradient.start, note.gradient.end)))
             .padding(AureliusTheme.sizes.spacing.huge),
         Arrangement.spacedBy(AureliusTheme.sizes.spacing.large)
     ) {

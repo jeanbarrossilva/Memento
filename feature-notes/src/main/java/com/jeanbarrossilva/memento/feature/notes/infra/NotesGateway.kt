@@ -1,16 +1,13 @@
 package com.jeanbarrossilva.memento.feature.notes.infra
 
+import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
-import com.jeanbarrossilva.memento.feature.notes.domain.note.NoteFolder
+import kotlinx.coroutines.flow.Flow
 
 internal interface NotesGateway {
-    suspend fun getDefaultFolder(): NoteFolder
+    suspend fun getCurrentFolder(): Flow<Folder?>
 
-    suspend fun getFolders(): List<NoteFolder>
+    suspend fun setCurrentFolder(currentFolder: Folder)
 
-    suspend fun getCurrentFolder(): NoteFolder?
-
-    suspend fun setCurrentFolder(currentFolder: NoteFolder)
-
-    suspend fun getNotes(): List<Note>
+    suspend fun getNotes(): Flow<List<Note>>
 }

@@ -1,7 +1,6 @@
 package com.jeanbarrossilva.memento.feature.editor
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -13,21 +12,22 @@ import com.jeanbarrossilva.memento.feature.editor.domain.isEditing
 import com.jeanbarrossilva.memento.feature.editor.infra.EditorGateway
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
-internal class EditorViewModel(
-    application: Application,
-    private val gateway: EditorGateway,
-    private val noteID: String?
-) : AndroidViewModel(application) {
-    private val mode = flowOf<EditorMode>(flow { emit(getInitialMode()) }, EditorMode.Reading)
+internal class EditorViewModel(private val gateway: EditorGateway, private val noteID: String?) :
+    ViewModel() {
+    private val initialMode =
+        noteID?.let { EditorMode.Reading } ?: EditorMode.Editing()
+    private val mode = flowOf<EditorMode>(flow { emit(initialMode) }, EditorMode.Reading)
     private val originalNote = flow {
         noteID?.let {
-            emit(gateway.getNoteById(it))
+            emitAll(gateway.getNoteById(it))
         }
     }
-    private val editedNote = flowOf(originalNote, Note.getEmpty(application))
+    private val editedNote = flowOf(originalNote.filterNotNull(), Note.empty)
 
     fun getMode(): StateFlow<EditorMode> {
         return mode.asStateFlow()
@@ -39,7 +39,7 @@ internal class EditorViewModel(
 
     fun edit() {
         viewModelScope.launch {
-            mode.value = getEditingMode()
+            mode.value = EditorMode.Editing()
         }
     }
 
@@ -47,9 +47,7 @@ internal class EditorViewModel(
         viewModelScope.launch {
             val currentMode = getMode().value
             if (currentMode.isEditing()) {
-                mode.value = currentMode.copy(
-                    colors = if (isColorPickerVisible) gateway.getColors() else null
-                )
+                mode.value = currentMode.copy(isColorPickerVisible)
             }
         }
     }
@@ -73,19 +71,9 @@ internal class EditorViewModel(
     }
 
     fun save() {
-        viewModelScope.launch {
-            gateway.save(noteID, getEditedNote().value.title, getEditedNote().value.body)
-        }
+        val note = getEditedNote().value
+        viewModelScope.launch { gateway.save(noteID, note.title, note.body, note.colors) }
         mode.value = EditorMode.Reading
-    }
-
-    private suspend fun getInitialMode(): EditorMode {
-        return noteID?.let { EditorMode.Reading } ?: getEditingMode()
-    }
-
-    private suspend fun getEditingMode(): EditorMode.Editing {
-        val colors = gateway.getColors()
-        return EditorMode.Editing(colors)
     }
 
     private fun edit(edit: Note.() -> Note) {
@@ -93,11 +81,11 @@ internal class EditorViewModel(
     }
 
     companion object {
-        fun createFactory(application: Application, gateway: EditorGateway, noteID: String?):
+        fun createFactory(gateway: EditorGateway, noteID: String?):
             ViewModelProvider.Factory {
             return viewModelFactory {
                 addInitializer(EditorViewModel::class) {
-                    EditorViewModel(application, gateway, noteID)
+                    EditorViewModel(gateway, noteID)
                 }
             }
         }

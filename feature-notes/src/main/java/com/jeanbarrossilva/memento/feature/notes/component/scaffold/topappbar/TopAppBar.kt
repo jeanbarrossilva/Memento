@@ -14,16 +14,15 @@ import com.jeanbarrossilva.aurelius.layout.background.Background
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
 import com.jeanbarrossilva.memento.feature.notes.domain.Selection
 import com.jeanbarrossilva.memento.feature.notes.domain.ifOn
+import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
-import com.jeanbarrossilva.memento.feature.notes.domain.note.NoteFolder
-import com.jeanbarrossilva.memento.feature.notes.domain.note.orEmpty
 import com.jeanbarrossilva.memento.notes.R
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun TopAppBar(
     isCompact: Boolean,
-    currentFolder: NoteFolder?,
+    currentFolder: Folder?,
     noteCount: Int,
     selection: Selection,
     onNavigationRequest: () -> Unit,
@@ -45,7 +44,7 @@ internal fun TopAppBar(
     TopAppBar(
         isCompact,
         navigationButton = { MenuButton(onClick = onNavigationRequest) },
-        title = { Text(currentFolder.orEmpty.title) },
+        title = { Text(currentFolder?.title.orEmpty()) },
         modifier,
         subtitle = { Text(subtitle) },
         actions = {
@@ -63,7 +62,7 @@ private fun TopAppBar(selection: Selection, modifier: Modifier = Modifier) {
     AureliusTheme {
         TopAppBar(
             isCompact = true,
-            currentFolder = NoteFolder.sample,
+            currentFolder = Folder.sample,
             noteCount = Note.samples.size,
             selection,
             onNavigationRequest = { },

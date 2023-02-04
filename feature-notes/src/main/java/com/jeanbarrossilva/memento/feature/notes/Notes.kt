@@ -25,8 +25,8 @@ import com.jeanbarrossilva.memento.feature.notes.component.scaffold.FloatingActi
 import com.jeanbarrossilva.memento.feature.notes.component.scaffold.menudrawer.MenuDrawer
 import com.jeanbarrossilva.memento.feature.notes.component.scaffold.topappbar.TopAppBar
 import com.jeanbarrossilva.memento.feature.notes.domain.Selection
+import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
-import com.jeanbarrossilva.memento.feature.notes.domain.note.NoteFolder
 import kotlinx.coroutines.launch
 
 @Composable
@@ -36,15 +36,11 @@ internal fun Notes(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
-    val folders by viewModel.getFolders().collectAsState()
-    val defaultFolder by viewModel.getDefaultFolder().collectAsState()
     val currentFolder by viewModel.currentFolder.collectAsState()
     val notes by viewModel.getNotes().collectAsState()
     val selection by viewModel.selection.collectAsState()
 
     Notes(
-        folders,
-        defaultFolder,
         currentFolder,
         onCurrentFolderChange = { viewModel.currentFolder.value = it },
         notes,
@@ -60,10 +56,8 @@ internal fun Notes(
 
 @Composable
 private fun Notes(
-    folders: List<NoteFolder>,
-    defaultFolder: NoteFolder,
-    currentFolder: NoteFolder?,
-    onCurrentFolderChange: (folder: NoteFolder) -> Unit,
+    currentFolder: Folder,
+    onCurrentFolderChange: (currentFolder: Folder) -> Unit,
     notes: List<Note>,
     onNoteClick: (Note) -> Unit,
     selection: Selection,
@@ -76,7 +70,7 @@ private fun Notes(
     val coroutineScope = rememberCoroutineScope()
     val lazyListState = rememberLazyListState()
 
-    MenuDrawer(folders, defaultFolder, currentFolder, onCurrentFolderChange, modifier) {
+    MenuDrawer(notes, currentFolder, onCurrentFolderChange, modifier) {
         TopAppBar(
             isCompact = lazyListState.isScrolling,
             currentFolder,
@@ -129,9 +123,7 @@ private fun Notes(
 private fun NotesPreview() {
     AureliusTheme {
         Notes(
-            NoteFolder.samples,
-            defaultFolder = NoteFolder.sample,
-            currentFolder = NoteFolder.sample,
+            currentFolder = Folder.sample,
             onCurrentFolderChange = { },
             Note.samples,
             onNoteClick = { },

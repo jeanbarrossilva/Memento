@@ -9,13 +9,14 @@ import com.jeanbarrossilva.aurelius.core.ComposableActivity
 import com.jeanbarrossilva.aurelius.utils.argumentOf
 import com.jeanbarrossilva.aurelius.utils.startActivity
 import com.jeanbarrossilva.memento.feature.editor.domain.EditorMode
-import com.jeanbarrossilva.memento.feature.editor.infra.inmemory.InMemoryEditorGateway
+import com.jeanbarrossilva.memento.feature.editor.infra.EditorGateway
+import org.koin.android.ext.android.inject
 
 class EditorActivity internal constructor() : ComposableActivity() {
-    private val gateway = InMemoryEditorGateway()
+    private val gateway by inject<EditorGateway>()
     private val noteID by argumentOf<String?>(NOTE_ID_KEY)
     private val viewModel by viewModels<EditorViewModel> {
-        EditorViewModel.createFactory(application, gateway, noteID)
+        EditorViewModel.createFactory(gateway, noteID)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

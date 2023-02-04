@@ -37,7 +37,7 @@ internal fun FloatingActionButton(
 
 @Composable
 private fun FloatingActionButton(isEditing: Boolean, modifier: Modifier = Modifier) {
-    FloatingActionButton(NoteColors.sample, isEditing, onClick = { }, modifier)
+    FloatingActionButton(NoteColors.YELLOW, isEditing, onClick = { }, modifier)
 }
 
 @Composable

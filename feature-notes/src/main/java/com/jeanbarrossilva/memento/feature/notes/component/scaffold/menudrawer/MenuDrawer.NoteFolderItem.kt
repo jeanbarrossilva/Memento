@@ -12,12 +12,12 @@ import com.jeanbarrossilva.aurelius.component.scaffold.menudrawer.MenuDrawerItem
 import com.jeanbarrossilva.aurelius.layout.background.Background
 import com.jeanbarrossilva.aurelius.layout.background.BackgroundContentSizing
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
-import com.jeanbarrossilva.memento.feature.notes.domain.note.NoteFolder
+import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
 import com.jeanbarrossilva.memento.notes.R
 
 @Composable
 internal fun MenuDrawerItem(
-    folder: NoteFolder,
+    folder: Folder,
     isSelected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -39,7 +39,7 @@ internal fun MenuDrawerItem(
 private fun MenuDrawerItemPreview() {
     AureliusTheme {
         Background(contentSizing = BackgroundContentSizing.WRAP) {
-            MenuDrawerItem(NoteFolder.sample, isSelected = false, onClick = { })
+            MenuDrawerItem(Folder.sample, isSelected = false, onClick = { })
         }
     }
 }

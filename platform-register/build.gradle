@@ -1,0 +1,48 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.jeanbarrossilva.memento.platform.register'
+    compileSdk versions.memento.sdk.compile
+
+    defaultConfig {
+        minSdk versions.memento.sdk.min
+        targetSdk versions.memento.sdk.target
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility versions.java
+        targetCompatibility versions.java
+    }
+
+    kotlinOptions {
+        jvmTarget = versions.java.toString()
+    }
+}
+
+dependencies {
+    kapt _plugins.room
+
+    implementation project(':core-register')
+    implementation libraries.koin
+    implementation libraries.room
+
+    androidTestImplementation project(':platform-register-test')
+    androidTestImplementation libraries.kotlinx.coroutines.test
+    androidTestImplementation libraries.test.core
+    androidTestImplementation libraries.test.runner
+}

@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.android'
 }
 
@@ -42,7 +43,11 @@ android {
 }
 
 dependencies {
+    kapt _plugins.room
+
     implementation project(':aurelius')
+    implementation project(':core-register')
     implementation libraries.compose.material_icons_extended
     implementation libraries.koin
+    implementation libraries.room
 }

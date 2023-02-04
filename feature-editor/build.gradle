@@ -43,5 +43,12 @@ android {
 
 dependencies {
     implementation project(':aurelius')
+    implementation project(':core-register')
     implementation libraries.compose.material
+    implementation libraries.koin
+
+    androidTestImplementation project(':platform-register-test')
+    androidTestImplementation libraries.compose.ui.test.junit4
+    androidTestImplementation libraries.compose.ui.test.manifest
+    androidTestImplementation libraries.test.runner
 }

@@ -2,7 +2,7 @@ package com.jeanbarrossilva.memento.feature.notes.domain.note
 
 import androidx.compose.ui.graphics.Color
 
-internal enum class NoteColors {
+internal enum class Gradient {
     BLUE {
         override val start = Color(0xFFD1ECFF)
         override val end = Color(0xFFA5FFFA)

@@ -11,7 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -26,6 +26,8 @@ import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.ui.focusmode.FocusMode
 import com.jeanbarrossilva.memento.feature.editor.utils.without
 
+internal const val NOTE_HEADLINE_TITLE_TAG = "note_headline_title"
+
 @Composable
 internal fun Title(
     note: Note,
@@ -34,7 +36,6 @@ internal fun Title(
     onChange: (title: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     var textFieldValue by remember { mutableStateOf(TextFieldValue(note.title)) }
     val onTextFieldValueChange: (TextFieldValue) -> Unit = remember {
@@ -44,22 +45,23 @@ internal fun Title(
         }
     }
     val focusRequester = remember(::FocusRequester)
-    val isNoteEmpty = remember { note.isEmpty(context) }
 
     focusMode.FocusEffect(
         coroutineScope,
         focusRequester,
         textFieldValue,
         onTextFieldValueChange,
-        isNoteEmpty,
-        isFocused = isEditing && isNoteEmpty
+        note.isEmpty,
+        isFocused = isEditing && note.isEmpty
     )
 
     EditableText(
         textFieldValue,
         onTextFieldValueChange,
         isActive = isEditing,
-        modifier.focusRequester(focusRequester),
+        modifier
+            .testTag(NOTE_HEADLINE_TITLE_TAG)
+            .focusRequester(focusRequester),
         ImeAction.Next,
         EditableTextDefaults.colors(text = note.colors.content)
     ) {
