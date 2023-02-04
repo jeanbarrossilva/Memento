@@ -3,8 +3,10 @@ package com.jeanbarrossilva.memento.feature.notes.component.scaffold.menudrawer
 import android.content.res.Configuration
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.component.scaffold.menudrawer.MenuDrawer
@@ -12,35 +14,42 @@ import com.jeanbarrossilva.aurelius.component.scaffold.menudrawer.MenuDrawerScop
 import com.jeanbarrossilva.aurelius.component.scaffold.menudrawer.rememberMenuDrawerScope
 import com.jeanbarrossilva.aurelius.layout.background.Background
 import com.jeanbarrossilva.aurelius.theme.AureliusTheme
-import com.jeanbarrossilva.memento.feature.notes.domain.note.NoteFolder
+import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder as _Folder
+import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
 import com.jeanbarrossilva.memento.notes.R
 import kotlinx.coroutines.launch
 
 @Composable
 internal fun MenuDrawer(
-    folders: List<NoteFolder>,
-    defaultFolder: NoteFolder,
-    currentFolder: NoteFolder?,
-    onCurrentFolderChange: (folder: NoteFolder) -> Unit,
+    notes: List<Note>,
+    currentFolder: _Folder,
+    onCurrentFolderChange: (currentFolder: _Folder) -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable MenuDrawerScope.() -> Unit
 ) {
+    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val menuDrawerScope = rememberMenuDrawerScope()
-    val changeCurrentFolderAndClose: (NoteFolder) -> Unit = {
-        onCurrentFolderChange(it)
-        coroutineScope.launch { menuDrawerScope.close() }
+    val defaultFolder = remember { _Folder.getDefault(context) }
+
+    @Suppress("NAME_SHADOWING")
+    val notes = remember(notes) {
+        notes.map { note ->
+            note.folder?.let { note } ?: note.copy(folder = defaultFolder)
+        }
+    }
+
+    val folders = remember(notes) { notes.mapNotNull(Note::folder).toHashSet() }
+    val changeCurrentFolderAndClose: (_Folder) -> Unit = remember {
+        {
+            onCurrentFolderChange(it)
+            coroutineScope.launch { menuDrawerScope.close() }
+        }
     }
 
     MenuDrawer(
         title = { Text(stringResource(R.string.feature_notes_folders)) },
         items = {
-            MenuDrawerItem(
-                defaultFolder,
-                isSelected = currentFolder == defaultFolder,
-                onClick = { changeCurrentFolderAndClose(defaultFolder) }
-            )
-
             folders.forEach {
                 MenuDrawerItem(
                     it,
@@ -61,9 +70,8 @@ internal fun MenuDrawer(
 private fun MenuDrawerPreview() {
     AureliusTheme {
         MenuDrawer(
-            NoteFolder.samples,
-            defaultFolder = NoteFolder.sample,
-            currentFolder = NoteFolder.sample,
+            Note.samples,
+            currentFolder = _Folder.sample,
             onCurrentFolderChange = { }
         ) {
             Background {

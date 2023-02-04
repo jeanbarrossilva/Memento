@@ -1,16 +1,13 @@
 package com.jeanbarrossilva.memento.feature.notes.infra.main
 
-import android.content.Context
-import com.jeanbarrossilva.memento.core.register.domain.Folder
+import com.jeanbarrossilva.memento.core.register.domain.Note
 import com.jeanbarrossilva.memento.core.register.infra.Repository
-import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
-import com.jeanbarrossilva.memento.feature.notes.domain.note.NoteFolder
+import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
+import com.jeanbarrossilva.memento.feature.notes.domain.note.Note as _Note
 import com.jeanbarrossilva.memento.feature.notes.domain.note.adapt
 import com.jeanbarrossilva.memento.feature.notes.infra.NotesGateway
 import com.jeanbarrossilva.memento.feature.notes.infra.main.folder.CurrentNoteFolderDao
-import com.jeanbarrossilva.memento.feature.notes.utils.toNoteFolder
-import com.jeanbarrossilva.memento.feature.notes.utils.toNoteFolderEntity
-import com.jeanbarrossilva.memento.notes.R
+import com.jeanbarrossilva.memento.feature.notes.infra.main.folder.CurrentNoteFolderEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
@@ -19,27 +16,14 @@ internal class MainNotesGateway(
     private val repository: Repository,
     private val currentNoteFolderDao: CurrentNoteFolderDao
 ) : NotesGateway {
-    override suspend fun getDefaultFolder(context: Context): NoteFolder {
-        val title = context.getString(R.string.feature_notes)
-        return Folder.titled(title).toNoteFolder()
-    }
-
-    override suspend fun getFolders(context: Context): Flow<List<NoteFolder>> {
-        return repository.getNotes().map { map ->
-            map.keys.map { folder ->
-                folder?.toNoteFolder() ?: getDefaultFolder(context)
-            }
-        }
-    }
-
-    override suspend fun getCurrentFolder(): Flow<NoteFolder?> {
+    override suspend fun getCurrentFolder(): Flow<Folder?> {
         return currentNoteFolderDao.select().map {
-            it?.toNoteFolder()
+            it?.toFolder()
         }
     }
 
-    override suspend fun setCurrentFolder(currentFolder: NoteFolder) {
-        val entity = currentFolder.toNoteFolderEntity()
+    override suspend fun setCurrentFolder(currentFolder: Folder) {
+        val entity = CurrentNoteFolderEntity(currentFolder.path)
         currentNoteFolderDao
             .select()
             .filterNotNull()
@@ -48,11 +32,9 @@ internal class MainNotesGateway(
         currentNoteFolderDao.insert(entity)
     }
 
-    override suspend fun getNotes(): Flow<List<Note>> {
-        return repository.getNotes().map { map ->
-            map.values.flatten().map {
-                it.adapt()
-            }
+    override suspend fun getNotes(): Flow<List<_Note>> {
+        return repository.getNotes().map {
+            it.map(Note::adapt)
         }
     }
 }

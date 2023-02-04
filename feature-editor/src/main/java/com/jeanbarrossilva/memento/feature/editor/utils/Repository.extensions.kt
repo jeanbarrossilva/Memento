@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.last
 
 /** Gets the last [Note] that's been added to this [Repository]. **/
 internal suspend fun Repository.getLastNote(): Note? {
-    return getNotes().last().values.flatten().lastOrNull()
+    return getNotes().last().lastOrNull()
 }
