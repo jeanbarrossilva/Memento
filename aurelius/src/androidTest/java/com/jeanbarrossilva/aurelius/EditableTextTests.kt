@@ -12,10 +12,10 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextInputSelection
 import androidx.compose.ui.text.TextRange
-import com.jeanbarrossilva.aurelius.component.editabletext.EDITABLE_TEXT_TAG
-import com.jeanbarrossilva.aurelius.component.editabletext.EditableText
-import com.jeanbarrossilva.aurelius.effect.keyboard.Keyboard
-import com.jeanbarrossilva.aurelius.effect.keyboard.KeyboardEffect
+import com.jeanbarrossilva.aurelius.ui.system.keyboard.Keyboard
+import com.jeanbarrossilva.aurelius.ui.system.keyboard.KeyboardEffect
+import com.jeanbarrossilva.aurelius.ui.input.editabletext.EDITABLE_TEXT_TAG
+import com.jeanbarrossilva.aurelius.ui.input.editabletext.EditableText
 import junit.framework.TestCase.assertEquals
 import org.junit.Rule
 import org.junit.Test

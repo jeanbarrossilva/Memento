@@ -13,19 +13,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.jeanbarrossilva.aurelius.component.scaffold.Scaffold
-import com.jeanbarrossilva.aurelius.layout.background.Background
-import com.jeanbarrossilva.aurelius.theme.AureliusTheme
+import com.jeanbarrossilva.aurelius.ui.layout.background.Background
+import com.jeanbarrossilva.aurelius.ui.layout.scaffold.Scaffold
+import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
 import com.jeanbarrossilva.aurelius.utils.isScrolling
 import com.jeanbarrossilva.memento.feature.editor.domain.EditorMode
 import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
 import com.jeanbarrossilva.memento.feature.editor.domain.isEditing
-import com.jeanbarrossilva.memento.feature.editor.ui.DeletionConfirmationDialog
-import com.jeanbarrossilva.memento.feature.editor.ui.component.notebody.NoteBody
-import com.jeanbarrossilva.memento.feature.editor.ui.component.scaffold.FloatingActionButton
-import com.jeanbarrossilva.memento.feature.editor.ui.component.scaffold.topappbar.TopAppBar
-import com.jeanbarrossilva.memento.feature.editor.ui.focusmode.FocusModeFactory
+import com.jeanbarrossilva.memento.feature.editor.ui.dialog.DeletionConfirmationDialog
+import com.jeanbarrossilva.memento.feature.editor.ui.focus.FocusModeFactory
+import com.jeanbarrossilva.memento.feature.editor.ui.input.notebody.NoteBody
+import com.jeanbarrossilva.memento.feature.editor.ui.layout.scaffold.FloatingActionButton
+import com.jeanbarrossilva.memento.feature.editor.ui.layout.scaffold.topappbar.TopAppBar
 
 @Composable
 internal fun Editor(

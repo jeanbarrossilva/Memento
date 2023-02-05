@@ -15,18 +15,18 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.jeanbarrossilva.aurelius.component.scaffold.Scaffold
-import com.jeanbarrossilva.aurelius.layout.background.Background
-import com.jeanbarrossilva.aurelius.theme.AureliusTheme
+import com.jeanbarrossilva.aurelius.ui.layout.background.Background
+import com.jeanbarrossilva.aurelius.ui.layout.scaffold.Scaffold
+import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
 import com.jeanbarrossilva.aurelius.utils.isScrolling
 import com.jeanbarrossilva.aurelius.utils.plus
-import com.jeanbarrossilva.memento.feature.notes.component.NoteCard
-import com.jeanbarrossilva.memento.feature.notes.component.scaffold.FloatingActionButton
-import com.jeanbarrossilva.memento.feature.notes.component.scaffold.menudrawer.MenuDrawer
-import com.jeanbarrossilva.memento.feature.notes.component.scaffold.topappbar.TopAppBar
 import com.jeanbarrossilva.memento.feature.notes.domain.Selection
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
+import com.jeanbarrossilva.memento.feature.notes.ui.actionable.NoteCard
+import com.jeanbarrossilva.memento.feature.notes.ui.layout.scaffold.FloatingActionButton
+import com.jeanbarrossilva.memento.feature.notes.ui.layout.scaffold.menudrawer.MenuDrawer
+import com.jeanbarrossilva.memento.feature.notes.ui.layout.scaffold.topappbar.TopAppBar
 import kotlinx.coroutines.launch
 
 @Composable

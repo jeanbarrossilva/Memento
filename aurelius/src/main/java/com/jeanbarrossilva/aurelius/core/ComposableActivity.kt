@@ -3,7 +3,7 @@ package com.jeanbarrossilva.aurelius.core
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
-import com.jeanbarrossilva.aurelius.theme.AureliusTheme
+import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
 import com.jeanbarrossilva.memento.ui.databinding.ActivityComposableBinding
 
 abstract class ComposableActivity : AppCompatActivity() {
