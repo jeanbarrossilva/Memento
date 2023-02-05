@@ -2,7 +2,7 @@ package com.jeanbarrossilva.memento.feature.notes.domain.note
 
 import com.jeanbarrossilva.memento.feature.notes.utils.uuid
 
-internal data class Note(
+data class Note internal constructor(
     val id: String,
     val folder: Folder?,
     val title: String,
