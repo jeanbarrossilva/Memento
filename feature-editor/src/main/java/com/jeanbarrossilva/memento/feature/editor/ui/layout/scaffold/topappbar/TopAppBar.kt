@@ -16,7 +16,7 @@ import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
 import com.jeanbarrossilva.memento.feature.editor.domain.isEditing
 import com.jeanbarrossilva.memento.feature.editor.ui.focus.FocusMode
 import com.jeanbarrossilva.memento.feature.editor.ui.input.noteheadline.Title
-import com.jeanbarrossilva.memento.feature.editor.ui.input.noteheadline.colors.NoteColorsCarousel
+import com.jeanbarrossilva.memento.feature.editor.ui.input.noteheadline.colors.ColorPicker
 
 @Composable
 internal fun TopAppBar(
@@ -41,7 +41,8 @@ internal fun TopAppBar(
         title = {
             Column(verticalArrangement = Arrangement.spacedBy(AureliusTheme.sizes.spacing.medium)) {
                 Title(note, focusMode, isEditing, onTitleChange, Modifier.fillMaxWidth())
-                NoteColorsCarousel(
+
+                ColorPicker(
                     editorMode,
                     note,
                     onColorsChange
