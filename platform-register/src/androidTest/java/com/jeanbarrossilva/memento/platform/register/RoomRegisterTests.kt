@@ -1,5 +1,6 @@
 package com.jeanbarrossilva.memento.platform.register
 
+import app.cash.turbine.test
 import com.jeanbarrossilva.memento.platform.register.test.RegisterTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -17,7 +18,7 @@ internal class RoomRegisterTests {
     fun register() {
         runTest {
             val noteID = rule.register.register("Title", body = "Body")
-            assertNotNull(rule.repository.getNoteByID(noteID))
+            rule.repository.getNoteByID(noteID).test { assertNotNull(awaitItem()) }
         }
     }
 
@@ -27,7 +28,7 @@ internal class RoomRegisterTests {
         runTest {
             val noteID = rule.register.register("A title", body = "A body")
             rule.register.unregister(noteID)
-            assertNull(rule.repository.getNoteByID(noteID))
+            rule.repository.getNoteByID(noteID).test { assertNull(awaitItem()) }
         }
     }
 }
