@@ -36,7 +36,7 @@ import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
 import com.jeanbarrossilva.memento.feature.editor.domain.isEditing
 
 @Composable
-internal fun NoteColorsCarousel(
+internal fun ColorPicker(
     mode: EditorMode,
     note: Note,
     onColorsChange: (colors: NoteColors) -> Unit,
@@ -56,7 +56,7 @@ internal fun NoteColorsCarousel(
         exit = slideOutVertically(AureliusTheme.animation.spec { fast }) { -it }
     ) {
         Box(modifier) {
-            NoteColorsCarousel(
+            ColorPicker(
                 note,
                 onColorsChange,
                 Modifier.onPlaced {
@@ -84,7 +84,7 @@ internal fun NoteColorsCarousel(
 }
 
 @Composable
-internal fun NoteColorsCarousel(
+internal fun ColorPicker(
     note: Note,
     onColorsChange: (colors: NoteColors) -> Unit,
     modifier: Modifier = Modifier,
@@ -104,8 +104,8 @@ internal fun NoteColorsCarousel(
 @Composable
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-private fun NoteColorsCarouselPreview() {
+private fun ColorPickerPreview() {
     AureliusTheme {
-        NoteColorsCarousel(Note.sample, onColorsChange = { })
+        ColorPicker(Note.sample, onColorsChange = { })
     }
 }
