@@ -45,4 +45,5 @@ dependencies {
     androidTestImplementation libraries.kotlinx.coroutines.test
     androidTestImplementation libraries.test.core
     androidTestImplementation libraries.test.runner
+    androidTestImplementation libraries.turbine
 }
