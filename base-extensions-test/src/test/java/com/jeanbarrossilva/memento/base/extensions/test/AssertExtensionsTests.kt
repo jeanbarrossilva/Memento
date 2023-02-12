@@ -1,6 +1,6 @@
 package com.jeanbarrossilva.memento.base.extensions.test
 
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
 internal class AssertExtensionsTests {

@@ -10,6 +10,4 @@ java {
 
 dependencies {
     implementation libraries.kotlin.test
-
-    testImplementation libraries.kotlin.test
 }
