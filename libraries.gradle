@@ -19,6 +19,7 @@ buildscript {
                 material_icons_extended: 'androidx.compose.material:material-icons-extended:' +
                     versions.compose_material,
                 material3: "androidx.compose.material3:material3:${versions.compose_material3}",
+                runtime: "androidx.compose.runtime:runtime:${versions.compose}",
                 ui: [
                     test: [
                         junit4: "androidx.compose.ui:ui-test-junit4:${versions.compose_ui}",
@@ -49,7 +50,8 @@ buildscript {
             ],
             lifecycle: [
                 viewmodel: [
-                    savedstate: "androidx.lifecycle:lifecycle-viewmodel-savedstate:" +
+                    ktx: "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}",
+                    savedstate: 'androidx.lifecycle:lifecycle-viewmodel-savedstate:' +
                         versions.lifecycle
                 ]
             ],

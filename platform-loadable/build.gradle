@@ -1,10 +1,11 @@
 plugins {
     id 'com.android.library'
+    id 'kotlin-parcelize'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace 'com.jeanbarrossilva.memento.editor'
+    namespace 'com.jeanbarrossilva.memento.platform.loadable'
     compileSdk versions.memento.sdk.compile
 
     defaultConfig {
@@ -42,13 +43,19 @@ android {
 }
 
 dependencies {
-    implementation project(':aurelius')
-    implementation project(':core-register')
-    implementation libraries.compose.material
-    implementation libraries.koin
+    implementation libraries.compose.runtime
+    implementation libraries.kotlinx.coroutines.core
+    implementation libraries.lifecycle.viewmodel.ktx
 
-    androidTestImplementation project(':platform-register-test')
+    testImplementation project(':base-extensions-test')
+    testImplementation libraries.test.ext.junit
+    testImplementation libraries.kotlinx.coroutines.test
+    testImplementation libraries.turbine
+
+    androidTestImplementation project(':base-extensions-test')
+    androidTestImplementation libraries.test.ext.junit
     androidTestImplementation libraries.compose.ui.test.junit4
     androidTestImplementation libraries.compose.ui.test.manifest
     androidTestImplementation libraries.test.runner
+    androidTestImplementation libraries.turbine
 }
