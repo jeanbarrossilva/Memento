@@ -1,8 +1,6 @@
-package com.jeanbarrossilva.memento.platform.loadable.scope
+package com.jeanbarrossilva.memento.platform.loadable
 
 import com.jeanbarrossilva.memento.base.extensions.test.assertTypeEquals
-import com.jeanbarrossilva.memento.platform.loadable.Loadable
-import com.jeanbarrossilva.memento.platform.loadable.LoadableScope
 import java.io.Serializable
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -12,7 +10,7 @@ import org.junit.Test
 
 internal class LoadableScopeTests {
     private val sent = mutableListOf<Loadable<Serializable?>>()
-    private val scope: LoadableScope<Serializable?> = TestLoadableScope(onSend = sent::add)
+    private val scope: LoadableScope<Serializable?> = LoadableScope(sent::add)
 
     @After
     fun tearDown() {
