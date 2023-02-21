@@ -15,8 +15,8 @@ fun RepositoryHandler.aurelius(project: Project): MavenArtifactRepository {
 
         credentials {
             with(localProperties(project.rootDir)) {
-                username = getProperty("github.username") ?: System.getenv("GITHUB_USERNAME")
-                password = getProperty("github.token") ?: System.getenv("GITHUB_TOKEN")
+                username = getProperty("github.username") ?: System.getenv("GTHB_USERNAME")
+                password = getProperty("github.token") ?: System.getenv("GTHB_TOKEN")
             }
         }
     }
