@@ -13,10 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: set up JDK 11
-      env:
-        GITHUB_USERNAME: ${{ github.actor }}
-        GITHUB_TOKEN: ${{ secrets.GTHB_TOKEN }}
       uses: actions/setup-java@v3
       with:
         java-version: '11'
@@ -27,4 +25,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
+      env:
+        GITHUB_USERNAME: ${{ github.actor }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew build
