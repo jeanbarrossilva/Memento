@@ -8,13 +8,12 @@ on:
 
 jobs:
   build:
-
+    environment: main
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
     - name: set up JDK 11
-      environment: main
       env:
         GITHUB_USERNAME: ${{ github.actor }}
         GITHUB_TOKEN: ${{ secrets.GTHB_TOKEN }}
