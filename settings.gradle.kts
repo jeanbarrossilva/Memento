@@ -1,0 +1,11 @@
+include(
+    ":app",
+    ":aurelius",
+    ":base-extensions-test",
+    ":core-register",
+    ":feature-editor",
+    ":feature-notes",
+    ":platform-loadable",
+    ":platform-register",
+    ":platform-register-test"
+)

@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.FloatingActionButton
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
-import com.jeanbarrossilva.memento.editor.R
+import com.jeanbarrossilva.memento.feature.editor.R
 import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
 
 @Composable

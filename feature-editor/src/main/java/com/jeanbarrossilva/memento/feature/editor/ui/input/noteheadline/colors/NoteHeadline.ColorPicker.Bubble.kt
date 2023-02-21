@@ -22,7 +22,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
-import com.jeanbarrossilva.memento.editor.R
+import com.jeanbarrossilva.memento.feature.editor.R
 import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
 
 internal fun noteHeadlineColorBubbleTagFor(colors: NoteColors): String {

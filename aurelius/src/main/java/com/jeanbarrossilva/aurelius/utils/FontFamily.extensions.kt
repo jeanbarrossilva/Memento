@@ -4,7 +4,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import com.jeanbarrossilva.memento.ui.R
+import com.jeanbarrossilva.memento.aurelius.R
 
 internal val FontFamily.Companion.DMSans
     get() = FontFamily(

@@ -21,7 +21,7 @@ import com.jeanbarrossilva.aurelius.ui.input.editabletext.EditableTextDefaults
 import com.jeanbarrossilva.aurelius.ui.layout.background.Background
 import com.jeanbarrossilva.aurelius.ui.layout.background.BackgroundContentSizing
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
-import com.jeanbarrossilva.memento.editor.R
+import com.jeanbarrossilva.memento.feature.editor.R
 import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.ui.focus.FocusMode
 import com.jeanbarrossilva.memento.feature.editor.utils.without

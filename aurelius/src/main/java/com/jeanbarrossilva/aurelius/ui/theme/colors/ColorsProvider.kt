@@ -8,7 +8,7 @@ import com.jeanbarrossilva.aurelius.theme.colors.LayeredColors
 import com.jeanbarrossilva.aurelius.theme.colors.LocalColors
 import com.jeanbarrossilva.aurelius.theme.colors.TextColors
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
-import com.jeanbarrossilva.memento.ui.R
+import com.jeanbarrossilva.memento.aurelius.R
 
 /**
  * Provides the [Colors] to be used in the [AureliusTheme].

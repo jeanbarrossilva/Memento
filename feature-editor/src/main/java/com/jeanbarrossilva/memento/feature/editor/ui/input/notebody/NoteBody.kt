@@ -30,7 +30,7 @@ import com.jeanbarrossilva.aurelius.ui.system.keyboard.KeyboardEffect
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
 import com.jeanbarrossilva.aurelius.utils.`if`
 import com.jeanbarrossilva.aurelius.utils.plus
-import com.jeanbarrossilva.memento.editor.R
+import com.jeanbarrossilva.memento.feature.editor.R
 import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.ui.focus.FocusMode
 

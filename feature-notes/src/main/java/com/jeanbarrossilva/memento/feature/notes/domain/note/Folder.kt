@@ -1,7 +1,7 @@
 package com.jeanbarrossilva.memento.feature.notes.domain.note
 
 import android.content.Context
-import com.jeanbarrossilva.memento.notes.R
+import com.jeanbarrossilva.memento.feature.notes.R
 
 data class Folder internal constructor(val path: String, val title: String) {
     companion object {

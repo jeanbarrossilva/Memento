@@ -12,8 +12,8 @@ import com.jeanbarrossilva.aurelius.ui.layout.background.Background
 import com.jeanbarrossilva.aurelius.ui.layout.background.BackgroundContentSizing
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.menudrawer.MenuDrawerItem
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
+import com.jeanbarrossilva.memento.feature.notes.R
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
-import com.jeanbarrossilva.memento.notes.R
 
 @Composable
 internal fun MenuDrawerItem(

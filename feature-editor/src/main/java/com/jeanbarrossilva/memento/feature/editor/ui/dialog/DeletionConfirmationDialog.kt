@@ -10,7 +10,7 @@ import com.jeanbarrossilva.aurelius.ui.layout.dialog.ConfirmationButton
 import com.jeanbarrossilva.aurelius.ui.layout.dialog.Dialog
 import com.jeanbarrossilva.aurelius.ui.layout.dialog.NeutralButton
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
-import com.jeanbarrossilva.memento.editor.R
+import com.jeanbarrossilva.memento.feature.editor.R
 
 @Composable
 internal fun DeletionConfirmationDialog(
