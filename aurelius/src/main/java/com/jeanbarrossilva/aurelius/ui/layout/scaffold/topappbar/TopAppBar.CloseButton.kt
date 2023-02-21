@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
-import com.jeanbarrossilva.memento.ui.R
+import com.jeanbarrossilva.memento.aurelius.R
 
 @Composable
 fun CloseButton(

@@ -14,9 +14,9 @@ import com.jeanbarrossilva.aurelius.ui.layout.scaffold.menudrawer.MenuDrawer
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.menudrawer.MenuDrawerScope
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.menudrawer.rememberMenuDrawerScope
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
+import com.jeanbarrossilva.memento.feature.notes.R
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder as _Folder
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
-import com.jeanbarrossilva.memento.notes.R
 import kotlinx.coroutines.launch
 
 @Composable

@@ -12,11 +12,11 @@ import com.jeanbarrossilva.aurelius.ui.layout.scaffold.topappbar.DeleteAction
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.topappbar.MenuButton
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.topappbar.TopAppBar
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
+import com.jeanbarrossilva.memento.feature.notes.R
 import com.jeanbarrossilva.memento.feature.notes.domain.Selection
 import com.jeanbarrossilva.memento.feature.notes.domain.ifOn
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
-import com.jeanbarrossilva.memento.notes.R
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

@@ -2,7 +2,7 @@ package com.jeanbarrossilva.memento.feature.editor.domain.colors
 
 import android.content.Context
 import androidx.compose.ui.graphics.Color
-import com.jeanbarrossilva.memento.ui.R
+import com.jeanbarrossilva.memento.aurelius.R
 
 internal data class NoteContainerColors(val primary: Color, val secondary: Color) {
     companion object {

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
-import com.jeanbarrossilva.memento.ui.databinding.ActivityComposableBinding
+import com.jeanbarrossilva.memento.aurelius.databinding.ActivityComposableBinding
 
 abstract class ComposableActivity : AppCompatActivity() {
     private var binding: ActivityComposableBinding? = null

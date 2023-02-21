@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.ui.layout.background.Background
 import com.jeanbarrossilva.aurelius.ui.layout.background.BackgroundContentSizing
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
-import com.jeanbarrossilva.memento.ui.R
+import com.jeanbarrossilva.memento.aurelius.R
 
 @Composable
 fun DeleteAction(onClick: () -> Unit, modifier: Modifier = Modifier) {
