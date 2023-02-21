@@ -1,6 +1,5 @@
 include(
     ":app",
-    ":aurelius",
     ":base-extensions-test",
     ":core-register",
     ":feature-editor",
@@ -9,3 +8,4 @@ include(
     ":platform-register",
     ":platform-register-test"
 )
+include(":platform-extensions")

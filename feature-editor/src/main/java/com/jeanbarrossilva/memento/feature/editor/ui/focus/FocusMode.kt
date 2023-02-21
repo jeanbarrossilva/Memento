@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.view.WindowInsetsCompat
-import com.jeanbarrossilva.aurelius.utils.insetsControllerCompat
+import com.jeanbarrossilva.memento.platform.extensions.insetsControllerCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

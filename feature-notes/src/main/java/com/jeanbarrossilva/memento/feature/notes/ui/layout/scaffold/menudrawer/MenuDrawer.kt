@@ -15,9 +15,9 @@ import com.jeanbarrossilva.aurelius.ui.layout.scaffold.menudrawer.MenuDrawerScop
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.menudrawer.rememberMenuDrawerScope
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
 import com.jeanbarrossilva.memento.feature.notes.R
-import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder as _Folder
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
 import kotlinx.coroutines.launch
+import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder as _Folder
 
 @Composable
 internal fun MenuDrawer(
@@ -51,7 +51,7 @@ internal fun MenuDrawer(
         title = { Text(stringResource(R.string.feature_notes_folders)) },
         items = {
             folders.forEach {
-                MenuDrawerItem(
+                Item(
                     it,
                     isSelected = it == currentFolder,
                     onClick = { changeCurrentFolderAndClose(it) }

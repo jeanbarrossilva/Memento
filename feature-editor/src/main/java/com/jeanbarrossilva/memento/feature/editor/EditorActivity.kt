@@ -6,10 +6,10 @@ import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import com.jeanbarrossilva.aurelius.core.ComposableActivity
-import com.jeanbarrossilva.aurelius.utils.argumentOf
-import com.jeanbarrossilva.aurelius.utils.startActivity
 import com.jeanbarrossilva.memento.feature.editor.domain.EditorMode
 import com.jeanbarrossilva.memento.feature.editor.infra.EditorGateway
+import com.jeanbarrossilva.memento.platform.extensions.argumentOf
+import com.jeanbarrossilva.memento.platform.extensions.startActivity
 import org.koin.android.ext.android.inject
 
 class EditorActivity internal constructor() : ComposableActivity() {

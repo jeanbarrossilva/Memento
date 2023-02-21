@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.jeanbarrossilva.aurelius.utils.flowOf
 import com.jeanbarrossilva.memento.feature.editor.domain.EditorMode
 import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
 import com.jeanbarrossilva.memento.feature.editor.domain.isEditing
 import com.jeanbarrossilva.memento.feature.editor.infra.EditorGateway
+import com.jeanbarrossilva.memento.platform.extensions.flowOf
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emitAll
