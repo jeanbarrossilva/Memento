@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
 }
 
+@Suppress("UnstableApiUsage")
 android {
     namespace = Metadata.namespace("feature.editor")
     compileSdk = Versions.Memento.SDK_COMPILE
@@ -45,8 +46,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":aurelius"))
     implementation(project(":core-register"))
+    implementation(project(":platform-extensions"))
+    implementation(Libraries.AURELIUS)
     implementation(Libraries.COMPOSE_MATERIAL)
     implementation(Libraries.KOIN_ANDROID)
 

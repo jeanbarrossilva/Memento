@@ -7,6 +7,7 @@ object Libraries {
     const val ACTIVITY_COMPOSE =
         "androidx.activity:activity-compose:${Versions.ACTIVITY}"
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT}"
+    const val AURELIUS = "com.jeanbarrossilva.aurelius:aurelius:${Versions.AURELIUS}"
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:${Versions.COMPOSE_MATERIAL}"
     const val COMPOSE_MATERIAL_ICONS_EXTENDED =
         "androidx.compose.material:material-icons-extended:${Versions.COMPOSE_MATERIAL}"
@@ -19,6 +20,7 @@ object Libraries {
     const val COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE_UI}"
     const val CONSTRAINTLAYOUT_COMPOSE =
         "androidx.constraintlayout:constraintlayout-compose:${Versions.CONSTRAINTLAYOUT_COMPOSE}"
+    const val CORE = "androidx.core:core-ktx:${Versions.CORE}"
     const val CUSTOMVIEW = "androidx.customview:customview:${Versions.CUSTOMVIEW}"
     const val CUSTOMVIEW_POOLINGCONTAINER =
         "androidx.customview:customview-poolingcontainer:${Versions.CUSTOMVIEW_POOLINGCONTAINER}"

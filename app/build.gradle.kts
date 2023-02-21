@@ -46,10 +46,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":aurelius"))
     implementation(project(":core-register"))
     implementation(project(":feature-editor"))
     implementation(project(":feature-notes"))
     implementation(project(":platform-register"))
+    implementation(Libraries.AURELIUS)
     implementation(Libraries.KOIN_ANDROID)
 }

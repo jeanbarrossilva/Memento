@@ -28,11 +28,11 @@ import com.jeanbarrossilva.aurelius.ui.layout.background.BackgroundContentSizing
 import com.jeanbarrossilva.aurelius.ui.system.keyboard.Keyboard
 import com.jeanbarrossilva.aurelius.ui.system.keyboard.KeyboardEffect
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
-import com.jeanbarrossilva.aurelius.utils.`if`
 import com.jeanbarrossilva.aurelius.utils.plus
 import com.jeanbarrossilva.memento.feature.editor.R
 import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.ui.focus.FocusMode
+import com.jeanbarrossilva.memento.platform.extensions.`if`
 
 internal const val NOTE_BODY_TAG = "note_body"
 
