@@ -7,7 +7,7 @@ object Libraries {
     const val ACTIVITY_COMPOSE =
         "androidx.activity:activity-compose:${Versions.ACTIVITY}"
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT}"
-    const val AURELIUS = "com.jeanbarrossilva.aurelius:aurelius:${Versions.AURELIUS}"
+    const val AURELIUS = "com.jeanbarrossilva.aurelius:aurelius-android:${Versions.AURELIUS}"
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:${Versions.COMPOSE_MATERIAL}"
     const val COMPOSE_MATERIAL_ICONS_EXTENDED =
         "androidx.compose.material:material-icons-extended:${Versions.COMPOSE_MATERIAL}"

@@ -4,7 +4,7 @@ object Versions {
     const val ACCOMPANIST = "0.25.1"
     const val ACTIVITY = "1.6.1"
     const val APPCOMPAT = "1.5.1"
-    const val AURELIUS = "1.2.0"
+    const val AURELIUS = "1.2.1"
     const val COMPOSE_COMPILER = "1.4.2"
     const val COMPOSE_MATERIAL = "1.3.1"
     const val COMPOSE_MATERIAL_3 = "1.0.1"
