@@ -20,6 +20,7 @@ object Versions {
     const val KOTLIN = "1.8.10"
     const val KOTLINX_COROUTINES = "1.6.4"
     const val LIFECYCLE = "2.5.1"
+    const val LOADABLE = "1.0.0"
     const val MATERIAL = "1.6.1"
     const val ROOM = "2.5.0"
     const val TEST_CORE = "1.5.0"

@@ -54,5 +54,6 @@ dependencies {
     implementation(Libraries.AURELIUS)
     implementation(Libraries.COMPOSE_MATERIAL_ICONS_EXTENDED)
     implementation(Libraries.KOIN_ANDROID)
+    implementation(Libraries.LOADABLE)
     implementation(Libraries.ROOM)
 }

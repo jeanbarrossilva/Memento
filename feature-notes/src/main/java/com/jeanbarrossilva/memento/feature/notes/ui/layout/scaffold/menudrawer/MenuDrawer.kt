@@ -14,14 +14,21 @@ import com.jeanbarrossilva.aurelius.ui.layout.scaffold.menudrawer.MenuDrawer
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.menudrawer.MenuDrawerScope
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.menudrawer.rememberMenuDrawerScope
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
+import com.jeanbarrossilva.loadable.Loadable
+import com.jeanbarrossilva.loadable.type.SerializableList
+import com.jeanbarrossilva.loadable.utils.ifLoaded
+import com.jeanbarrossilva.loadable.utils.map
+import com.jeanbarrossilva.loadable.utils.serialize
 import com.jeanbarrossilva.memento.feature.notes.R
-import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
-import kotlinx.coroutines.launch
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder as _Folder
+import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
+import com.jeanbarrossilva.memento.feature.notes.utils.flatMap
+import com.jeanbarrossilva.memento.feature.notes.utils.flatMapNotNull
+import kotlinx.coroutines.launch
 
 @Composable
 internal fun MenuDrawer(
-    notes: List<Note>,
+    notes: Loadable<SerializableList<Note>>,
     currentFolder: _Folder,
     onCurrentFolderChange: (currentFolder: _Folder) -> Unit,
     modifier: Modifier = Modifier,
@@ -34,12 +41,16 @@ internal fun MenuDrawer(
 
     @Suppress("NAME_SHADOWING")
     val notes = remember(notes) {
-        notes.map { note ->
+        notes.flatMap { note ->
             note.folder?.let { note } ?: note.copy(folder = defaultFolder)
         }
     }
 
-    val folders = remember(notes) { notes.mapNotNull(Note::folder).toHashSet() }
+    val folders = remember(notes) {
+        notes.flatMapNotNull(Note::folder).map {
+            it.toHashSet()
+        }
+    }
     val changeCurrentFolderAndClose: (_Folder) -> Unit = remember {
         {
             onCurrentFolderChange(it)
@@ -50,12 +61,14 @@ internal fun MenuDrawer(
     MenuDrawer(
         title = { Text(stringResource(R.string.feature_notes_folders)) },
         items = {
-            folders.forEach {
-                Item(
-                    it,
-                    isSelected = it == currentFolder,
-                    onClick = { changeCurrentFolderAndClose(it) }
-                )
+            folders.ifLoaded {
+                forEach {
+                    Item(
+                        it,
+                        isSelected = it == currentFolder,
+                        onClick = { changeCurrentFolderAndClose(it) }
+                    )
+                }
             }
         },
         modifier,
@@ -70,7 +83,7 @@ internal fun MenuDrawer(
 private fun MenuDrawerPreview() {
     AureliusTheme {
         MenuDrawer(
-            Note.samples,
+            Loadable.Loaded(Note.samples.serialize()),
             currentFolder = _Folder.sample,
             onCurrentFolderChange = { }
         ) {
