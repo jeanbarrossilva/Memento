@@ -9,12 +9,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
 import com.jeanbarrossilva.aurelius.utils.plus
 import com.jeanbarrossilva.memento.feature.notes.domain.Selection
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
 import com.jeanbarrossilva.memento.feature.notes.ui.actionable.NoteCard
+
+internal const val LOADED_NOTES_TAG = "loaded_notes"
 
 @Composable
 internal fun LoadedNotes(
@@ -26,7 +29,7 @@ internal fun LoadedNotes(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier,
+        modifier.testTag(LOADED_NOTES_TAG),
         state,
         verticalArrangement = Arrangement.spacedBy(
             AureliusTheme.sizes.spacing.medium

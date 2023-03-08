@@ -56,4 +56,7 @@ dependencies {
     implementation(Libraries.KOIN_ANDROID)
     implementation(Libraries.LOADABLE)
     implementation(Libraries.ROOM)
+
+    androidTestImplementation(Libraries.COMPOSE_UI_TEST_JUNIT_4)
+    androidTestImplementation(Libraries.COMPOSE_UI_TEST_MANIFEST)
 }

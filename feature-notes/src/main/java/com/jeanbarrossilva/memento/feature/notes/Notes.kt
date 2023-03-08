@@ -52,7 +52,7 @@ internal fun Notes(
 }
 
 @Composable
-private fun Notes(notes: Loadable<SerializableList<Note>>, modifier: Modifier = Modifier) {
+internal fun Notes(notes: Loadable<SerializableList<Note>>, modifier: Modifier = Modifier) {
     Notes(
         currentFolder = Folder.sample,
         onCurrentFolderChange = { },
