@@ -10,6 +10,10 @@ data class Note internal constructor(
     val gradient: Gradient,
     val lastEditedAt: String
 ) {
+    override fun toString(): String {
+        return "Note#$id"
+    }
+
     companion object {
         private val epictetus = Note(
             id = uuid(),
@@ -53,8 +57,6 @@ data class Note internal constructor(
         )
 
         val sample = marcusAurelius
-        val samples = listOf(epictetus, marcusAurelius, seneca).let { notes ->
-            notes.plus(notes.map { note -> note.copy(id = uuid()) })
-        }
+        val samples = listOf(epictetus, marcusAurelius, seneca)
     }
 }

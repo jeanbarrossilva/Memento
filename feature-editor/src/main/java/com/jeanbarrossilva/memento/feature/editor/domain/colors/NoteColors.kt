@@ -3,7 +3,7 @@ package com.jeanbarrossilva.memento.feature.editor.domain.colors
 import androidx.compose.ui.graphics.Color
 import com.jeanbarrossilva.memento.core.register.domain.Color as DomainColor
 
-internal enum class NoteColors {
+enum class NoteColors {
     BLUE {
         override val container = NoteContainerColors.Blue
         override val content = Color.Black

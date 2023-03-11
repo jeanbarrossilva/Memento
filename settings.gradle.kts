@@ -9,3 +9,4 @@ include(
     ":platform-register-test"
 )
 include(":platform-extensions")
+include(":feature-notes-test")

@@ -55,4 +55,8 @@ dependencies {
     implementation(Libraries.COMPOSE_MATERIAL_ICONS_EXTENDED)
     implementation(Libraries.KOIN_ANDROID)
     implementation(Libraries.ROOM)
+
+    androidTestImplementation(project(":feature-notes-test"))
+    androidTestImplementation(Libraries.COMPOSE_UI_TEST_JUNIT_4)
+    androidTestImplementation(Libraries.COMPOSE_UI_TEST_MANIFEST)
 }

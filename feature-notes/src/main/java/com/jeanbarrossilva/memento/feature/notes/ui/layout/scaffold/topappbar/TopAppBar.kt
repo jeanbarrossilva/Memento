@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.ui.layout.background.Background
@@ -17,6 +18,8 @@ import com.jeanbarrossilva.memento.feature.notes.domain.Selection
 import com.jeanbarrossilva.memento.feature.notes.domain.ifOn
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
+
+const val TOP_APP_BAR_DELETE_ACTION_TAG = "top_app_bar_delete_action"
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -50,7 +53,10 @@ internal fun TopAppBar(
         actions = {
             when (selection) {
                 is Selection.Off -> SearchAction(onClick = onSearchRequest)
-                is Selection.On -> DeleteAction(onClick = { onDeleteRequest(selection.selected) })
+                is Selection.On -> DeleteAction(
+                    onClick = { onDeleteRequest(selection.selected) },
+                    Modifier.testTag(TOP_APP_BAR_DELETE_ACTION_TAG)
+                )
             }
         },
         content = content

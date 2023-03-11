@@ -24,6 +24,7 @@ object Libraries {
     const val CUSTOMVIEW = "androidx.customview:customview:${Versions.CUSTOMVIEW}"
     const val CUSTOMVIEW_POOLINGCONTAINER =
         "androidx.customview:customview-poolingcontainer:${Versions.CUSTOMVIEW_POOLINGCONTAINER}"
+    const val ESPRESSO = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO}"
     const val FRAGMENT = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT}"
     const val KOIN_ANDROID = "io.insert-koin:koin-android:${Versions.KOIN}"
     const val KOTLIN_TEST = "org.jetbrains.kotlin:kotlin-test"

@@ -26,7 +26,7 @@ import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.ui.focus.FocusMode
 import com.jeanbarrossilva.memento.feature.editor.utils.without
 
-internal const val NOTE_HEADLINE_TITLE_TAG = "note_headline_title"
+const val NOTE_HEADLINE_TITLE_TAG = "note_headline_title"
 
 @Composable
 internal fun Title(
