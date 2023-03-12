@@ -3,6 +3,7 @@ package com.jeanbarrossilva.memento.feature.notes
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.jeanbarrossilva.loadable.Loadable
 import com.jeanbarrossilva.loadable.type.SerializableList
@@ -14,6 +15,7 @@ import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
 import com.jeanbarrossilva.memento.feature.notes.infra.NotesGateway
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 internal class NotesViewModel(application: Application, private val gateway: NotesGateway) :
     AndroidViewModel(application) {
@@ -22,6 +24,12 @@ internal class NotesViewModel(application: Application, private val gateway: Not
 
     fun getNotes(): StateFlow<Loadable<SerializableList<Note>>> {
         return loadable(emptySerializableList(), gateway::getNotes)
+    }
+
+    fun delete(notes: List<Note>) {
+        viewModelScope.launch {
+            gateway.delete(notes)
+        }
     }
 
     companion object {
