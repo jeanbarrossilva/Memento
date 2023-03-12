@@ -42,4 +42,8 @@ dependencies {
     implementation(Libraries.CORE)
     implementation(Libraries.KOTLINX_COROUTINES_CORE)
     implementation(Libraries.LIFECYCLE_VIEWMODEL)
+
+    testImplementation(Libraries.JUNIT)
+    testImplementation(Libraries.KOTLINX_COROUTINES_TEST)
+    testImplementation(Libraries.TURBINE)
 }

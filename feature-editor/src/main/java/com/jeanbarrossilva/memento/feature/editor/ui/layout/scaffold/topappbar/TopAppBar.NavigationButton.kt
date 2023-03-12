@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.topappbar.BackButton
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.topappbar.CloseButton
@@ -13,6 +14,8 @@ import com.jeanbarrossilva.aurelius.ui.layout.scaffold.topappbar.TopAppBarDefaul
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
 import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
 import com.jeanbarrossilva.memento.feature.editor.ui.layout.scaffold.topappbar.TopAppBarDefaults as EditorTopAppBarDefaults
+
+const val TOP_APP_BAR_NAVIGATION_BUTTON_TAG = "top_app_bar_navigation_button"
 
 @Composable
 internal fun NavigationButton(
@@ -25,7 +28,9 @@ internal fun NavigationButton(
     val exitTransition = EditorTopAppBarDefaults.buttonExitTransition
 
     Box(
-        modifier.size(AureliusTopAppBarDefaults.navigationButtonSize),
+        modifier
+            .size(AureliusTopAppBarDefaults.navigationButtonSize)
+            .testTag(TOP_APP_BAR_NAVIGATION_BUTTON_TAG),
         propagateMinConstraints = true
     ) {
         AnimatedVisibility(visible = isEditing, enter = enterTransition, exit = exitTransition) {

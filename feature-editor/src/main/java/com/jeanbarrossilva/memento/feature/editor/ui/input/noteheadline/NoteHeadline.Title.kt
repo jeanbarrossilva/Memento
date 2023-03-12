@@ -26,7 +26,7 @@ import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.ui.focus.FocusMode
 import com.jeanbarrossilva.memento.feature.editor.utils.without
 
-internal const val NOTE_HEADLINE_TITLE_TAG = "note_headline_title"
+const val NOTE_HEADLINE_TITLE_TAG = "note_headline_title"
 
 @Composable
 internal fun Title(
@@ -37,7 +37,7 @@ internal fun Title(
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
-    var textFieldValue by remember { mutableStateOf(TextFieldValue(note.title)) }
+    var textFieldValue by remember(note) { mutableStateOf(TextFieldValue(note.title)) }
     val onTextFieldValueChange: (TextFieldValue) -> Unit = remember {
         {
             textFieldValue = it.copy(it.text without "\n")

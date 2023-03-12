@@ -52,4 +52,10 @@ dependencies {
     implementation(project(":platform-register"))
     implementation(Libraries.AURELIUS)
     implementation(Libraries.KOIN_ANDROID)
+
+    androidTestImplementation(project(":feature-notes-test"))
+    androidTestImplementation(project(":platform-register-test"))
+    androidTestImplementation(Libraries.COMPOSE_UI_TEST_JUNIT_4)
+    androidTestImplementation(Libraries.COMPOSE_UI_TEST_MANIFEST)
+    androidTestImplementation(Libraries.ESPRESSO)
 }

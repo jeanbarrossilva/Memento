@@ -34,7 +34,7 @@ import com.jeanbarrossilva.memento.feature.editor.domain.Note
 import com.jeanbarrossilva.memento.feature.editor.ui.focus.FocusMode
 import com.jeanbarrossilva.memento.platform.extensions.`if`
 
-internal const val NOTE_BODY_TAG = "note_body"
+const val NOTE_BODY_TAG = "note_body"
 
 @Composable
 internal fun NoteBody(
@@ -46,7 +46,7 @@ internal fun NoteBody(
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
-    var textFieldValue by remember { mutableStateOf(TextFieldValue(note.body)) }
+    var textFieldValue by remember(note) { mutableStateOf(TextFieldValue(note.body)) }
     val onTextFieldValueChange: (TextFieldValue) -> Unit = remember {
         {
             textFieldValue = it

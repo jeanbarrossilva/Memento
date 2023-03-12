@@ -10,6 +10,7 @@ import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
 import com.jeanbarrossilva.memento.feature.editor.domain.isEditing
 import com.jeanbarrossilva.memento.feature.editor.infra.EditorGateway
 import com.jeanbarrossilva.memento.platform.extensions.flowOf
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emitAll
@@ -21,13 +22,11 @@ internal class EditorViewModel(private val gateway: EditorGateway, private val n
     ViewModel() {
     private val initialMode =
         noteID?.let { EditorMode.Reading } ?: EditorMode.Editing()
-    private val mode = flowOf<EditorMode>(flow { emit(initialMode) }, EditorMode.Reading)
+    private val mode = MutableStateFlow(initialMode)
     private val originalNote = flow {
-        noteID?.let {
-            emitAll(gateway.getNoteById(it))
-        }
+        noteID?.let { emitAll(gateway.getNoteById(it)) } ?: emit(null)
     }
-    private val editedNote = flowOf(originalNote.filterNotNull(), Note.empty)
+    private val editedNote = flowOf(Note.empty) { originalNote.filterNotNull() }
 
     fun getMode(): StateFlow<EditorMode> {
         return mode.asStateFlow()
@@ -38,17 +37,13 @@ internal class EditorViewModel(private val gateway: EditorGateway, private val n
     }
 
     fun edit() {
-        viewModelScope.launch {
-            mode.value = EditorMode.Editing()
-        }
+        mode.value = EditorMode.Editing()
     }
 
     fun setColorPickerVisible(isColorPickerVisible: Boolean) {
-        viewModelScope.launch {
-            val currentMode = getMode().value
-            if (currentMode.isEditing()) {
-                mode.value = currentMode.copy(isColorPickerVisible)
-            }
+        val currentMode = getMode().value
+        if (currentMode.isEditing()) {
+            mode.value = currentMode.copy(isColorPickerVisible)
         }
     }
 

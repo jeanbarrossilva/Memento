@@ -25,7 +25,7 @@ import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
 import com.jeanbarrossilva.memento.feature.editor.R
 import com.jeanbarrossilva.memento.feature.editor.domain.colors.NoteColors
 
-internal fun noteHeadlineColorBubbleTagFor(colors: NoteColors): String {
+fun noteHeadlineColorBubbleTagFor(colors: NoteColors): String {
     return "note_headline_colors_bubble_${colors.name.lowercase()}"
 }
 

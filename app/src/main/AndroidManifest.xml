@@ -11,6 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Aurelius"
         tools:targetApi="31">
+        <!--suppress AndroidDomInspection -->
+        <activity
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"
+            android:label="InstrumentationActivityInvoker$BootstrapActivity" />
+
+        <!--suppress AndroidDomInspection -->
+        <activity
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity" />
+
         <activity
             android:name=".feature.notes.NotesActivity"
             android:exported="true">

@@ -6,7 +6,7 @@ plugins {
 
 @Suppress("UnstableApiUsage")
 android {
-    namespace = Metadata.namespace("feature.notes")
+    namespace = Metadata.namespace("feature.notes.test")
     compileSdk = Versions.Memento.SDK_COMPILE
 
     defaultConfig {
@@ -47,17 +47,6 @@ android {
 }
 
 dependencies {
-    kapt(Plugins.ROOM)
-
-    implementation(project(":core-register"))
-    implementation(project(":platform-extensions"))
-    implementation(Libraries.AURELIUS)
-    implementation(Libraries.COMPOSE_MATERIAL_ICONS_EXTENDED)
-    implementation(Libraries.KOIN_ANDROID)
-    implementation(Libraries.LOADABLE)
-    implementation(Libraries.ROOM)
-
-    androidTestImplementation(project(":feature-notes-test"))
-    androidTestImplementation(Libraries.COMPOSE_UI_TEST_JUNIT_4)
-    androidTestImplementation(Libraries.COMPOSE_UI_TEST_MANIFEST)
+    implementation(project(":feature-notes"))
+    implementation(Libraries.COMPOSE_UI_TEST_JUNIT_4)
 }
