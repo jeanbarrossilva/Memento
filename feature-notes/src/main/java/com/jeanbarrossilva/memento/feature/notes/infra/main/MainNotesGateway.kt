@@ -1,5 +1,9 @@
 package com.jeanbarrossilva.memento.feature.notes.infra.main
 
+import com.jeanbarrossilva.loadable.Loadable
+import com.jeanbarrossilva.loadable.type.SerializableList
+import com.jeanbarrossilva.loadable.utils.loadable
+import com.jeanbarrossilva.loadable.utils.serialize
 import com.jeanbarrossilva.memento.core.register.domain.Note
 import com.jeanbarrossilva.memento.core.register.infra.Repository
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
@@ -32,9 +36,7 @@ internal class MainNotesGateway(
         currentNoteFolderDao.insert(entity)
     }
 
-    override suspend fun getNotes(): Flow<List<_Note>> {
-        return repository.getNotes().map {
-            it.map(Note::adapt)
-        }
+    override suspend fun getNotes(): Flow<Loadable<SerializableList<_Note>>> {
+        return repository.getNotes().map { it.map(Note::adapt).serialize() }.loadable()
     }
 }

@@ -4,8 +4,7 @@ include(
     ":core-register",
     ":feature-editor",
     ":feature-notes",
-    ":platform-loadable",
+    ":platform-extensions",
     ":platform-register",
     ":platform-register-test"
 )
-include(":platform-extensions")

@@ -35,6 +35,7 @@ object Libraries {
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LIFECYCLE}"
     const val LIFECYCLE_VIEWMODEL_SAVEDSTATE =
         "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.LIFECYCLE}"
+    const val LOADABLE = "com.jeanbarrossilva.loadable:loadable:${Versions.LOADABLE}"
     const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
     const val ROOM = "androidx.room:room-ktx:${Versions.ROOM}"
     const val TEST_CORE = "androidx.test:core:${Versions.TEST_CORE}"

@@ -54,5 +54,9 @@ dependencies {
     implementation(Libraries.AURELIUS)
     implementation(Libraries.COMPOSE_MATERIAL_ICONS_EXTENDED)
     implementation(Libraries.KOIN_ANDROID)
+    implementation(Libraries.LOADABLE)
     implementation(Libraries.ROOM)
+
+    androidTestImplementation(Libraries.COMPOSE_UI_TEST_JUNIT_4)
+    androidTestImplementation(Libraries.COMPOSE_UI_TEST_MANIFEST)
 }
