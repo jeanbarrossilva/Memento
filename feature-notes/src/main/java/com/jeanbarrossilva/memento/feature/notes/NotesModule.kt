@@ -7,6 +7,6 @@ import org.koin.dsl.module
 
 val notesModule = module {
     single<NotesGateway> {
-        MainNotesGateway(repository = get(), database.dao)
+        MainNotesGateway(register = get(), repository = get(), database.dao)
     }
 }

@@ -7,6 +7,12 @@
         <item quantity="other">%d items</item>
     </plurals>
     <string name="feature_notes_delete">Delete</string>
+    <string name="feature_notes_deletion_confirmation_title">
+        Are you sure you want to delete this note?
+    </string>
+    <string name="feature_notes_deletion_confirmation_body">
+        Keep in mind that this action cannot be undone.
+    </string>
     <string name="feature_notes_failed_title">🥲</string>
     <string name="feature_notes_failed_body">Sorry, something went wrong. Try again later.</string>
     <string name="feature_notes_folder">\"%s\" folder</string>

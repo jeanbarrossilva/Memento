@@ -12,4 +12,6 @@ internal interface NotesGateway {
     suspend fun setCurrentFolder(currentFolder: Folder)
 
     suspend fun getNotes(): Flow<Loadable<SerializableList<Note>>>
+
+    suspend fun delete(notes: List<Note>)
 }

@@ -6,7 +6,10 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,6 +24,7 @@ import com.jeanbarrossilva.loadable.utils.serialize
 import com.jeanbarrossilva.memento.feature.notes.domain.Selection
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
+import com.jeanbarrossilva.memento.feature.notes.ui.layout.dialog.DeletionConfirmationDialog
 import com.jeanbarrossilva.memento.feature.notes.ui.layout.scaffold.FloatingActionButton
 import com.jeanbarrossilva.memento.feature.notes.ui.layout.scaffold.menudrawer.MenuDrawer
 import com.jeanbarrossilva.memento.feature.notes.ui.layout.scaffold.topappbar.TopAppBar
@@ -45,7 +49,7 @@ internal fun Notes(
         selection,
         onSelectionToggle = { viewModel.selection.value = it },
         onSearchRequest = { },
-        onDeleteRequest = { },
+        onDeletionRequest = viewModel::delete,
         onAddRequest = { boundary.navigateToEditor(context, noteID = null) },
         modifier
     )
@@ -61,7 +65,7 @@ internal fun Notes(notes: Loadable<SerializableList<Note>>, modifier: Modifier =
         Selection.Off,
         onSelectionToggle = { },
         onSearchRequest = { },
-        onDeleteRequest = { },
+        onDeletionRequest = { },
         onAddRequest = { },
         modifier
     )
@@ -76,12 +80,20 @@ private fun Notes(
     selection: Selection,
     onSelectionToggle: (Selection) -> Unit,
     onSearchRequest: () -> Unit,
-    onDeleteRequest: (notes: List<Note>) -> Unit,
+    onDeletionRequest: (notes: List<Note>) -> Unit,
     onAddRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
     val lazyListState = rememberLazyListState()
+    var isDeletionConfirmationDialogVisible by remember { mutableStateOf(false) }
+
+    if (isDeletionConfirmationDialogVisible) {
+        DeletionConfirmationDialog(
+            onConfirmationRequest = { onDeletionRequest((selection as Selection.On).selected) },
+            onDismissalRequest = { isDeletionConfirmationDialogVisible = false }
+        )
+    }
 
     MenuDrawer(notes, currentFolder, onCurrentFolderChange, modifier) {
         TopAppBar(
@@ -95,7 +107,10 @@ private fun Notes(
                 }
             },
             onSearchRequest,
-            onDeleteRequest
+            onDeleteRequest = {
+                isDeletionConfirmationDialogVisible = true
+                onSelectionToggle(Selection.Off)
+            }
         ) {
             Scaffold(
                 floatingActionButton = {

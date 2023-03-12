@@ -5,6 +5,7 @@ import com.jeanbarrossilva.loadable.type.SerializableList
 import com.jeanbarrossilva.loadable.utils.loadable
 import com.jeanbarrossilva.loadable.utils.serialize
 import com.jeanbarrossilva.memento.core.register.domain.Note
+import com.jeanbarrossilva.memento.core.register.infra.Register
 import com.jeanbarrossilva.memento.core.register.infra.Repository
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note as _Note
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 
 internal class MainNotesGateway(
+    private val register: Register,
     private val repository: Repository,
     private val currentNoteFolderDao: CurrentNoteFolderDao
 ) : NotesGateway {
@@ -38,5 +40,11 @@ internal class MainNotesGateway(
 
     override suspend fun getNotes(): Flow<Loadable<SerializableList<_Note>>> {
         return repository.getNotes().map { it.map(Note::adapt).serialize() }.loadable()
+    }
+
+    override suspend fun delete(notes: List<_Note>) {
+        notes.forEach {
+            register.unregister(it.id)
+        }
     }
 }
