@@ -1,12 +1,7 @@
 package com.jeanbarrossilva.memento.feature.notes
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -19,11 +14,13 @@ import com.jeanbarrossilva.aurelius.ui.layout.background.Background
 import com.jeanbarrossilva.aurelius.ui.layout.scaffold.Scaffold
 import com.jeanbarrossilva.aurelius.ui.theme.AureliusTheme
 import com.jeanbarrossilva.aurelius.utils.isScrolling
-import com.jeanbarrossilva.aurelius.utils.plus
+import com.jeanbarrossilva.loadable.Loadable
+import com.jeanbarrossilva.loadable.type.SerializableList
+import com.jeanbarrossilva.loadable.utils.ifLoaded
+import com.jeanbarrossilva.loadable.utils.serialize
 import com.jeanbarrossilva.memento.feature.notes.domain.Selection
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Folder
 import com.jeanbarrossilva.memento.feature.notes.domain.note.Note
-import com.jeanbarrossilva.memento.feature.notes.ui.actionable.NoteCard
 import com.jeanbarrossilva.memento.feature.notes.ui.layout.scaffold.FloatingActionButton
 import com.jeanbarrossilva.memento.feature.notes.ui.layout.scaffold.menudrawer.MenuDrawer
 import com.jeanbarrossilva.memento.feature.notes.ui.layout.scaffold.topappbar.TopAppBar
@@ -55,10 +52,26 @@ internal fun Notes(
 }
 
 @Composable
+internal fun Notes(notes: Loadable<SerializableList<Note>>, modifier: Modifier = Modifier) {
+    Notes(
+        currentFolder = Folder.sample,
+        onCurrentFolderChange = { },
+        notes,
+        onNoteClick = { },
+        Selection.Off,
+        onSelectionToggle = { },
+        onSearchRequest = { },
+        onDeleteRequest = { },
+        onAddRequest = { },
+        modifier
+    )
+}
+
+@Composable
 private fun Notes(
     currentFolder: Folder,
     onCurrentFolderChange: (currentFolder: Folder) -> Unit,
-    notes: List<Note>,
+    notes: Loadable<SerializableList<Note>>,
     onNoteClick: (Note) -> Unit,
     selection: Selection,
     onSelectionToggle: (Selection) -> Unit,
@@ -74,7 +87,7 @@ private fun Notes(
         TopAppBar(
             isCompact = lazyListState.isScrolling,
             currentFolder,
-            notes.size,
+            noteCount = notes.ifLoaded { size } ?: 0,
             selection,
             onNavigationRequest = {
                 coroutineScope.launch {
@@ -93,24 +106,7 @@ private fun Notes(
                 }
             ) { padding ->
                 Background(Modifier.padding(padding)) {
-                    LazyColumn(
-                        state = lazyListState,
-                        verticalArrangement = Arrangement.spacedBy(
-                            AureliusTheme.sizes.spacing.medium
-                        ),
-                        contentPadding = PaddingValues(AureliusTheme.sizes.spacing.large) +
-                            AureliusTheme.sizes.margin.fab
-                    ) {
-                        items(notes) { note ->
-                            NoteCard(
-                                note,
-                                selection,
-                                onSelectionToggle,
-                                onClick = { onNoteClick(note) },
-                                Modifier.fillMaxWidth()
-                            )
-                        }
-                    }
+                    LoadableNotes(lazyListState, notes, selection, onSelectionToggle, onNoteClick)
                 }
             }
         }
@@ -120,18 +116,26 @@ private fun Notes(
 @Composable
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-private fun NotesPreview() {
+private fun LoadingNotesPreview() {
     AureliusTheme {
-        Notes(
-            currentFolder = Folder.sample,
-            onCurrentFolderChange = { },
-            Note.samples,
-            onNoteClick = { },
-            Selection.Off,
-            onSelectionToggle = { },
-            onSearchRequest = { },
-            onDeleteRequest = { },
-            onAddRequest = { }
-        )
+        Notes(Loadable.Loading())
+    }
+}
+
+@Composable
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+private fun LoadedNotesPreview() {
+    AureliusTheme {
+        Notes(Loadable.Loaded(Note.samples.serialize()))
+    }
+}
+
+@Composable
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+private fun FailedNotesPreview() {
+    AureliusTheme {
+        Notes(Loadable.Failed(Throwable()))
     }
 }
