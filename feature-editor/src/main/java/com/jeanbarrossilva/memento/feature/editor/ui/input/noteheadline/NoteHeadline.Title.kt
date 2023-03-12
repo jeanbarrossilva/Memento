@@ -37,7 +37,7 @@ internal fun Title(
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
-    var textFieldValue by remember { mutableStateOf(TextFieldValue(note.title)) }
+    var textFieldValue by remember(note) { mutableStateOf(TextFieldValue(note.title)) }
     val onTextFieldValueChange: (TextFieldValue) -> Unit = remember {
         {
             textFieldValue = it.copy(it.text without "\n")

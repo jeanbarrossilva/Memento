@@ -12,13 +12,10 @@ import com.jeanbarrossilva.memento.platform.extensions.flowOf
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.emitAll
 
 internal class NotesViewModel(application: Application, private val gateway: NotesGateway) :
     AndroidViewModel(application) {
-    private val notes = flowOf(emptyList()) {
-        emitAll(gateway.getNotes())
-    }
+    private val notes = flowOf(emptyList()) { gateway.getNotes() }
 
     val currentFolder = MutableStateFlow(Folder.getDefault(application))
     val selection = MutableStateFlow<Selection>(Selection.Off)

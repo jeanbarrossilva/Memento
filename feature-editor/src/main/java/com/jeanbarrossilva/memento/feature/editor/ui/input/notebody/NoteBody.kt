@@ -46,7 +46,7 @@ internal fun NoteBody(
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
-    var textFieldValue by remember { mutableStateOf(TextFieldValue(note.body)) }
+    var textFieldValue by remember(note) { mutableStateOf(TextFieldValue(note.body)) }
     val onTextFieldValueChange: (TextFieldValue) -> Unit = remember {
         {
             textFieldValue = it
